@@ -3,6 +3,7 @@ package me.marcusslover.resourcepacker;
 import me.marcusslover.resourcepacker.api.IResourcePacker;
 import me.marcusslover.resourcepacker.core.internal.Packer;
 import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
+import me.marcusslover.resourcepacker.core.object.block.RPBlock;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
 import java.util.List;
@@ -21,6 +22,6 @@ public class ResourcePacker implements IResourcePacker {
 
         /*Blocks*/
         RPBlockRegistry b = packer.blocks();
-        //b.register(RPBlock.of("Dark Tile", r.get("dark_tile.png")));
+        b.register(RPBlock.of("Dark Tile", r.get("dark_tile.png")));
     }
 }
