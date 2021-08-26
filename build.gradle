@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 group 'me.marcusslover'
@@ -13,10 +14,11 @@ dependencies {
     compileOnly 'org.jetbrains:annotations:22.0.0'
 
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
-    implementation 'commons-cli:commons-cli:1.4'
+    implementation 'commons-cli:commons-cli:20040117.000000'
+    implementation 'com.google.code.gson:gson:2.8.8'
 
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
 test {
