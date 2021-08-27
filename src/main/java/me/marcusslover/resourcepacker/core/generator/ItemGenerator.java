@@ -35,7 +35,7 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
 
         File file = FileUtil.safeFile(minecraftModels, "paper.json");
         JsonObject fileJson = new JsonObject();
-        fileJson.addProperty("parent", "builtin/generated");
+        fileJson.addProperty("parent", "item/generated");
         JsonObject textures = new JsonObject();
         textures.addProperty("layer0", "item/paper");
         fileJson.add("textures", textures);
