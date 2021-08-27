@@ -14,8 +14,11 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
+import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.function.LongFunction;
 import java.util.logging.Logger;
 
 public class Core {
@@ -118,6 +121,7 @@ public class Core {
             LOGGER.info("Loading the data...");
             ResourcePacker resourcePacker = new ResourcePacker();
             resourcePacker.pack(packer);
+
             if (packer.mode() == Mode.AUTOMATIC) {
                 ResourceHelper r = packer.resources();
                 File parent = packer.resources().parent();
@@ -128,8 +132,6 @@ public class Core {
                     if (blocks != null && items != null) {
                         String[] b = blocks.list();
                         String[] i = items.list();
-
-
                         if (b.length + i.length == 0) {
                             JOptionPane.showMessageDialog(null,
                                     "No textures found! Processes skipped.",
@@ -139,10 +141,8 @@ public class Core {
                             System.exit(0);
                             return;
                         }
-
-
-                        for (String s : b) packer.blocks().register(RPBlock.of(null, r.get(s)));
-                        for (String s : i) packer.items().register(RPItem.of(null, r.get(s)));
+                        for (String s : b) packer.blocks().register(RPBlock.of(null, r.block(s)));
+                        for (String s : i) packer.items().register(RPItem.of(null, r.item(s)));
                     }
                 }
             }

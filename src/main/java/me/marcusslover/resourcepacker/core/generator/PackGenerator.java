@@ -19,6 +19,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+import static me.marcusslover.resourcepacker.core.internal.Core.LOGGER;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
 
@@ -101,13 +102,22 @@ public class PackGenerator {
 
         /*Packing*/
         File statesDir = safeDir(mcDir, "blockstates");
+
+        /*Models*/
         File modelsDir = safeDir(mcDir, "models");
         File modelBlockDir = safeDir(modelsDir, "block");
         File modelItemDir = safeDir(modelsDir, "item");
 
+        File modelPackerDir = safeDir(modelsDir, "packer");
+        File packerItemModels = safeDir(modelPackerDir, "items");
+        File packerBlockModels = safeDir(modelPackerDir, "blocks");
+
+        /*Textures*/
         File texturesDir = safeDir(mcDir, "textures");
-        File textureBlockDir = safeDir(texturesDir, "packerBlock");
-        File textureItemDir = safeDir(texturesDir, "packerItem");
+        File texturePackerDir = safeDir(texturesDir, "packer");
+
+        File packerItemsTextures = safeDir(texturePackerDir, "items");
+        File packerBlocksTextures = safeDir(texturePackerDir, "blocks");
 
         JsonObject logJson = new JsonObject(); // For logs.
         logJson.addProperty("generatedAt", System.currentTimeMillis());
@@ -118,8 +128,10 @@ public class PackGenerator {
         File paperFile = safeFile(modelItemDir, "paper.json");
         JsonObject itemsJson = new JsonObject();
         itemsJson.addProperty("parent", "builtin/generated");
+
         JsonObject paperLayers = new JsonObject();
         paperLayers.addProperty("layer0", "item/paper");
+
         itemsJson.add("textures", paperLayers);
 
         JsonArray itemVariants = new JsonArray(); // 'overrides'
@@ -128,15 +140,17 @@ public class PackGenerator {
         for (RPItem item : items) {
             Texture texture = item.texture();
             String s = texture.name();
+
             /*Texture*/
-            texture.copyFile(textureItemDir);
+            texture.copyFile(packerItemsTextures);
 
             /*Json Item Models*/
             JsonObject jsonModel = new JsonObject();
+
             JsonObject predicate = new JsonObject();
             predicate.addProperty("custom_model_data", customModelData);
             jsonModel.add("predicate", predicate);
-            jsonModel.addProperty("model", "minecraft/model/"+s);
+            jsonModel.addProperty("model", "packer/items/" + s);
             itemVariants.add(jsonModel);
             itemsLog.addProperty(s, customModelData);
 
@@ -144,12 +158,15 @@ public class PackGenerator {
             JsonObject textureModel = new JsonObject();
             textureModel.addProperty("parent", "item/generated");
             JsonObject itemTexture = new JsonObject();
-            itemTexture.addProperty("layer0", "minecraft/textures/packerItem");
+            itemTexture.addProperty("layer0", "packer/items/" + s);
             textureModel.add("textures", itemTexture);
+
+            File textureJson = safeFile(packerItemModels, s + ".json");
+            JsonUtil.writeFile(textureJson, textureModel);
 
             customModelData++;
         }
-        itemsJson.add("overrides", itemsJson);
+        itemsJson.add("overrides", itemVariants);
         JsonUtil.writeFile(paperFile, itemsJson);
 
         /*Blocks*/
@@ -166,21 +183,21 @@ public class PackGenerator {
 
             Texture texture = block.texture();
             String s = texture.name();
-            texture.copyFile(textureBlockDir);
+            texture.copyFile(packerBlocksTextures);
 
             /*Json Block Models*/
             JsonObject jsonModel = new JsonObject();
             jsonModel.addProperty("parent", "minecraft:block/cube_all");
             JsonObject modelTextures = new JsonObject();
-            modelTextures.addProperty("all", "minecraft:packerBlock/" + s);
+            modelTextures.addProperty("all", "minecraft:packer/blocks/" + s);
             jsonModel.add("textures", modelTextures);
-            File model = safeFile(modelBlockDir, s + ".json");
+            File model = safeFile(packerBlockModels, s + ".json");
             if (model == null) continue;
             JsonUtil.writeFile(model, jsonModel);
 
             /*Variant creation*/
             JsonObject variant = new JsonObject();
-            variant.addProperty("model", "minecraft:block/" + s);
+            variant.addProperty("model", "minecraft:packer/blocks/" + s);
             String path = "instrument=" + INSTRUMENTS[instrument] + ",note=" + note;
             blockVariants.add(path, variant);
 
@@ -209,7 +226,7 @@ public class PackGenerator {
             } catch (Exception ignored) {
             }
         } else {
-            RPResource rpResource = r.get(logo);
+            RPResource rpResource = r.get(null, logo);
             logoSource = rpResource.getFile();
         }
 

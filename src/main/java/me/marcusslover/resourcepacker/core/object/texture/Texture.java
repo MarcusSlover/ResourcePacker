@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+import static me.marcusslover.resourcepacker.core.internal.Core.LOGGER;
+
 public class Texture implements ITexture {
     private static final Factory FACTORY = new Factory();
     private final File image;
@@ -29,7 +31,10 @@ public class Texture implements ITexture {
 
     public File copyFile(File dir) {
         try {
-            Path copy = Files.copy(image.toPath(), new File(dir, name() + ".png").toPath());
+            File file = new File(dir, name() + ".png");
+            Path path = file.toPath();
+
+            Path copy = Files.copy(image.toPath(), path);
             return copy.toFile();
         } catch (IOException e) {
             e.printStackTrace();

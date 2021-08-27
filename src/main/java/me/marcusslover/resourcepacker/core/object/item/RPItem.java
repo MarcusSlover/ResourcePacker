@@ -18,6 +18,15 @@ public class RPItem implements IItem {
         this.meta = new RPMeta();
     }
 
+    @Override
+    public String toString() {
+        return "RPItem{" +
+                "name='" + name + '\'' +
+                ", texture=" + texture +
+                ", meta=" + meta +
+                '}';
+    }
+
     /*Public way of creating blocks*/
     public static RPItem of(String name, RPResource resource) {
         if (resource.getType() == RPResource.Type.IMAGE) {

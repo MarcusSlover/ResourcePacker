@@ -22,6 +22,8 @@ public class RPCache {
 
     @SuppressWarnings("unchecked")
     public static <T> T get(String name, CacheSupplier<T> supplier) {
+        if (name == null) return supplier.get();
+
         Class<T> type = supplier.getType();
         Map<String, T> map = (Map<String, T>) CACHE.getOrDefault(type, new HashMap<>());
         if (map.containsKey(name)) {
