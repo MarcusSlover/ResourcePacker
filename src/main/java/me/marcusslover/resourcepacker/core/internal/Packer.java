@@ -16,6 +16,7 @@ public class Packer implements IPacker {
     final ResourceHelper resources;
     final File output;
 
+    Mode mode;
     String name;
     String logo;
     String prefix;
@@ -26,6 +27,7 @@ public class Packer implements IPacker {
         this.resources = new ResourceHelper(resources);
         this.output = output;
 
+        mode = Mode.AUTOMATIC;
         name = "Packer";
         logo = null;
         prefix = "packer";
@@ -93,5 +95,15 @@ public class Packer implements IPacker {
     @Override
     public File getOutput() {
         return output;
+    }
+
+    @Override
+    public void setMode(Mode mode) {
+        this.mode = mode;
+    }
+
+    @Override
+    public Mode mode() {
+        return mode;
     }
 }

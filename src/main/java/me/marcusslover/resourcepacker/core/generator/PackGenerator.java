@@ -3,21 +3,28 @@ package me.marcusslover.resourcepacker.core.generator;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
+import me.marcusslover.resourcepacker.core.internal.Core;
 import me.marcusslover.resourcepacker.core.internal.Packer;
 import me.marcusslover.resourcepacker.core.object.block.RPBlock;
 import me.marcusslover.resourcepacker.core.object.item.RPItem;
 import me.marcusslover.resourcepacker.core.object.texture.Texture;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
+import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import javax.swing.*;
+import java.io.*;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.file.CopyOption;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
+import java.util.logging.Logger;
+
+import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
+import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
 
 public class PackGenerator {
     private static final Integer LIMIT = 24;
@@ -44,10 +51,34 @@ public class PackGenerator {
 
         /*Creating the directory first*/
         File d = safeDir(output, name);
+        File creationLog = new File(d, "packerLog.json");
+
+        if (creationLog.exists()) { // Ask if should overwrite.
+            Object[] options = {"Delete & Recreate", "Cancel"};
+            int action = JOptionPane.showOptionDialog(
+                    Core.window,
+                    "Seems like this pack had already been built. Would you like to delete the old files?",
+                    "Old Files Found",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.QUESTION_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+            System.out.println(action);
+            if (action == 0) {
+                FileUtil.deleteFile(creationLog);
+                FileUtil.deleteDir(d); // Delete all files.
+                d = safeDir(output, name); // Create it again.
+            } else {
+                System.exit(0);
+                return;
+            }
+        }
 
         /*Pack structure*/
-        File packMeta = createMeta(d, description);
-        File packPng = createLogo(logo, d, r);
+        createMeta(d, description);
+        createLogo(logo, d, r);
 
         /*Assets*/
         File assets = safeDir(d, "assets");
@@ -109,9 +140,12 @@ public class PackGenerator {
         specialJson.add("variants", specialVariants);
         JsonUtil.writeFile(specialNoteBlock, specialJson);
 
+        JsonObject logJson = new JsonObject();
+        logJson.addProperty("generatedAt", System.currentTimeMillis());
+        JsonUtil.writeFile(creationLog, logJson);
     }
 
-    private File createMeta(File d, List<String> l) {
+    public static File createMeta(File d, List<String> l) {
         File meta = safeFile(d, "pack.mcmeta");
 
         JsonObject pack = new JsonObject();
@@ -130,48 +164,38 @@ public class PackGenerator {
 
     private File createLogo(String logo, File d, ResourceHelper r) {
         File packPng = new File(d, "pack.png");
-        File logoSource;
+        File logoSource = null;
 
+        String defaultName = "/logo/rp.png";
         if (logo == null) {
-            URL url = getClass().getResource("/logo/rp.png");
+            URL url = getClass().getResource(defaultName);
             try {
                 logoSource = new File(url.toURI());
-            } catch (URISyntaxException e) {
-                return packPng;
-            }
+            } catch (Exception ignored) {}
         } else {
             RPResource rpResource = r.get(logo);
             logoSource = rpResource.getFile();
         }
 
-        if (logoSource != null) {
+        if (logoSource == null) {
+            InputStream inputStream = getClass().getResourceAsStream(defaultName);
+            try (OutputStream output = new FileOutputStream(packPng, false)) {
+                if (inputStream != null) inputStream.transferTo(output);
+            } catch (Exception ignore) {}
             try {
-                Files.copy(logoSource.toPath(), packPng.toPath());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                Files.copy(inputStream, packPng.toPath());
+            } catch (IOException ignored) {}
+        } else {
+            try {
+                Path copy = Files.copy(logoSource.toPath(), packPng.toPath());
+                packPng = copy.toFile();
+            } catch (IOException ignored) {}
         }
+        @SuppressWarnings("unused")
+        boolean b = packPng.setLastModified(System.currentTimeMillis());
         return packPng;
     }
 
 
-    private File safeFile(File parent, String name) {
-        File child = new File(parent, name);
-        if (child.exists()) return child;
-        try {
-            boolean newFile = child.createNewFile();
-            if (newFile) return child;
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
 
-    private File safeDir(File parent, String name) {
-        File child = new File(parent, name);
-        if (child.exists()) return child;
-        boolean mkdirs = child.mkdirs();
-        if (mkdirs) return child;
-        return null;
-    }
 }

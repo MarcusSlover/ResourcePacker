@@ -3,10 +3,13 @@ package me.marcusslover.resourcepacker.core.internal;
 import me.marcusslover.resourcepacker.ResourcePacker;
 import me.marcusslover.resourcepacker.core.generator.PackGenerator;
 import me.marcusslover.resourcepacker.core.window.RPWindow;
+import me.marcusslover.resourcepacker.util.FileUtil;
 import org.apache.commons.cli.*;
 
 import javax.swing.*;
 import java.io.File;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.text.DecimalFormat;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -29,7 +32,10 @@ public class Core {
                     "output",
                     true,
                     "The path where resource pack is created");
+
+    public static RPWindow window;
     public static boolean terminated = false;
+
     private File resources;
     private File output;
 
@@ -38,6 +44,8 @@ public class Core {
 
     public static void main(String[] args) {
         terminated = false;
+
+        /*Parse commands*/
         CommandLine cmd;
         try {
             cmd = PARSER.parse(OPTIONS, args);
@@ -50,10 +58,23 @@ public class Core {
         Core core = new Core();
         String resources = cmd.hasOption("r") ? cmd.getOptionValue("r") : "";
         String output = cmd.hasOption("o") ? cmd.getOptionValue("o") : "";
-        if (resources.isEmpty() || output.isEmpty()) return;
 
-        core.setResources(new File(resources));
-        core.setOutput(new File(output));
+        File r;
+        File o;
+
+        /*Path*/
+        if (resources.isEmpty() || output.isEmpty()) {
+            Path currentRelativePath = Paths.get("");
+            File workingDir = new File(currentRelativePath.toUri());
+            r = FileUtil.safeDir(workingDir, "Resources");
+            o = FileUtil.safeDir(workingDir, "Output");
+        } else {
+            r = new File(resources);
+            o = new File(output);
+        }
+
+        core.setResources(r);
+        core.setOutput(o);
         core.start();
     }
 
@@ -64,7 +85,7 @@ public class Core {
 
     private void start() {
         /*Create the loading window*/
-        RPWindow window = new RPWindow(400, 200);
+        window = new RPWindow(400, 200);
         window.init();
 
         /*Start the packer*/
@@ -83,6 +104,7 @@ public class Core {
             } catch (InterruptedException ignored) {
             }
 
+            /*Generate*/
             window.getProgress().setValue(33);
             LOGGER.info("Reading & preparing...");
             PackGenerator packGenerator = new PackGenerator();
@@ -105,7 +127,7 @@ public class Core {
             long compare = System.currentTimeMillis() - date;
             LOGGER.info(String.format("Done in %ss!", formatDate(compare)));
             JOptionPane.showMessageDialog(
-                    null,
+                    Core.window,
                     "The resource pack was successfully created!",
                     "Done",
                     JOptionPane.INFORMATION_MESSAGE);

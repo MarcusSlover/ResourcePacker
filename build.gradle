@@ -21,6 +21,15 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
+shadowJar {
+    manifest {
+        attributes'Implementation-Title': 'ResourcePacker',
+                'Implementation-Version': version,
+                'Main-Class': 'me.marcusslover.resourcepacker.core.internal.Core'
+    }
+}
+
+
 test {
     useJUnitPlatform()
 }
