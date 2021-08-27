@@ -2,6 +2,7 @@ package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import me.marcusslover.resourcepacker.api.IGenerator;
 import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
 import me.marcusslover.resourcepacker.core.object.item.RPItem;
@@ -13,15 +14,6 @@ import java.io.File;
 import java.util.List;
 
 public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
-    private static final String[] DISPLAYS =
-            {
-                    "thirdperson_righthand",
-                    "thirdperson_lefthand",
-                    "firstperson_righthand",
-                    "firstperson_lefthand",
-                    "gui", "head", "ground", "fixed"
-            };
-
     private final JsonObject log;
 
     ItemGenerator() {
@@ -93,13 +85,10 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
                 for (double value : rotation) rotationArray.add(value);
 
                 JsonObject displayJson = new JsonObject();
-                for (String display : DISPLAYS) {
-                    JsonObject child = new JsonObject();
-                    child.add("rotation", rotationArray);
-                    child.add("scale", scaleArray);
-                    displayJson.add(display, child);
-                }
-
+                JsonObject child = new JsonObject();
+                child.add("rotation", rotationArray);
+                child.add("scale", scaleArray);
+                displayJson.add("fixed", child);
                 textureModel.add("display", displayJson);
             }
 

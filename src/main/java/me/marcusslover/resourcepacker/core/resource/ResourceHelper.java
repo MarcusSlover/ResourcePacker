@@ -30,4 +30,8 @@ public record ResourceHelper(File parent) implements IResources {
     public RPResource item(String s) {
         return get("items", s);
     }
+
+    public RPResource frame(String s) {
+        return get("itemframes", s);
+    }
 }

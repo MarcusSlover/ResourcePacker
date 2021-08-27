@@ -146,7 +146,7 @@ public class Core {
                         }
                         for (String s : b) packer.blocks().register(RPBlock.of(null, r.block(s)));
                         for (String s : i) packer.items().register(RPItem.of(null, r.item(s)));
-                        for (String s : f) packer.items().register(RPItem.of(null, r.item(s), true));
+                        for (String s : f) packer.items().register(RPItem.of(null, r.frame(s), true));
                     }
                 }
             }
