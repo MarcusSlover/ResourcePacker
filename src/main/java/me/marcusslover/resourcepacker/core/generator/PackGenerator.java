@@ -2,6 +2,7 @@ package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.marcusslover.resourcepacker.core.internal.Core;
 import me.marcusslover.resourcepacker.core.internal.Packer;
@@ -98,6 +99,10 @@ public class PackGenerator {
         JsonObject specialJson = new JsonObject();
         JsonObject specialVariants = new JsonObject();
 
+        JsonObject logJson = new JsonObject(); // For logs.
+        logJson.addProperty("generatedAt", System.currentTimeMillis());
+        JsonObject blocksLog = new JsonObject();
+
         int instrument = 0;
         int note = 0;
 
@@ -134,14 +139,17 @@ public class PackGenerator {
             variant.addProperty("model", "minecraft:block/" + s);
             String path = "instrument="+INSTRUMENTS[instrument]+",note="+note;
             specialVariants.add(path, variant);
+
+            /*Log creation*/
+            blocksLog.addProperty(s, path);
+
             note++;
         }
 
         specialJson.add("variants", specialVariants);
         JsonUtil.writeFile(specialNoteBlock, specialJson);
 
-        JsonObject logJson = new JsonObject();
-        logJson.addProperty("generatedAt", System.currentTimeMillis());
+        logJson.add("blocks", blocksLog);
         JsonUtil.writeFile(creationLog, logJson);
     }
 

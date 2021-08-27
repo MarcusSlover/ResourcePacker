@@ -13,7 +13,10 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 public class JsonUtil {
-    private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
+    private static final Gson GSON = new GsonBuilder()
+            .disableHtmlEscaping()
+            .setPrettyPrinting()
+            .create();
 
     private JsonUtil() {
     }
