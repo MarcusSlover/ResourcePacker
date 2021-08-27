@@ -124,7 +124,7 @@ public class PackGenerator {
                 instrument++;
             }
 
-            Texture texture = block.getTexture();
+            Texture texture = block.texture();
             File image = texture.image();
             String s = image.getName().replaceAll("\\.png", "");
 
