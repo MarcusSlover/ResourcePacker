@@ -89,6 +89,7 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
                 child.add("rotation", rotationArray);
                 child.add("scale", scaleArray);
                 displayJson.add("fixed", child);
+                displayJson.add("head", child);
                 textureModel.add("display", displayJson);
             }
 
