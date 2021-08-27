@@ -10,13 +10,20 @@ public class RPItem implements IItem {
     private static final RPItem.Factory FACTORY = new RPItem.Factory();
     private final String name;
     private final Texture texture;
+    private final boolean itemFrame;
     private final RPMeta meta;
 
     private RPItem(String name, Texture texture) {
+        this(name, texture, false);
+    }
+
+    private RPItem(String name, Texture texture, boolean itemFrame) {
         this.name = name;
         this.texture = texture;
+        this.itemFrame = itemFrame;
         this.meta = new RPMeta();
     }
+
 
     @Override
     public String toString() {
@@ -27,19 +34,32 @@ public class RPItem implements IItem {
                 '}';
     }
 
+
     /*Public way of creating blocks*/
     public static RPItem of(String name, RPResource resource) {
         if (resource.getType() == RPResource.Type.IMAGE) {
             Texture texture = Texture.of(resource.getFile());
-            return of(name, texture);
+            return of(name, texture, false);
         }
         return null;
     }
 
-    /*Public way of creating blocks*/
-    public static RPItem of(String name, Texture texture) {
-        return FACTORY.setName(name).setTexture(texture).create();
+    public static RPItem of(String name, RPResource resource, boolean itemFrame) {
+        if (resource.getType() == RPResource.Type.IMAGE) {
+            Texture texture = Texture.of(resource.getFile());
+            return of(name, texture, itemFrame);
+        }
+        return null;
     }
+
+    public static RPItem of(String name, Texture texture, boolean itemFrame) {
+        return FACTORY
+                .setName(name)
+                .setTexture(texture)
+                .setItemFrame(itemFrame)
+                .create();
+    }
+
 
     @Override
     public String name() {
@@ -56,11 +76,17 @@ public class RPItem implements IItem {
         return meta;
     }
 
+    @Override
+    public boolean itemFrame() {
+        return itemFrame;
+    }
+
     /*Internal factory for creating blocks*/
     private static class Factory implements IFactory<RPItem> {
 
         private Texture texture;
         private String name;
+        private boolean itemFrame;
 
         private Factory() {
         }
@@ -75,9 +101,15 @@ public class RPItem implements IItem {
             return this;
         }
 
+        private RPItem.Factory setItemFrame(boolean itemFrame) {
+            this.itemFrame = itemFrame;
+            return this;
+        }
+
+
         @Override
         public RPItem create() {
-            return RPCache.get(name, () -> new RPItem(name, texture), RPItem.class);
+            return RPCache.get(name, () -> new RPItem(name, texture, itemFrame), RPItem.class);
         }
     }
 }
