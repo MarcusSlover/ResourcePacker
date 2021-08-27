@@ -5,6 +5,9 @@ import me.marcusslover.resourcepacker.api.ITexture;
 import me.marcusslover.resourcepacker.core.internal.RPCache;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public class Texture implements ITexture {
     private static final Factory FACTORY = new Factory();
@@ -22,6 +25,20 @@ public class Texture implements ITexture {
     @Override
     public File image() {
         return image;
+    }
+
+    public File copyFile(File dir) {
+        try {
+            Path copy = Files.copy(image.toPath(), new File(dir, name() + ".png").toPath());
+            return copy.toFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public String name() {
+        return image.getName().replaceAll("\\.png", "");
     }
 
     /*Internal factory for creating textures*/
