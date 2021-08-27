@@ -10,10 +10,12 @@ public class RPBlock implements IBlock {
     private static final Factory FACTORY = new Factory();
     private final String name;
     private final Texture texture;
+    private final RPState state;
 
     private RPBlock(String name, Texture texture) {
         this.name = name;
         this.texture = texture;
+        this.state = new RPState();
     }
 
     /*Public way of creating blocks*/
@@ -31,18 +33,18 @@ public class RPBlock implements IBlock {
     }
 
     @Override
-    public String getName() {
+    public String name() {
         return name;
     }
 
     @Override
-    public Texture getTexture() {
+    public Texture texture() {
         return texture;
     }
 
     @Override
-    public RPState getData() {
-        return null;
+    public RPState data() {
+        return state;
     }
 
     /*Internal factory for creating blocks*/

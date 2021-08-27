@@ -4,12 +4,7 @@ import me.marcusslover.resourcepacker.api.IResources;
 
 import java.io.File;
 
-public class ResourceHelper implements IResources {
-    private final File parent;
-
-    public ResourceHelper(File parent) {
-        this.parent = parent;
-    }
+public record ResourceHelper(File parent) implements IResources {
 
     @Override
     public RPResource get(String child) {

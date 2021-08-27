@@ -20,7 +20,7 @@ public class Texture implements ITexture {
     }
 
     @Override
-    public File getImage() {
+    public File image() {
         return image;
     }
 

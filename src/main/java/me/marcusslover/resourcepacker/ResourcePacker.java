@@ -19,7 +19,7 @@ public class ResourcePacker implements IResourcePacker {
         packer.setMode(Mode.AUTOMATIC);
 
         /*Resources*/
-        ResourceHelper r = packer.getResources();
+        ResourceHelper r = packer.resources();
 
         /*Blocks*/
         RPBlockRegistry b = packer.blocks();

@@ -88,12 +88,12 @@ public class Packer implements IPacker {
     }
 
     @Override
-    public ResourceHelper getResources() {
+    public ResourceHelper resources() {
         return resources;
     }
 
     @Override
-    public File getOutput() {
+    public File output() {
         return output;
     }
 

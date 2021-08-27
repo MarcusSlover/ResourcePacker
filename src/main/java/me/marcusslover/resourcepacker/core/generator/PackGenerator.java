@@ -1,8 +1,5 @@
 package me.marcusslover.resourcepacker.core.generator;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.marcusslover.resourcepacker.core.internal.Core;
 import me.marcusslover.resourcepacker.core.internal.Packer;
@@ -16,13 +13,10 @@ import me.marcusslover.resourcepacker.util.JsonUtil;
 
 import javax.swing.*;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.CopyOption;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-import java.util.logging.Logger;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
@@ -37,14 +31,31 @@ public class PackGenerator {
                     "bass", "hat", "snare", "bassdrum"
             };
 
+    public static File createMeta(File d, List<String> l) {
+        File meta = safeFile(d, "pack.mcmeta");
+
+        JsonObject pack = new JsonObject();
+        pack.addProperty("pack_format", 7); // 1.17+
+
+        StringBuilder builder = new StringBuilder();
+        for (String s : l) builder.append(s).append("\n");
+        pack.addProperty("description", builder.toString().trim());
+
+        JsonObject json = new JsonObject();
+        json.add("pack", pack);
+        JsonUtil.writeFile(meta, json);
+
+        return meta;
+    }
+
     public void generate(Packer packer) {
         /*Some main specifications of the resource pack*/
         String name = packer.name();
         String logo = packer.logo();
         String prefix = packer.prefix();
         List<String> description = packer.description();
-        ResourceHelper r = packer.getResources();
-        File output = packer.getOutput();
+        ResourceHelper r = packer.resources();
+        File output = packer.output();
 
         /*Objects to be packed*/
         List<RPBlock> blocks = packer.blocks().list();
@@ -114,7 +125,7 @@ public class PackGenerator {
             }
 
             Texture texture = block.getTexture();
-            File image = texture.getImage();
+            File image = texture.image();
             String s = image.getName().replaceAll("\\.png", "");
 
             /*Textures*/
@@ -137,7 +148,7 @@ public class PackGenerator {
             /*Variant creation*/
             JsonObject variant = new JsonObject();
             variant.addProperty("model", "minecraft:block/" + s);
-            String path = "instrument="+INSTRUMENTS[instrument]+",note="+note;
+            String path = "instrument=" + INSTRUMENTS[instrument] + ",note=" + note;
             specialVariants.add(path, variant);
 
             /*Log creation*/
@@ -153,23 +164,6 @@ public class PackGenerator {
         JsonUtil.writeFile(creationLog, logJson);
     }
 
-    public static File createMeta(File d, List<String> l) {
-        File meta = safeFile(d, "pack.mcmeta");
-
-        JsonObject pack = new JsonObject();
-        pack.addProperty("pack_format", 7); // 1.17+
-
-        StringBuilder builder = new StringBuilder();
-        for (String s : l) builder.append(s).append("\n");
-        pack.addProperty("description", builder.toString().trim());
-
-        JsonObject json = new JsonObject();
-        json.add("pack", pack);
-        JsonUtil.writeFile(meta, json);
-
-        return meta;
-    }
-
     private File createLogo(String logo, File d, ResourceHelper r) {
         File packPng = new File(d, "pack.png");
         File logoSource = null;
@@ -179,7 +173,8 @@ public class PackGenerator {
             URL url = getClass().getResource(defaultName);
             try {
                 logoSource = new File(url.toURI());
-            } catch (Exception ignored) {}
+            } catch (Exception ignored) {
+            }
         } else {
             RPResource rpResource = r.get(logo);
             logoSource = rpResource.getFile();
@@ -189,21 +184,23 @@ public class PackGenerator {
             InputStream inputStream = getClass().getResourceAsStream(defaultName);
             try (OutputStream output = new FileOutputStream(packPng, false)) {
                 if (inputStream != null) inputStream.transferTo(output);
-            } catch (Exception ignore) {}
+            } catch (Exception ignore) {
+            }
             try {
                 Files.copy(inputStream, packPng.toPath());
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         } else {
             try {
                 Path copy = Files.copy(logoSource.toPath(), packPng.toPath());
                 packPng = copy.toFile();
-            } catch (IOException ignored) {}
+            } catch (IOException ignored) {
+            }
         }
         @SuppressWarnings("unused")
         boolean b = packPng.setLastModified(System.currentTimeMillis());
         return packPng;
     }
-
 
 
 }
