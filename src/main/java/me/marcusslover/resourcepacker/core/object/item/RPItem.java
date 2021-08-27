@@ -2,6 +2,7 @@ package me.marcusslover.resourcepacker.core.object.item;
 
 import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.IItem;
+import me.marcusslover.resourcepacker.core.internal.Packer;
 import me.marcusslover.resourcepacker.core.internal.RPCache;
 import me.marcusslover.resourcepacker.core.object.texture.Texture;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
@@ -23,17 +24,6 @@ public class RPItem implements IItem {
         this.itemFrame = itemFrame;
         this.meta = new RPMeta();
     }
-
-
-    @Override
-    public String toString() {
-        return "RPItem{" +
-                "name='" + name + '\'' +
-                ", texture=" + texture +
-                ", meta=" + meta +
-                '}';
-    }
-
 
     /*Public way of creating blocks*/
     public static RPItem of(String name, RPResource resource) {

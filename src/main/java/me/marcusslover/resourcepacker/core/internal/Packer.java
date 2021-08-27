@@ -10,6 +10,7 @@ import java.util.List;
  * Used publicly to register all blocks and items.
  */
 public class Packer implements IPacker {
+    private static Packer instance;
     final RPBlockRegistry blockRegistry;
     final RPItemRegistry itemRegistry;
 
@@ -24,6 +25,7 @@ public class Packer implements IPacker {
 
     /*Only for internal creation*/
     Packer(File resources, File output) {
+        instance = this;
         this.resources = new ResourceHelper(resources);
         this.output = output;
 
@@ -35,6 +37,10 @@ public class Packer implements IPacker {
 
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();
+    }
+
+    public static Packer get() {
+        return instance;
     }
 
     @Override

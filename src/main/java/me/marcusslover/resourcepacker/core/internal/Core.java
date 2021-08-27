@@ -128,11 +128,14 @@ public class Core {
                 if (parent != null && parent.exists()) {
                     File blocks = FileUtil.safeDir(parent, "blocks");
                     File items = FileUtil.safeDir(parent, "items");
+                    File frames = FileUtil.safeDir(parent, "itemframes");
 
-                    if (blocks != null && items != null) {
+                    if (blocks != null && items != null && frames != null) {
                         String[] b = blocks.list();
                         String[] i = items.list();
-                        if (b.length + i.length == 0) {
+                        String[] f = frames.list();
+
+                        if (b.length + i.length + f.length == 0) {
                             JOptionPane.showMessageDialog(null,
                                     "No textures found! Processes skipped.",
                                     "Information",
@@ -143,6 +146,7 @@ public class Core {
                         }
                         for (String s : b) packer.blocks().register(RPBlock.of(null, r.block(s)));
                         for (String s : i) packer.items().register(RPItem.of(null, r.item(s)));
+                        for (String s : f) packer.items().register(RPItem.of(null, r.item(s), true));
                     }
                 }
             }

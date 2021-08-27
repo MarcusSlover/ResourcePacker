@@ -4,6 +4,8 @@ import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.ITexture;
 import me.marcusslover.resourcepacker.core.internal.RPCache;
 
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -14,9 +16,15 @@ import static me.marcusslover.resourcepacker.core.internal.Core.LOGGER;
 public class Texture implements ITexture {
     private static final Factory FACTORY = new Factory();
     private final File image;
+    private BufferedImage buffer;
 
     private Texture(File image) {
         this.image = image;
+        try {
+            this.buffer = ImageIO.read(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /*Public way of creating textures*/
@@ -44,6 +52,14 @@ public class Texture implements ITexture {
 
     public String name() {
         return image.getName().replaceAll("\\.png", "");
+    }
+
+    public int height() {
+        return buffer.getHeight();
+    }
+
+    public int width() {
+        return buffer.getWidth();
     }
 
     /*Internal factory for creating textures*/
