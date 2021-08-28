@@ -9,18 +9,27 @@ import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+import net.lingala.zip4j.model.ZipParameters;
+import net.lingala.zip4j.model.enums.AesKeyStrength;
+import net.lingala.zip4j.model.enums.EncryptionMethod;
+import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.SecureRandom;
 import java.util.List;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
 
 public class PackGenerator {
+    private static final String CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcd" +
+            "efghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?";
 
     public static File createMeta(File d, List<String> l) {
         File meta = safeFile(d, "pack.mcmeta");
@@ -64,7 +73,6 @@ public class PackGenerator {
                     options,
                     options[0]
             );
-            System.out.println(action);
             if (action == 0) {
                 FileUtil.deleteFile(creationLog);
                 FileUtil.deleteDir(d); // Delete all files.
@@ -75,8 +83,8 @@ public class PackGenerator {
             }
         }
         /*Pack structure*/
-        createMeta(d, description);
-        createLogo(logo, d, r);
+        File meta = createMeta(d, description);
+        File pack = createLogo(logo, d, r);
         File assets = safeDir(d, "assets");
         File minecraft = safeDir(assets, "minecraft");
 
@@ -98,6 +106,14 @@ public class PackGenerator {
         logJson.add("items", items.log());
 
         JsonUtil.writeFile(creationLog, logJson);
+
+        /*Zipping*/
+        try (ZipFile zipFile = new ZipFile(new File(output, name + ".zip"))) {
+            zipFile.addFolder(assets);
+            zipFile.addFiles(List.of(meta, pack));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     private File createLogo(String logo, File d, ResourceHelper r) {

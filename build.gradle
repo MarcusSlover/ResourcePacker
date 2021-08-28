@@ -14,8 +14,10 @@ dependencies {
     compileOnly 'org.jetbrains:annotations:22.0.0'
 
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
+    implementation 'org.apache.commons:commons-lang3:3.4'
     implementation 'commons-cli:commons-cli:1.4'
     implementation 'com.google.code.gson:gson:2.8.8'
+    implementation 'net.lingala.zip4j:zip4j:2.9.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
