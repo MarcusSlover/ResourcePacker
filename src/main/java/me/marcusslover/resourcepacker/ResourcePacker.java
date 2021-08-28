@@ -1,9 +1,9 @@
 package me.marcusslover.resourcepacker;
 
 import me.marcusslover.resourcepacker.api.IResourcePacker;
+import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.internal.RPMode;
 import me.marcusslover.resourcepacker.core.internal.RPPacker;
-import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
 import java.util.List;

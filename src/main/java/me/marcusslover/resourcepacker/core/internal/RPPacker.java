@@ -29,7 +29,7 @@ public class RPPacker implements IPacker {
         this.resources = new ResourceHelper(resources);
         this.output = output;
 
-        mode = mode.AUTOMATIC;
+        mode = RPMode.AUTOMATIC;
         name = "Packer";
         logo = null;
         prefix = "packer";

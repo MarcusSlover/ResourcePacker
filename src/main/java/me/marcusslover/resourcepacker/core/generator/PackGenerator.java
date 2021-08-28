@@ -2,9 +2,9 @@ package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonObject;
 import me.marcusslover.resourcepacker.core.internal.Core;
-import me.marcusslover.resourcepacker.core.internal.RPPacker;
 import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
+import me.marcusslover.resourcepacker.core.internal.RPPacker;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import me.marcusslover.resourcepacker.util.FileUtil;
