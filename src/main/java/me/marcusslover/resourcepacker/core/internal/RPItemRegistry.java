@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RPItemRegistry implements IRegistry<RPItem> {
-    private final List<RPItem> items = new ArrayList<>();
+    private List<RPItem> items = new ArrayList<>();
 
     RPItemRegistry() {
     }
@@ -15,6 +15,11 @@ public class RPItemRegistry implements IRegistry<RPItem> {
     @Override
     public void register(RPItem obj) {
         items.add(obj);
+    }
+
+    @Override
+    public void set(List<RPItem> list) {
+        items = list;
     }
 
     @Override

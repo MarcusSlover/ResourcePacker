@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RPBlockRegistry implements IRegistry<RPBlock> {
-    private final List<RPBlock> blocks = new ArrayList<>();
+    private List<RPBlock> blocks = new ArrayList<>();
 
     RPBlockRegistry() {
     }
@@ -15,6 +15,11 @@ public class RPBlockRegistry implements IRegistry<RPBlock> {
     @Override
     public void register(RPBlock obj) {
         blocks.add(obj);
+    }
+
+    @Override
+    public void set(List<RPBlock> list) {
+        blocks = list;
     }
 
     @Override
