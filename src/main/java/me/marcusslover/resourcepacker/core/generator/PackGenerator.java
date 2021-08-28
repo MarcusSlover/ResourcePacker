@@ -42,14 +42,14 @@ public class PackGenerator {
         return meta;
     }
 
-    public void generate(RPPacker RPPacker) {
+    public void generate(RPPacker rpPacker) {
         /*Some main specifications of the resource pack*/
-        String name = RPPacker.name();
-        String logo = RPPacker.logo();
+        String name = rpPacker.name();
+        String logo = rpPacker.logo();
         //String prefix = packer.prefix();
-        List<String> description = RPPacker.description();
-        ResourceHelper r = RPPacker.resources();
-        File output = RPPacker.output();
+        List<String> description = rpPacker.description();
+        ResourceHelper r = rpPacker.resources();
+        File output = rpPacker.output();
 
         /*Creating the directory first*/
         File d = safeDir(output, name);
@@ -81,22 +81,23 @@ public class PackGenerator {
         File pack = createLogo(logo, d, r);
         File assets = safeDir(d, "assets");
         File minecraft = safeDir(assets, "minecraft");
+        File packer = safeDir(assets, "packer");
 
         JsonObject logJson = new JsonObject(); // For logs.
         logJson.addProperty("generatedAt", System.currentTimeMillis());
 
         /*Blocks*/
         BlockGenerator blocks = new BlockGenerator();
-        RPBlockRegistry blockRegistry = RPPacker.blocks();
+        RPBlockRegistry blockRegistry = rpPacker.blocks();
         blockRegistry.set(FileUtil.sortByFileCreated(blockRegistry));
-        blocks.generate(minecraft, blockRegistry);
+        blocks.generate(minecraft, packer, blockRegistry);
         logJson.add("blocks", blocks.log());
 
         /*Items*/
         ItemGenerator items = new ItemGenerator();
-        RPItemRegistry itemRegistry = RPPacker.items();
+        RPItemRegistry itemRegistry = rpPacker.items();
         itemRegistry.set(FileUtil.sortByFileCreated(itemRegistry));
-        items.generate(minecraft, itemRegistry);
+        items.generate(minecraft, packer, itemRegistry);
         logJson.add("items", items.log());
 
         JsonUtil.writeFile(creationLog, logJson);

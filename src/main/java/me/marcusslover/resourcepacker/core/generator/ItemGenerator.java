@@ -25,12 +25,12 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
     }
 
     @Override
-    public void generate(File parent, RPItemRegistry registry) {
+    public void generate(File mc, File packer, RPItemRegistry registry) {
         List<RPItem> list = registry.list();
 
-        File minecraftModels = FileUtil.get(parent, "models/item");
-        File items = FileUtil.get(parent, "textures/packer/items");
-        File models = FileUtil.get(parent, "models/packer/items");
+        File minecraftModels = FileUtil.get(mc, "models/item");
+        File items = FileUtil.get(packer, "textures/items");
+        File models = FileUtil.get(packer, "models/items");
 
         File file = FileUtil.safeFile(minecraftModels, "paper.json");
         JsonObject fileJson = new JsonObject();

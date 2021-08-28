@@ -7,5 +7,5 @@ import java.io.File;
 public interface IGenerator<T, V extends IRegistry<T>> {
     JsonObject log();
 
-    void generate(File parent, V registry);
+    void generate(File mc, File packer, V registry);
 }

@@ -32,12 +32,12 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
     }
 
     @Override
-    public void generate(File parent, RPBlockRegistry registry) {
+    public void generate(File mc, File packer, RPBlockRegistry registry) {
         List<RPBlock> list = registry.list();
 
-        File blockStates = FileUtil.get(parent, "blockstates");
-        File blocks = FileUtil.get(parent, "textures/packer/blocks");
-        File models = FileUtil.get(parent, "models/packer/blocks");
+        File blockStates = FileUtil.get(mc, "blockstates");
+        File blocks = FileUtil.get(packer, "textures/blocks");
+        File models = FileUtil.get(packer, "models/blocks");
 
         File file = FileUtil.safeFile(blockStates, "note_block.json");
         JsonObject fileJson = new JsonObject();
@@ -58,14 +58,14 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             JsonObject model = new JsonObject();
             model.addProperty("parent", "minecraft:block/cube_all");
             JsonObject modelTextures = new JsonObject();
-            modelTextures.addProperty("all", "minecraft:packer/blocks/" + name);
+            modelTextures.addProperty("all", "packer:blocks/" + name);
             model.add("textures", modelTextures);
             File modelFile = FileUtil.safeFile(models, name + ".json");
             JsonUtil.writeFile(modelFile, model); //Create file for model.
 
             /*Variant creation*/
             JsonObject variant = new JsonObject();
-            variant.addProperty("model", "minecraft:packer/blocks/" + name);
+            variant.addProperty("model", "packer:blocks/" + name);
 
             String path = "instrument=" + INSTRUMENTS[instrument] + ",note=" + note;
             variants.add(path, variant);
