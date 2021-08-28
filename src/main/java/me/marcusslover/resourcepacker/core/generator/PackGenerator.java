@@ -10,18 +10,12 @@ import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
 import net.lingala.zip4j.ZipFile;
-import net.lingala.zip4j.exception.ZipException;
-import net.lingala.zip4j.model.ZipParameters;
-import net.lingala.zip4j.model.enums.AesKeyStrength;
-import net.lingala.zip4j.model.enums.EncryptionMethod;
-import org.apache.commons.lang3.RandomStringUtils;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.security.SecureRandom;
 import java.util.List;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
