@@ -1,4 +1,4 @@
-package me.marcusslover.resourcepacker.core.window;
+package me.marcusslover.resourcepacker.core.internal;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicPanelUI;

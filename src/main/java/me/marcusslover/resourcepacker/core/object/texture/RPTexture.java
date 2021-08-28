@@ -11,14 +11,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static me.marcusslover.resourcepacker.core.internal.Core.LOGGER;
-
-public class Texture implements ITexture {
+public class RPTexture implements ITexture {
     private static final Factory FACTORY = new Factory();
     private final File image;
     private BufferedImage buffer;
 
-    private Texture(File image) {
+    private RPTexture(File image) {
         this.image = image;
         try {
             this.buffer = ImageIO.read(image);
@@ -28,7 +26,7 @@ public class Texture implements ITexture {
     }
 
     /*Public way of creating textures*/
-    public static Texture of(File file) {
+    public static RPTexture of(File file) {
         return FACTORY.setFile(file).create();
     }
 
@@ -63,7 +61,7 @@ public class Texture implements ITexture {
     }
 
     /*Internal factory for creating textures*/
-    private static class Factory implements IFactory<Texture> {
+    private static class Factory implements IFactory<RPTexture> {
         private File file;
 
         private Factory() {
@@ -75,14 +73,14 @@ public class Texture implements ITexture {
         }
 
         @Override
-        public Texture create() {
+        public RPTexture create() {
             if (file == null) return null;
             String name = file.getName();
 
             /*Validate the format*/
             if (!name.endsWith(".png")) throw new InvalidTextureException(file);
 
-            return RPCache.get(name, () -> new Texture(file), Texture.class);
+            return RPCache.get(name, () -> new RPTexture(file), RPTexture.class);
         }
     }
 }

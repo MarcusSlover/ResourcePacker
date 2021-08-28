@@ -2,23 +2,22 @@ package me.marcusslover.resourcepacker.core.object.item;
 
 import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.IItem;
-import me.marcusslover.resourcepacker.core.internal.Packer;
 import me.marcusslover.resourcepacker.core.internal.RPCache;
-import me.marcusslover.resourcepacker.core.object.texture.Texture;
+import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 
 public class RPItem implements IItem {
     private static final RPItem.Factory FACTORY = new RPItem.Factory();
     private final String name;
-    private final Texture texture;
+    private final RPTexture texture;
     private final boolean itemFrame;
     private final RPMeta meta;
 
-    private RPItem(String name, Texture texture) {
+    private RPItem(String name, RPTexture texture) {
         this(name, texture, false);
     }
 
-    private RPItem(String name, Texture texture, boolean itemFrame) {
+    private RPItem(String name, RPTexture texture, boolean itemFrame) {
         this.name = name;
         this.texture = texture;
         this.itemFrame = itemFrame;
@@ -28,7 +27,7 @@ public class RPItem implements IItem {
     /*Public way of creating blocks*/
     public static RPItem of(String name, RPResource resource) {
         if (resource.getType() == RPResource.Type.IMAGE) {
-            Texture texture = Texture.of(resource.getFile());
+            RPTexture texture = RPTexture.of(resource.getFile());
             return of(name, texture, false);
         }
         return null;
@@ -36,13 +35,13 @@ public class RPItem implements IItem {
 
     public static RPItem of(String name, RPResource resource, boolean itemFrame) {
         if (resource.getType() == RPResource.Type.IMAGE) {
-            Texture texture = Texture.of(resource.getFile());
+            RPTexture texture = RPTexture.of(resource.getFile());
             return of(name, texture, itemFrame);
         }
         return null;
     }
 
-    public static RPItem of(String name, Texture texture, boolean itemFrame) {
+    public static RPItem of(String name, RPTexture texture, boolean itemFrame) {
         return FACTORY
                 .setName(name)
                 .setTexture(texture)
@@ -57,7 +56,7 @@ public class RPItem implements IItem {
     }
 
     @Override
-    public Texture texture() {
+    public RPTexture texture() {
         return texture;
     }
 
@@ -74,7 +73,7 @@ public class RPItem implements IItem {
     /*Internal factory for creating blocks*/
     private static class Factory implements IFactory<RPItem> {
 
-        private Texture texture;
+        private RPTexture texture;
         private String name;
         private boolean itemFrame;
 
@@ -86,7 +85,7 @@ public class RPItem implements IItem {
             return this;
         }
 
-        private RPItem.Factory setTexture(Texture texture) {
+        private RPItem.Factory setTexture(RPTexture texture) {
             this.texture = texture;
             return this;
         }

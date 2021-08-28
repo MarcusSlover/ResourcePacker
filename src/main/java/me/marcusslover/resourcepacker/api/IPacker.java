@@ -1,6 +1,6 @@
 package me.marcusslover.resourcepacker.api;
 
-import me.marcusslover.resourcepacker.core.internal.Mode;
+import me.marcusslover.resourcepacker.core.internal.RPMode;
 import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
@@ -33,7 +33,7 @@ public interface IPacker {
 
     File output();
 
-    void setMode(Mode mode);
+    void setMode(RPMode RPMode);
 
-    Mode mode();
+    RPMode mode();
 }

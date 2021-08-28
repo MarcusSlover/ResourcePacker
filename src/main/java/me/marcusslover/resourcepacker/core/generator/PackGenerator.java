@@ -2,10 +2,9 @@ package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonObject;
 import me.marcusslover.resourcepacker.core.internal.Core;
-import me.marcusslover.resourcepacker.core.internal.Packer;
+import me.marcusslover.resourcepacker.core.internal.RPPacker;
 import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
-import me.marcusslover.resourcepacker.core.object.block.RPBlock;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import me.marcusslover.resourcepacker.util.FileUtil;
@@ -16,7 +15,6 @@ import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
@@ -41,14 +39,14 @@ public class PackGenerator {
         return meta;
     }
 
-    public void generate(Packer packer) {
+    public void generate(RPPacker RPPacker) {
         /*Some main specifications of the resource pack*/
-        String name = packer.name();
-        String logo = packer.logo();
+        String name = RPPacker.name();
+        String logo = RPPacker.logo();
         //String prefix = packer.prefix();
-        List<String> description = packer.description();
-        ResourceHelper r = packer.resources();
-        File output = packer.output();
+        List<String> description = RPPacker.description();
+        ResourceHelper r = RPPacker.resources();
+        File output = RPPacker.output();
 
         /*Creating the directory first*/
         File d = safeDir(output, name);
@@ -87,14 +85,14 @@ public class PackGenerator {
 
         /*Blocks*/
         BlockGenerator blocks = new BlockGenerator();
-        RPBlockRegistry blockRegistry = packer.blocks();
+        RPBlockRegistry blockRegistry = RPPacker.blocks();
         blockRegistry.set(FileUtil.sortByFileCreated(blockRegistry));
         blocks.generate(minecraft, blockRegistry);
         logJson.add("blocks", blocks.log());
 
         /*Items*/
         ItemGenerator items = new ItemGenerator();
-        RPItemRegistry itemRegistry = packer.items();
+        RPItemRegistry itemRegistry = RPPacker.items();
         itemRegistry.set(FileUtil.sortByFileCreated(itemRegistry));
         items.generate(minecraft, itemRegistry);
         logJson.add("items", items.log());

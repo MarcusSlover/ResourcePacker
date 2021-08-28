@@ -1,9 +1,9 @@
 package me.marcusslover.resourcepacker.api;
 
-import me.marcusslover.resourcepacker.core.internal.Packer;
+import me.marcusslover.resourcepacker.core.internal.RPPacker;
 
 public interface IPackable {
-    default Packer packer() {
-        return Packer.get();
+    default RPPacker packer() {
+        return RPPacker.get();
     }
 }

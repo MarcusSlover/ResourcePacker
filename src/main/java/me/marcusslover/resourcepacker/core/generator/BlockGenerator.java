@@ -4,7 +4,7 @@ import com.google.gson.JsonObject;
 import me.marcusslover.resourcepacker.api.IGenerator;
 import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.object.block.RPBlock;
-import me.marcusslover.resourcepacker.core.object.texture.Texture;
+import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
 
@@ -50,7 +50,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
                 note = 0;
                 instrument++;
             }
-            Texture texture = block.texture();
+            RPTexture texture = block.texture();
             String name = texture.name();
             texture.copyFile(blocks); //Copy texture file.
 

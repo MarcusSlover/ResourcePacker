@@ -1,6 +1,6 @@
 package me.marcusslover.resourcepacker.core.internal;
 
-public enum Mode {
+public enum RPMode {
     MANUAL_REGISTRATION,
     AUTOMATIC
 }

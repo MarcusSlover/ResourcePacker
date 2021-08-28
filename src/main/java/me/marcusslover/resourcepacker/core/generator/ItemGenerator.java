@@ -2,11 +2,10 @@ package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
 import me.marcusslover.resourcepacker.api.IGenerator;
 import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
 import me.marcusslover.resourcepacker.core.object.item.RPItem;
-import me.marcusslover.resourcepacker.core.object.texture.Texture;
+import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
 
@@ -43,7 +42,7 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
         JsonArray variants = new JsonArray(); // 'overrides'
         int customModelData = 700;
         for (RPItem item : list) {
-            Texture texture = item.texture();
+            RPTexture texture = item.texture();
             String name = texture.name();
             /*Texture*/
             texture.copyFile(items);

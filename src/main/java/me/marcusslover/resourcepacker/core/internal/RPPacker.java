@@ -9,27 +9,27 @@ import java.util.List;
 /**
  * Used publicly to register all blocks and items.
  */
-public class Packer implements IPacker {
-    private static Packer instance;
+public class RPPacker implements IPacker {
+    private static RPPacker instance;
     final RPBlockRegistry blockRegistry;
     final RPItemRegistry itemRegistry;
 
     final ResourceHelper resources;
     final File output;
 
-    Mode mode;
+    RPMode mode;
     String name;
     String logo;
     String prefix;
     List<String> description;
 
     /*Only for internal creation*/
-    Packer(File resources, File output) {
+    RPPacker(File resources, File output) {
         instance = this;
         this.resources = new ResourceHelper(resources);
         this.output = output;
 
-        mode = Mode.AUTOMATIC;
+        mode = mode.AUTOMATIC;
         name = "Packer";
         logo = null;
         prefix = "packer";
@@ -39,7 +39,7 @@ public class Packer implements IPacker {
         itemRegistry = new RPItemRegistry();
     }
 
-    public static Packer get() {
+    public static RPPacker get() {
         return instance;
     }
 
@@ -104,12 +104,12 @@ public class Packer implements IPacker {
     }
 
     @Override
-    public void setMode(Mode mode) {
+    public void setMode(RPMode mode) {
         this.mode = mode;
     }
 
     @Override
-    public Mode mode() {
+    public RPMode mode() {
         return mode;
     }
 }

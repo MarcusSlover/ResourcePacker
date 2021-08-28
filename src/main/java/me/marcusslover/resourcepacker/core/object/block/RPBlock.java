@@ -3,16 +3,16 @@ package me.marcusslover.resourcepacker.core.object.block;
 import me.marcusslover.resourcepacker.api.IBlock;
 import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.core.internal.RPCache;
-import me.marcusslover.resourcepacker.core.object.texture.Texture;
+import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 
 public class RPBlock implements IBlock {
     private static final Factory FACTORY = new Factory();
     private final String name;
-    private final Texture texture;
+    private final RPTexture texture;
     private final RPState state;
 
-    private RPBlock(String name, Texture texture) {
+    private RPBlock(String name, RPTexture texture) {
         this.name = name;
         this.texture = texture;
         this.state = new RPState();
@@ -21,14 +21,14 @@ public class RPBlock implements IBlock {
     /*Public way of creating blocks*/
     public static RPBlock of(String name, RPResource resource) {
         if (resource.getType() == RPResource.Type.IMAGE) {
-            Texture texture = Texture.of(resource.getFile());
+            RPTexture texture = RPTexture.of(resource.getFile());
             return of(name, texture);
         }
         return null;
     }
 
     /*Public way of creating blocks*/
-    public static RPBlock of(String name, Texture texture) {
+    public static RPBlock of(String name, RPTexture texture) {
         return FACTORY.setName(name).setTexture(texture).create();
     }
 
@@ -38,7 +38,7 @@ public class RPBlock implements IBlock {
     }
 
     @Override
-    public Texture texture() {
+    public RPTexture texture() {
         return texture;
     }
 
@@ -50,7 +50,7 @@ public class RPBlock implements IBlock {
     /*Internal factory for creating blocks*/
     private static class Factory implements IFactory<RPBlock> {
 
-        private Texture texture;
+        private RPTexture texture;
         private String name;
 
         private Factory() {
@@ -61,7 +61,7 @@ public class RPBlock implements IBlock {
             return this;
         }
 
-        private Factory setTexture(Texture texture) {
+        private Factory setTexture(RPTexture texture) {
             this.texture = texture;
             return this;
         }

@@ -5,7 +5,6 @@ import me.marcusslover.resourcepacker.core.generator.PackGenerator;
 import me.marcusslover.resourcepacker.core.object.block.RPBlock;
 import me.marcusslover.resourcepacker.core.object.item.RPItem;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
-import me.marcusslover.resourcepacker.core.window.RPWindow;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import org.apache.commons.cli.*;
 
@@ -14,11 +13,8 @@ import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.function.LongFunction;
 import java.util.logging.Logger;
 
 public class Core {
@@ -116,15 +112,15 @@ public class Core {
             LOGGER.info("Starting the packer...");
 
             long date = System.currentTimeMillis();
-            Packer packer = new Packer(resources, output);
+            RPPacker RPPacker = new RPPacker(resources, output);
 
             LOGGER.info("Loading the data...");
             ResourcePacker resourcePacker = new ResourcePacker();
-            resourcePacker.pack(packer);
+            resourcePacker.pack(RPPacker);
 
-            if (packer.mode() == Mode.AUTOMATIC) {
-                ResourceHelper r = packer.resources();
-                File parent = packer.resources().parent();
+            if (RPPacker.mode() == RPMode.AUTOMATIC) {
+                ResourceHelper r = RPPacker.resources();
+                File parent = RPPacker.resources().parent();
                 if (parent != null && parent.exists()) {
                     File blocks = FileUtil.safeDir(parent, "blocks");
                     File items = FileUtil.safeDir(parent, "items");
@@ -144,9 +140,9 @@ public class Core {
                             System.exit(0);
                             return;
                         }
-                        for (String s : b) packer.blocks().register(RPBlock.of(null, r.block(s)));
-                        for (String s : i) packer.items().register(RPItem.of(null, r.item(s)));
-                        for (String s : f) packer.items().register(RPItem.of(null, r.frame(s), true));
+                        for (String s : b) RPPacker.blocks().register(RPBlock.of(null, r.block(s)));
+                        for (String s : i) RPPacker.items().register(RPItem.of(null, r.item(s)));
+                        for (String s : f) RPPacker.items().register(RPItem.of(null, r.frame(s), true));
                     }
                 }
             }
@@ -160,7 +156,7 @@ public class Core {
             window.getProgress().setValue(33);
             LOGGER.info("Reading & preparing...");
             PackGenerator packGenerator = new PackGenerator();
-            packGenerator.generate(packer);
+            packGenerator.generate(RPPacker);
 
             try { //Wait
                 Thread.sleep(500);
