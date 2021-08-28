@@ -29,8 +29,8 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
         List<RPItem> list = registry.list();
 
         File minecraftModels = FileUtil.get(mc, "models/item");
-        File items = FileUtil.get(packer, "textures/items");
-        File models = FileUtil.get(packer, "models/items");
+        File items = FileUtil.get(packer, "textures/item");
+        File models = FileUtil.get(packer, "models/item");
 
         File file = FileUtil.safeFile(minecraftModels, "paper.json");
         JsonObject fileJson = new JsonObject();
@@ -52,7 +52,7 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
             JsonObject predicate = new JsonObject();
             predicate.addProperty("custom_model_data", customModelData);
             model.add("predicate", predicate);
-            model.addProperty("model", "packer/items/" + name);
+            model.addProperty("model", "packer:item/" + name);
 
             variants.add(model);
             log.addProperty(name, customModelData);
@@ -61,7 +61,7 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
             JsonObject textureModel = new JsonObject();
             textureModel.addProperty("parent", "item/generated");
             JsonObject itemTexture = new JsonObject();
-            itemTexture.addProperty("layer0", "packer/items/" + name);
+            itemTexture.addProperty("layer0", "packer:item/" + name);
             textureModel.add("textures", itemTexture);
 
             if (item.itemFrame()) { // Item frame stuff.
