@@ -34,14 +34,17 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
 
         File file = FileUtil.safeFile(minecraftModels, "paper.json");
         JsonObject fileJson = new JsonObject();
+        JsonArray variants = new JsonArray(); // 'overrides'
         fileJson.addProperty("parent", "item/generated");
         JsonObject textures = new JsonObject();
         textures.addProperty("layer0", "item/paper");
         fileJson.add("textures", textures);
 
-        JsonArray variants = new JsonArray(); // 'overrides'
         int customModelData = 700;
         for (RPItem item : list) {
+            /*Assign model data*/
+            item.data().setCustomModelData(customModelData);
+
             RPTexture texture = item.texture();
             String name = texture.name();
             /*Texture*/

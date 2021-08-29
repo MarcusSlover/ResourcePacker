@@ -22,8 +22,6 @@ import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
 
 public class PackGenerator {
-    private static final String CHAR = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcd" +
-            "efghijklmnopqrstuvwxyz0123456789~`!@#$%^&*()-_=+[{]}\\|;:'\",<.>/?";
 
     public static File createMeta(File d, List<String> l) {
         File meta = safeFile(d, "pack.mcmeta");
@@ -76,6 +74,7 @@ public class PackGenerator {
                 return;
             }
         }
+
         /*Pack structure*/
         File meta = createMeta(d, description);
         File pack = createLogo(logo, d, r);
@@ -100,6 +99,9 @@ public class PackGenerator {
         items.generate(minecraft, packer, itemRegistry);
         logJson.add("items", items.log());
 
+        /*Language*/
+        LanguageGenerator lang = new LanguageGenerator();
+        lang.generate(packer, itemRegistry, blockRegistry);
         JsonUtil.writeFile(creationLog, logJson);
 
         /*Zipping*/

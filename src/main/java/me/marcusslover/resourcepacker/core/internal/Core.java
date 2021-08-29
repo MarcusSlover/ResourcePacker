@@ -72,7 +72,8 @@ public class Core {
         else r = new File(resources);
         if (r == null || !r.exists()) {
             JOptionPane.showMessageDialog(null,
-                    "The specified path for the 'Resources' directory is invalid! The directory doesn't exist!",
+                    "The specified path for the 'Resources' directory is invalid!" +
+                            " The directory doesn't exist!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE
             );
@@ -84,7 +85,8 @@ public class Core {
         else o = new File(output);
         if (o == null || !o.exists()) {
             JOptionPane.showMessageDialog(null,
-                    "The specified path for the 'Output' directory is invalid! The directory doesn't exist!",
+                    "The specified path for the 'Output' directory is invalid!" +
+                            " The directory doesn't exist!",
                     "Error",
                     JOptionPane.ERROR_MESSAGE
             );
@@ -148,26 +150,18 @@ public class Core {
             }
 
             try { //Wait
-                Thread.sleep(500);
+                Thread.sleep(250);
             } catch (InterruptedException ignored) {
             }
 
             /*Generate*/
-            window.getProgress().setValue(33);
+            window.getProgress().setValue(50);
             LOGGER.info("Reading & preparing...");
             PackGenerator packGenerator = new PackGenerator();
             packGenerator.generate(RPPacker);
 
             try { //Wait
-                Thread.sleep(500);
-            } catch (InterruptedException ignored) {
-            }
-            window.getProgress().setValue(66);
-
-            LOGGER.info("Packing...");
-            //Todo: Packing
-            try { //Wait
-                Thread.sleep(500);
+                Thread.sleep(250);
             } catch (InterruptedException ignored) {
             }
             window.getProgress().setValue(100);

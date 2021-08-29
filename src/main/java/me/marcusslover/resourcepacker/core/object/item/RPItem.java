@@ -52,7 +52,7 @@ public class RPItem implements IItem {
 
     @Override
     public String name() {
-        return name;
+        return name == null ? texture.name() : name;
     }
 
     @Override

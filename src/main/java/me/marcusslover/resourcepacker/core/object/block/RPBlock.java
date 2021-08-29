@@ -34,7 +34,7 @@ public class RPBlock implements IBlock {
 
     @Override
     public String name() {
-        return name;
+        return name == null ? texture.name() : name;
     }
 
     @Override
