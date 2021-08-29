@@ -100,7 +100,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             JsonUtil.writeFile(textureJson, textureModel);
 
             note++;
-            customModelData--;
+            customModelData++;
             /*Log creation*/
             log.addProperty(name, blockPath);
         }
