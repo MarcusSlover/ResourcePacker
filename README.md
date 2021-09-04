@@ -14,7 +14,7 @@ Currently supported features:
 - [ ] Custom models (wip)
 
 ## 📖 How to use it?
-[Click here](https://github.com/MarcusSlover/ResourcePacker/wiki/How-to-use-it) to visit the wiki.
+[Click here](https://github.com/MarcusSlover/ResourcePacker/wiki/How-to-use-it%3F) to visit the wiki.
 
 ## 🎨 Creations made with ResourcePacker
 If you'd like to show off your creations here just make a pull request!<br/>
