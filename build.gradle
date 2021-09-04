@@ -29,7 +29,7 @@ plugins {
 }
 
 group 'me.marcusslover'
-version '1.0-BETA'
+version 'b1.0'
 
 repositories {
     mavenCentral()
@@ -56,13 +56,14 @@ dependencies {
 }
 
 shadowJar {
+    archiveFileName = "ResourcePacker-${version}.jar"
+
     manifest {
         attributes 'Implementation-Title': 'ResourcePacker',
                 'Implementation-Version': version,
                 'Main-Class': 'me.marcusslover.resourcepacker.core.internal.Core'
     }
 }
-
 
 test {
     useJUnitPlatform()
