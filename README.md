@@ -34,7 +34,7 @@ After that, you may insert your textures there and run the program to your resou
 You may also clone the repository and manualy build your resource pack by executing the program in your IDE.</br>
 
 Just remember to prepare a valid setting to run the application without errors.</br>
-We need them because we have to specify the path to [Output](https://github.com/MarcusSlover/ResourcePacker/#🧭-Output-Directory) and [Resources](https://github.com/MarcusSlover/ResourcePacker/#🧰-Resources-Directory) directories.</br>
+We need them because we have to specify the path to [Output](#-output-directory) and [Resources](#-resources-directory) directories.</br>
 Here's a quick tutorial on how to set it up in **IntelliJ IDEA**:</br>
 > 1. Edit the configurations </br> ![image](https://user-images.githubusercontent.com/38810661/132091028-7c655663-8412-4fce-975e-2d687b46dfd2.png)
 > 2. Create new application </br> ![image](https://user-images.githubusercontent.com/38810661/132091079-58258bb4-2dd3-4efc-ae40-82b88d59b93f.png)
