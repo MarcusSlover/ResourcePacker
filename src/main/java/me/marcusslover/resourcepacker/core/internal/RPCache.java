@@ -35,9 +35,8 @@ public class RPCache {
     RPCache() {
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T get(String name, Supplier<T> supplier, Class<T> clazz) {
-        return get(name, new CacheSupplier<>(clazz) {
+        return get(name, new CacheSupplier<T>(clazz) {
             @Override
             public T get() {
                 return supplier.get();

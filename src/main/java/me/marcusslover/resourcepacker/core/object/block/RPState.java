@@ -27,6 +27,7 @@ package me.marcusslover.resourcepacker.core.object.block;
 
 import me.marcusslover.resourcepacker.api.IManager;
 import me.marcusslover.resourcepacker.core.object.item.RPMeta;
+import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -47,7 +48,14 @@ public class RPState extends RPMeta implements IManager<RPState.Element> {
         return elements;
     }
 
-    public static record Element(String key, String value) {
+    public static class Element {
+        public final String key;
+        public final String value;
 
+        public Element(String key, String value) {
+
+            this.key = key;
+            this.value = value;
+        }
     }
 }

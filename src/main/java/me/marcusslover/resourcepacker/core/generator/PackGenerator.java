@@ -42,6 +42,7 @@ import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
+import java.util.Objects;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
@@ -132,7 +133,10 @@ public class PackGenerator {
         /*Zipping*/
         try (ZipFile zipFile = new ZipFile(new File(output, name + ".zip"))) {
             zipFile.addFolder(assets);
-            zipFile.addFiles(List.of(meta, pack));
+            List<File> filesToAdd = new java.util.ArrayList<>();
+            filesToAdd.add(meta);
+            filesToAdd.add(pack);
+            zipFile.addFiles(filesToAdd);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -157,7 +161,14 @@ public class PackGenerator {
         if (logoSource == null) {
             InputStream inputStream = getClass().getResourceAsStream(defaultName);
             try (OutputStream output = new FileOutputStream(packPng, false)) {
-                if (inputStream != null) inputStream.transferTo(output);
+                if (inputStream != null) {
+                    Objects.requireNonNull(output, "out");
+                    byte[] buffer = new byte[8192];
+                    int read;
+                    while ((read = inputStream.read(buffer, 0, 8192)) >= 0) {
+                        output.write(buffer, 0, read);
+                    }
+                }
             } catch (Exception ignore) {
             }
             try {

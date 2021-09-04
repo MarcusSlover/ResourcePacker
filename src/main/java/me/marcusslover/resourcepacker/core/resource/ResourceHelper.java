@@ -28,8 +28,37 @@ package me.marcusslover.resourcepacker.core.resource;
 import me.marcusslover.resourcepacker.api.IResources;
 
 import java.io.File;
+import java.util.Objects;
 
-public record ResourceHelper(File parent) implements IResources {
+public final class ResourceHelper implements IResources {
+    private final File parent;
+
+    public ResourceHelper(File parent) {
+        this.parent = parent;
+    }
+
+    public File parent() {
+        return parent;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (obj == null || obj.getClass() != this.getClass()) return false;
+        ResourceHelper that = (ResourceHelper) obj;
+        return Objects.equals(this.parent, that.parent);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(parent);
+    }
+
+    @Override
+    public String toString() {
+        return "ResourceHelper[" +
+                "parent=" + parent + ']';
+    }
 
     @Override
     public RPResource get(String dir, String child) {

@@ -29,6 +29,7 @@ import me.marcusslover.resourcepacker.api.IPacker;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -58,7 +59,8 @@ public class RPPacker implements IPacker {
         name = "Packer";
         logo = null;
         prefix = "packer";
-        description = List.of("Created with ResourcePacker by MarcusSlover");
+        description = new ArrayList<>();
+        description.add("Created with ResourcePacker by MarcusSlover");
 
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();
