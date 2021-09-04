@@ -40,17 +40,17 @@ Here's a quick tutorial on how to set it up in **IntelliJ IDEA**:</br>
 > 2. Create new application </br> ![image](https://user-images.githubusercontent.com/38810661/132091079-58258bb4-2dd3-4efc-ae40-82b88d59b93f.png)
 > 3. Set up **Build and run** </br> ![image](https://user-images.githubusercontent.com/38810661/132091100-20df55fa-e536-4829-b7c2-02aaae1e5869.png)
 </br>The main class stays as `me.marcusslover.resourcepacker.core.internal.Core`,
-however, your CLI arguments must meet your expectations. Use `-r` argument to specify path to the [Resources](https://github.com/MarcusSlover/ResourcePacker/#🧰-Resources-Directory) directory
-and use the `-o` argument to specify path to the [Output](https://github.com/MarcusSlover/ResourcePacker/#🧭-Output-Directory) directory. </br>
+however, your CLI arguments must meet your expectations. Use `-r` argument to specify path to the [Resources](#-resources-directory) directory
+and use the `-o` argument to specify path to the [Output](#-output-directory) directory. </br>
 Example: `-r C:\Users\Mark\Desktop\CoolResourcePack\Resources -o C:\Users\Mark\Desktop\CoolResourcePack\Output`
 
 
 When you're done setting it up, you can go ahead and do some configuration to your resource pack.</br>
 Choosing to run the code yourself allows you to customize more things.</br>
-Example:
-- Name
-- Description
-- Usage of textures
+Example of features you may modify:
+- Name of your resource pack
+- Description of your resource pack
+- Usage of textures (custom registration)
 
 That can be done in the `ResourcePacker.class`
 ```java
@@ -74,4 +74,4 @@ public class ResourcePacker implements IResourcePacker {
 }
 ```
 Then just run your custom run configuration and enjoy your resource pack.
-It should be built to the [Output](https://github.com/MarcusSlover/ResourcePacker/#🧭-Output-Directory) directory which you specifed the path to in the `-o` argument.
+It should be built to the [Output](#-output-directory) directory which you specifed the path to in the `-o` argument.
