@@ -27,7 +27,6 @@ package me.marcusslover.resourcepacker.core.object.block;
 
 import me.marcusslover.resourcepacker.api.IManager;
 import me.marcusslover.resourcepacker.core.object.item.RPMeta;
-import org.w3c.dom.Element;
 
 import java.util.ArrayList;
 import java.util.List;

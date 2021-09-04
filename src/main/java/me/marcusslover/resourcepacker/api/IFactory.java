@@ -25,6 +25,16 @@
 
 package me.marcusslover.resourcepacker.api;
 
+/**
+ * An interface that's meant to produce a certain kind of objects.
+ *
+ * @param <T> Type of object to be created.
+ */
 public interface IFactory<T> {
+    /**
+     * Creates the final object.
+     *
+     * @return An object.
+     */
     T create();
 }

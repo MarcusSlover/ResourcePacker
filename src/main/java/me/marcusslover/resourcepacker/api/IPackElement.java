@@ -25,5 +25,11 @@
 
 package me.marcusslover.resourcepacker.api;
 
+/**
+ * An interface that represents an element used by the program.
+ *
+ * @see IItem
+ * @see IBlock
+ */
 public interface IPackElement extends INameable, ITexturable, IPackable {
 }

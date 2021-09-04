@@ -25,6 +25,16 @@
 
 package me.marcusslover.resourcepacker.api;
 
+/**
+ * An interface that's meant to hold some data.
+ *
+ * @param <T> Type of data to hold.
+ */
 public interface IData<T> {
+    /**
+     * Gets the held data.
+     *
+     * @return Held data.
+     */
     T data();
 }

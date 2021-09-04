@@ -27,8 +27,23 @@ package me.marcusslover.resourcepacker.api;
 
 import java.util.List;
 
+/**
+ * An interface that holds a certain type of values.
+ *
+ * @param <T> Type of value.
+ */
 public interface IManager<T> {
+    /**
+     * Adds a value to the manager.
+     *
+     * @param obj Value to be added.
+     */
     void add(T obj);
 
+    /**
+     * Gets list of all stored values.
+     *
+     * @return List with all stores values.
+     */
     List<T> list();
 }

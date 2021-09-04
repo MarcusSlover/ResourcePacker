@@ -27,6 +27,16 @@ package me.marcusslover.resourcepacker.api;
 
 import me.marcusslover.resourcepacker.core.object.item.RPMeta;
 
+/**
+ * An interface that represents an item.
+ */
 public interface IItem extends IData<RPMeta>, IPackElement {
+    /**
+     * Gets the option that specifies if the item is a normal
+     * or an "item frame" item.
+     *
+     * @return True if created to be in an item frame,
+     * false if just a normal item.
+     */
     boolean itemFrame();
 }

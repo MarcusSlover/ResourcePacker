@@ -29,8 +29,27 @@ import com.google.gson.JsonObject;
 
 import java.io.File;
 
+/**
+ * A standard generator interface that uses one {@link IRegistry} instance
+ * to generate files off of it.
+ *
+ * @param <T> Type of value that the registry holds.
+ * @param <V> Type of the registry.
+ */
 public interface IGenerator<T, V extends IRegistry<T>> {
+    /**
+     * Optional way to attach some logs.
+     *
+     * @return Json with some logs.
+     */
     JsonObject log();
 
+    /**
+     * Generates certain files that will be part of the final resource pack.
+     *
+     * @param mc       "minecraft" directory.
+     * @param packer   "packer" directory.
+     * @param registry instance of the registry.
+     */
     void generate(File mc, File packer, V registry);
 }

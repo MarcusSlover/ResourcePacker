@@ -26,6 +26,15 @@
 package me.marcusslover.resourcepacker.core.internal;
 
 public enum RPMode {
+    /**
+     * The registration or blocks, items, or other elements
+     * is fully manual.
+     */
     MANUAL_REGISTRATION,
+
+    /**
+     * The registration or blocks, items, or other elements
+     * is fully automatic by reading the `Resources` folder.
+     */
     AUTOMATIC
 }

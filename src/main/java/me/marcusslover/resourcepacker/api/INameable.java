@@ -25,6 +25,14 @@
 
 package me.marcusslover.resourcepacker.api;
 
+/**
+ * An interface that represents an object that has a name.
+ */
 public interface INameable {
+    /**
+     * Gets name of the object.
+     *
+     * @return Object's name.
+     */
     String name();
 }
