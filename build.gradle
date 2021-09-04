@@ -29,13 +29,13 @@ plugins {
 }
 
 group 'me.marcusslover'
-version '4.0'
+version '1.0-BETA'
 
 repositories {
     mavenCentral()
 }
 
-sourceCompatibility = JavaVersion.VERSION_1_8
+sourceCompatibility = JavaVersion.VERSION_16
 targetCompatibility = JavaVersion.VERSION_1_8
 
 dependencies {
