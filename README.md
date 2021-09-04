@@ -10,6 +10,8 @@ Currently supports:
 ## How to use it?
 There are **two ways** you can use this software in.
 ### 🎯 1. Direct Jar Executing
+> Java Requirements: Java 8 or higher</br>
+
 After you download the software, put it in a separate folder and create two directories:
 `Output` and `Resources`. </br>
 Your folder should look like shown below:</br>
@@ -31,6 +33,9 @@ After that, you may insert your textures there and run the program to your resou
 ![image](https://user-images.githubusercontent.com/38810661/132089844-b7154d72-732f-4d4c-a8a7-e1faa0572fc0.png)
 
 ### 💻 2. IDE Executing
+> Source Code uses Java 16</br>
+> Compiles in a way to be compatible with Java 8 or higher
+
 You may also clone the repository and manualy build your resource pack by executing the program in your IDE.</br>
 
 Just remember to prepare a valid setting to run the application without errors.</br>
