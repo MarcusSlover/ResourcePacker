@@ -1,5 +1,12 @@
 # ResourcePacker
-📦 Aimed to easily create Minecraft resource packs with new custom items and blocks.<br/><br/>
+<p align="center">
+<img width="128" height="128" src="https://user-images.githubusercontent.com/38810661/132093692-db8ec99d-5a7a-439b-9813-e18ab46c89d5.png"/>
+<br/>
+📦 Aimed to easily create Minecraft resource packs with custom items and blocks.<br/>
+</p>
+
+<br/>
+
 Currently supported features:
 - [x] Custom blocks
 - [x] Custom items
