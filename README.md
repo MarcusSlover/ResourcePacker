@@ -24,10 +24,11 @@ If you're interested in `jar downloads`, [click here](https://github.com/MarcusS
     <id>tecc</id>
     <url>https://m2.tecc.me/snapshots</url>
 </repository>
+
 <dependency>
     <groupId>me.marcusslover</groupid>
     <artifactId>resourcepacker</artifactId>
-    <verison>b.10</version>
+    <verison>b1.0</version>
 </dependency>
 ```
 
@@ -36,6 +37,7 @@ If you're interested in `jar downloads`, [click here](https://github.com/MarcusS
 repositories {
     maven { url = 'https://m2.tecc.me/snapshots' }
 }
+
 dependencies {
     compileOnly 'me.marcusslover:resourcepacker:b1.0'
 }
