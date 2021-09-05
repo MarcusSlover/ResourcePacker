@@ -65,7 +65,7 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
         textures.addProperty("layer0", "item/paper");
         fileJson.add("textures", textures);
 
-        int customModelData = 700;
+        int customModelData = 1;
         for (RPItem item : list) {
             /*Assign model data*/
             item.data().setCustomModelData(customModelData);
@@ -124,6 +124,15 @@ public class ItemGenerator implements IGenerator<RPItem, RPItemRegistry> {
             JsonUtil.writeFile(textureJson, textureModel);
             customModelData++;
         }
+        /*Default variant*/
+        /*Json Item Models*/
+        JsonObject model = new JsonObject();
+        JsonObject predicate = new JsonObject();
+        predicate.addProperty("custom_model_data", customModelData);
+        model.add("predicate", predicate);
+        model.addProperty("model", "minecraft:item/paper");
+        variants.add(model);
+
         fileJson.add("overrides", variants);
         JsonUtil.writeFile(file, fileJson);
     }

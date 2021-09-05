@@ -76,7 +76,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
         JsonArray itemVariants = new JsonArray(); // 'overrides'
         itemFileJson.addProperty("parent", "minecraft:block/note_block");
 
-        int customModelData = 7000;
+        int customModelData = 1;
         int instrument = 0;
         int note = 0;
         for (RPBlock block : list) {
@@ -129,6 +129,14 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             /*Log creation*/
             log.addProperty(name, blockPath);
         }
+        /*Default variant*/
+        JsonObject itemModel = new JsonObject();
+        JsonObject predicate = new JsonObject();
+        predicate.addProperty("custom_model_data", customModelData);
+        itemModel.add("predicate", predicate);
+        itemModel.addProperty("model", "minecraft:item/note_block");
+        itemVariants.add(itemModel);
+
         /*Block items*/
         itemFileJson.add("overrides", itemVariants);
         JsonUtil.writeFile(itemFile, itemFileJson);
