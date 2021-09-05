@@ -123,7 +123,7 @@ public class RPItem implements IItem {
 
         @Override
         public RPItem create() {
-            return RPCache.get(name, () -> new RPItem(name, texture, itemFrame), RPItem.class);
+            return RPCache.string().get(name, () -> new RPItem(name, texture, itemFrame), RPItem.class);
         }
     }
 }

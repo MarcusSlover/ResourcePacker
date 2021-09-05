@@ -105,7 +105,7 @@ public class RPTexture implements ITexture {
             /*Validate the format*/
             if (!name.endsWith(".png")) throw new InvalidTextureException(file);
 
-            return RPCache.get(name, () -> new RPTexture(file), RPTexture.class);
+            return RPCache.string().get(name, () -> new RPTexture(file), RPTexture.class);
         }
     }
 }
