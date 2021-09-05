@@ -40,6 +40,10 @@ public class RPCache<V> {
     protected final Map<Class<?>, Map<V, ?>> CACHE = new HashMap<>();
     private final Class<V> type;
 
+    private RPCache(@NotNull Class<V> type) {
+        this.type = type;
+    }
+
     public static StringCache string() {
         if (STRING_CACHE == null) STRING_CACHE = new StringCache(String.class);
         return STRING_CACHE;
@@ -48,14 +52,6 @@ public class RPCache<V> {
     public static IntegerCache integer() {
         if (INTEGER_CACHE == null) INTEGER_CACHE = new IntegerCache(Integer.class);
         return INTEGER_CACHE;
-    }
-
-    private RPCache(@NotNull Class<V> type) {
-        this.type = type;
-    }
-
-    public void feed(@Nullable V key ) {
-
     }
 
     public <T> T get(@Nullable V key, @NotNull Supplier<T> supplier, @NotNull Class<T> clazz) {
