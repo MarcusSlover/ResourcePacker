@@ -25,34 +25,44 @@
 
 plugins {
     id 'java'
+    id 'maven-publish'
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
 group 'me.marcusslover'
 version 'b1.0'
 
-repositories {
-    mavenCentral()
-}
-
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
-tasks.withType(JavaCompile) {
-    options.release.set(8)
+repositories {
+    mavenCentral()
 }
 
 dependencies {
     compileOnly 'org.jetbrains:annotations:22.0.0'
 
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
-    implementation 'org.apache.commons:commons-lang3:3.4'
+    implementation 'org.apache.commons:commons-lang3:3.12.0'
     implementation 'commons-cli:commons-cli:1.4'
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'net.lingala.zip4j:zip4j:2.9.0'
 
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+}
+
+tasks.withType(JavaCompile) {
+    options.release.set(8)
+}
+
+java {
+    withJavadocJar()
+    withSourcesJar()
+}
+
+test {
+    useJUnitPlatform()
 }
 
 shadowJar {
@@ -65,6 +75,39 @@ shadowJar {
     }
 }
 
-test {
-    useJUnitPlatform()
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifactId = 'resourcepacker'
+            from components.java
+            pom {
+                name = 'Resource Packer'
+                description = 'Aimed to easily create Minecraft resource packs with custom items and blocks.'
+                url = 'https://github.com/MarcusSlover/ResourcePacker'
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://github.com/MarcusSlover/ResourcePacker/blob/master/LICENSE'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'marcusslover'
+                        name = 'MarcusSlover'
+                        email = 'jr.marcusorlando@gmail.com'
+                    }
+                }
+            }
+        }
+    }
+
+    repositories {
+        maven {
+            name = 'rps'
+            url = "https://m2.tecc.me/snapshots"
+            credentials(PasswordCredentials)
+        }
+    }
+
 }
+
