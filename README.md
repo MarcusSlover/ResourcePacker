@@ -1,4 +1,4 @@
-# ResourcePacker
+# 📦 ResourcePacker
 <p align="center">
 <img width="128" height="128" src="https://user-images.githubusercontent.com/38810661/132093692-db8ec99d-5a7a-439b-9813-e18ab46c89d5.png"/>
 <br/>
@@ -7,11 +7,17 @@
 
 <br/>
 
-Currently supported features:
-- [x] Custom blocks
-- [x] Custom items
-- [x] Custom items in item frames
-- [ ] Custom models (wip)
+## 📒 Supported Features
+
+Feature | Status
+------------ | -------------
+Custom blocks | ✔ Done
+Custom slabs | ✏ Work in Progress
+Directional blocks | ✏ Work in Progress
+Custom items | ✔ Done
+Custom items in item frames | ✔ Done
+Custom models | ✏ Work in Progress
+Custom inventories (GUI) | ✏ Work in Progress
 
 ## 📖 How to use it?
 [Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) to visit the official wiki.<br/>
