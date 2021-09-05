@@ -15,9 +15,9 @@ Currently supported features:
 
 ## 📖 How to use it?
 [Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) to visit the wiki.<br/>
-If you're interested in `jar downloads`, [click here](https://github.com/MarcusSlover/ResourcePacker/releases)!
+If you're interested in direct `jar downloads`, [click here](https://github.com/MarcusSlover/ResourcePacker/releases)!
 
-## For Developers
+## 💻 For Developers
 ### 🦢 Maven
 ```xml
 <repository>
