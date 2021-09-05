@@ -14,7 +14,32 @@ Currently supported features:
 - [ ] Custom models (wip)
 
 ## 📖 How to use it?
-[Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) to visit the wiki.
+[Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) to visit the wiki.<br/>
+If you're interested in `jar downloads`, [click here](https://github.com/MarcusSlover/ResourcePacker/releases)!
+
+## For Developers
+### 🦢 Maven
+```maven
+<repository>
+    <id>tecc</id>
+    <url>https://m2.tecc.me/snapshots</url>
+</repository>
+<dependency>
+    <groupId>me.marcusslover</groupid>
+    <artifactId>resourcepacker</artifactId>
+    <verison>b.10</version>
+</dependency>
+```
+
+### 🐘 Gradle
+```gradle
+repositories {
+    maven { url = 'https://m2.tecc.me/snapshots' }
+}
+dependencies {
+    compileOnly 'me.marcusslover:resourcepacker:b1.0'
+}
+```
 
 ## 🎨 Creations made with ResourcePacker
 If you'd like to show off your creations here just make a pull request!<br/>
