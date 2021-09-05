@@ -93,7 +93,7 @@ public class RPBlock implements IBlock {
 
         @Override
         public RPBlock create() {
-            return RPCache.get(name, () -> new RPBlock(name, texture), RPBlock.class);
+            return RPCache.string().get(name, () -> new RPBlock(name, texture), RPBlock.class);
         }
     }
 }

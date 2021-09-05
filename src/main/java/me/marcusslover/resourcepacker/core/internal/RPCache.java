@@ -25,18 +25,41 @@
 
 package me.marcusslover.resourcepacker.core.internal;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class RPCache {
-    private static final Map<Class<?>, Map<String, ?>> CACHE = new HashMap<>();
+public class RPCache<V> {
+    /*All caches*/
+    private static StringCache STRING_CACHE;
+    private static IntegerCache INTEGER_CACHE;
 
-    RPCache() {
+    protected final Map<Class<?>, Map<V, ?>> CACHE = new HashMap<>();
+    private final Class<V> type;
+
+    public static StringCache string() {
+        if (STRING_CACHE == null) STRING_CACHE = new StringCache(String.class);
+        return STRING_CACHE;
     }
 
-    public static <T> T get(String name, Supplier<T> supplier, Class<T> clazz) {
-        return get(name, new CacheSupplier<T>(clazz) {
+    public static IntegerCache integer() {
+        if (INTEGER_CACHE == null) INTEGER_CACHE = new IntegerCache(Integer.class);
+        return INTEGER_CACHE;
+    }
+
+    private RPCache(@NotNull Class<V> type) {
+        this.type = type;
+    }
+
+    public void feed(@Nullable V key ) {
+
+    }
+
+    public <T> T get(@Nullable V key, @NotNull Supplier<T> supplier, @NotNull Class<T> clazz) {
+        return get(key, new CacheSupplier<T>(clazz) {
             @Override
             public T get() {
                 return supplier.get();
@@ -45,25 +68,36 @@ public class RPCache {
     }
 
     @SuppressWarnings("unchecked")
-    public static <T> T get(String name, CacheSupplier<T> supplier) {
-        if (name == null) return supplier.get();
+    public <T> T get(@Nullable V key, @NotNull CacheSupplier<T> supplier) {
+        if (key == null) return supplier.get();
 
         Class<T> type = supplier.getType();
-        Map<String, T> map = (Map<String, T>) CACHE.getOrDefault(type, new HashMap<>());
-        if (map.containsKey(name)) {
-            return map.get(name);
-        }
+        Map<V, T> map = (Map<V, T>) CACHE.getOrDefault(type, new HashMap<>());
+        if (map.containsKey(key)) return map.get(key);
         T obj = supplier.get();
-        map.put(name, obj);
+        map.put(key, obj);
         CACHE.put(type, map);
 
         return obj;
     }
 
+    public static class StringCache extends RPCache<String> {
+        private StringCache(@NotNull Class<String> type) {
+            super(type);
+        }
+    }
+
+    public static class IntegerCache extends RPCache<Integer> {
+        private IntegerCache(@NotNull Class<Integer> type) {
+            super(type);
+        }
+    }
+
+
     public static abstract class CacheSupplier<T> implements Supplier<T> {
         private final Class<T> type;
 
-        public CacheSupplier(Class<T> type) {
+        public CacheSupplier(@NotNull Class<T> type) {
             this.type = type;
         }
 

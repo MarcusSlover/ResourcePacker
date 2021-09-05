@@ -31,6 +31,7 @@ import me.marcusslover.resourcepacker.api.IGenerator;
 import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
 import me.marcusslover.resourcepacker.core.object.block.RPBlock;
 import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
+import me.marcusslover.resourcepacker.util.BlockUtil;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
 
@@ -38,14 +39,6 @@ import java.io.File;
 import java.util.List;
 
 public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
-    private static final Integer LIMIT = 24;
-    private static final String[] INSTRUMENTS =
-            {
-                    "harp", "pling", "banjo", "bit",
-                    "didgeridoo", "cow_bell", "iron_xylophone", "xylophone",
-                    "chime", "guitar", "bell", "flute",
-                    "bass", "hat", "snare", "bassdrum"
-            };
     private final JsonObject log;
 
     BlockGenerator() {
@@ -76,11 +69,11 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
         JsonArray itemVariants = new JsonArray(); // 'overrides'
         itemFileJson.addProperty("parent", "minecraft:block/note_block");
 
-        int customModelData = 7000;
+        int customModelData = 1;
         int instrument = 0;
         int note = 0;
         for (RPBlock block : list) {
-            if (note > LIMIT) {
+            if (note > BlockUtil.NOTE_LIMIT) {
                 note = 0;
                 instrument++;
             }
@@ -104,7 +97,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             JsonObject blockVariant = new JsonObject();
             blockVariant.addProperty("model", "packer:block/" + name);
 
-            String blockPath = "instrument=" + INSTRUMENTS[instrument] + ",note=" + note;
+            String blockPath = "instrument=" + BlockUtil.INSTRUMENTS[instrument] + ",note=" + note;
             blockVariants.add(blockPath, blockVariant);
 
             /*Json item model*/
@@ -129,6 +122,14 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             /*Log creation*/
             log.addProperty(name, blockPath);
         }
+        /*Default variant*/
+        JsonObject itemModel = new JsonObject();
+        JsonObject predicate = new JsonObject();
+        predicate.addProperty("custom_model_data", customModelData);
+        itemModel.add("predicate", predicate);
+        itemModel.addProperty("model", "minecraft:item/note_block");
+        itemVariants.add(itemModel);
+
         /*Block items*/
         itemFileJson.add("overrides", itemVariants);
         JsonUtil.writeFile(itemFile, itemFileJson);

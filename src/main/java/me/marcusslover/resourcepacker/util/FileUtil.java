@@ -37,6 +37,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class FileUtil {
+    private FileUtil() {
+
+    }
 
     public static File get(File parent, String path) {
         if (path.contains("/")) {

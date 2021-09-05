@@ -44,7 +44,6 @@ import java.util.logging.Logger;
 
 public class Core {
     public static final Logger LOGGER = Logger.getLogger("Packer");
-    public static final RPCache CACHE = new RPCache();
     private static final ExecutorService SERVICE = Executors.newSingleThreadExecutor();
     private static final DecimalFormat DF = new DecimalFormat("#.##");
     private static final CommandLineParser PARSER = new DefaultParser();
