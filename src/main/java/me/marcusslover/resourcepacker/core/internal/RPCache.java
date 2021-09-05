@@ -54,6 +54,10 @@ public class RPCache<V> {
         this.type = type;
     }
 
+    public void feed(@Nullable V key ) {
+
+    }
+
     public <T> T get(@Nullable V key, @NotNull Supplier<T> supplier, @NotNull Class<T> clazz) {
         return get(key, new CacheSupplier<T>(clazz) {
             @Override

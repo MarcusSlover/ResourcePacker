@@ -25,7 +25,11 @@
 
 package me.marcusslover.resourcepacker.util;
 
+import me.marcusslover.resourcepacker.core.internal.RPCache;
 import me.marcusslover.resourcepacker.core.object.block.RPState;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.function.Supplier;
 
 public class BlockUtil {
     public static final Integer NOTE_LIMIT = 24;
@@ -37,11 +41,29 @@ public class BlockUtil {
                     "bass", "hat", "snare", "bassdrum"
             };
 
-
     private BlockUtil() {
     }
 
-    public static RPState craftBlock(int customModelData) {
-        return null;
+    public static RPState craftBlock(@NotNull int customModelData) {
+        return RPCache.integer().get(customModelData, supply(customModelData), RPState.class);
+    }
+
+    @NotNull
+    private static Supplier<RPState> supply(@NotNull int customModelData) {
+        return () -> {
+            RPState state = new RPState();
+            int instrument = 0;
+            int note = -1;
+            for (int i = 0; i < customModelData; i++) {
+                if (note > BlockUtil.NOTE_LIMIT) {
+                    note = 0;
+                    instrument++;
+                }
+                note++;
+            }
+            state.add(new RPState.Element("note", String.valueOf(note)));
+            state.add(new RPState.Element("instrument", INSTRUMENTS[instrument]));
+            return state;
+        };
     }
 }
