@@ -19,7 +19,7 @@ If you're interested in `jar downloads`, [click here](https://github.com/MarcusS
 
 ## For Developers
 ### 🦢 Maven
-```maven
+```xml
 <repository>
     <id>tecc</id>
     <url>https://m2.tecc.me/snapshots</url>
