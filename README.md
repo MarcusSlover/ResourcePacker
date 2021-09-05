@@ -7,7 +7,7 @@
 
 <br/>
 
-## 📒 Supported Features
+# 📒 Supported Features
 
 Feature | Status
 ------------ | -------------
@@ -19,12 +19,17 @@ Custom items in item frames | ✔ Done
 Custom models | ✏ Work in Progress
 Custom inventories (GUI) | ✏ Work in Progress
 
-## 📖 How to use it?
+# 📖 How to use it?
 [Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) to visit the official wiki.<br/>
 If you're interested in direct jar downloads, [click here](https://github.com/MarcusSlover/ResourcePacker/releases) to jump to releases!
 
-## 💻 For Developers
-### 🦢 Maven
+# 🎈 Extensions
+Check out the list of available extensions that may be useful while using **ResourcePacker**:
+- [ResourcePackerPlugin](https://github.com/MarcusSlover/ResourcePackerPlugin) by [@MarcusSlover](https://github.com/MarcusSlover) - A Spigot Plugin for your server. (Version 1.14+)
+- [PackerInventory](https://github.com/MarcusSlover/ResourcePacker) by [@AlexDorian7](https://github.com/AlexTron7) - A client-side Forge Mod. (Version 1.17.1+)
+
+# 💻 For Developers
+## 🦢 Maven
 ```xml
 <repository>
     <id>tecc</id>
@@ -38,7 +43,7 @@ If you're interested in direct jar downloads, [click here](https://github.com/Ma
 </dependency>
 ```
 
-### 🐘 Gradle
+## 🐘 Gradle
 ```gradle
 repositories {
     maven { url = 'https://m2.tecc.me/snapshots' }
@@ -49,14 +54,16 @@ dependencies {
 }
 ```
 
-## 🎨 Creations made with ResourcePacker
+# 🎨 Creations made with ResourcePacker
 If you'd like to show off your creations here just make a pull request!<br/>
 
-### ✨ City Signs by [@ACraftingFish](https://github.com/AgarCraftFish) <br/>
-![image](https://user-images.githubusercontent.com/38810661/132093294-0b721979-dfed-47a4-ac9b-4519795a2537.png)<br/>
-![image](https://user-images.githubusercontent.com/38810661/132093484-bd6a82dc-9da3-4d53-a172-8836c13c5744.png)<br/>
-![image](https://user-images.githubusercontent.com/38810661/132093471-dd13ed50-9cae-4f09-a08b-3cc91019db9a.png)
+## ✨ City Signs 
+ Created by [@ACraftingFish](https://github.com/AgarCraftFish) <br/>
+<img style="height:33%; width:33%;" src="https://user-images.githubusercontent.com/38810661/132093294-0b721979-dfed-47a4-ac9b-4519795a2537.png"/>
+<img style="height:33%; width:33%;" src="https://user-images.githubusercontent.com/38810661/132093484-bd6a82dc-9da3-4d53-a172-8836c13c5744.png"/>
+<img style="height:33%; width:33%;" src="https://user-images.githubusercontent.com/38810661/132093471-dd13ed50-9cae-4f09-a08b-3cc91019db9a.png"/>
 
-### ✨ More Fruits by [@MarcusSlover](https://github.com/MarcusSlover) <br/>
-![image](https://user-images.githubusercontent.com/38810661/132093581-07f4eca8-469d-40a8-ad1b-136bc58777eb.png)
+## ✨ More Fruits
+ Created by [@MarcusSlover](https://github.com/MarcusSlover) <br/>
+<img style="height:33%; width:33%;" src="https://user-images.githubusercontent.com/38810661/132093581-07f4eca8-469d-40a8-ad1b-136bc58777eb.png"/>
 
