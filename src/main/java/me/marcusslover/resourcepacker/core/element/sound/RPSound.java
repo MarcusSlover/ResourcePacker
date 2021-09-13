@@ -27,7 +27,6 @@ package me.marcusslover.resourcepacker.core.element.sound;
 
 import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.ISound;
-import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
 

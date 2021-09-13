@@ -171,14 +171,18 @@ public class Core {
                             System.exit(0);
                             return;
                         }
-                        for (String s : block) packer.blocks()
-                                .register(RPBlock.of(null, r.block(s)));
-                        for (String s : item) packer.items()
-                                .register(RPItem.of(null, r.item(s)));
-                        for (String s : frame) packer.items()
-                                .register(RPItem.of(null, r.frame(s), true));
-                        for (String s : sound) packer.sounds()
-                                .register(RPSound.of(r.sound(s)));
+                        for (String s : block)
+                            packer.blocks()
+                                    .register(RPBlock.of(null, r.block(s)));
+                        for (String s : item)
+                            packer.items()
+                                    .register(RPItem.of(null, r.item(s)));
+                        for (String s : frame)
+                            packer.items()
+                                    .register(RPItem.of(null, r.frame(s), true));
+                        for (String s : sound)
+                            packer.sounds()
+                                    .register(RPSound.of(r.sound(s)));
                     }
                 }
             }

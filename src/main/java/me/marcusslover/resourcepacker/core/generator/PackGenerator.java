@@ -26,7 +26,6 @@
 package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonObject;
-import me.marcusslover.resourcepacker.core.element.block.RPBlock;
 import me.marcusslover.resourcepacker.core.element.sound.RPSound;
 import me.marcusslover.resourcepacker.core.packer.Core;
 import me.marcusslover.resourcepacker.core.packer.RPPacker;
@@ -46,8 +45,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
-import java.util.function.BiFunction;
-import java.util.function.Supplier;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
