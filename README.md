@@ -18,7 +18,7 @@ Custom items | ✔ Done
 Custom items in item frames | ✔ Done
 Custom models | ✏ Work in Progress
 Custom inventories (GUI) | ✏ Work in Progress
-Custom sounds | ✏ Work in Progress
+Custom sounds | ✔ Done
 
 # 📖 How to use it?
 [Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) to visit the official wiki.<br/>
