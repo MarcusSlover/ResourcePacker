@@ -23,49 +23,45 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.object.texture;
+package me.marcusslover.resourcepacker.core.element.sound;
 
 import me.marcusslover.resourcepacker.api.IFactory;
-import me.marcusslover.resourcepacker.api.ITexture;
-import me.marcusslover.resourcepacker.core.internal.RPCache;
+import me.marcusslover.resourcepacker.api.ISound;
+import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
+import me.marcusslover.resourcepacker.core.resource.RPResource;
+import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-public class RPTexture implements ITexture {
-    private static final Factory FACTORY = new Factory();
-    private final File image;
-    private BufferedImage buffer;
+public class RPSound implements ISound {
+    private static final RPSound.Factory FACTORY = new RPSound.Factory();
+    private final File sound;
 
-    private RPTexture(File image) {
-        this.image = image;
-        try {
-            this.buffer = ImageIO.read(image);
-        } catch (IOException e) {
-            e.printStackTrace();
+    private RPSound(File sound) {
+        this.sound = sound;
+    }
+
+    /*Public way of creating sounds*/
+    public static RPSound of(RPResource resource) {
+        if (resource.getType() == RPResource.Type.SOUND) {
+            return of(resource.getFile());
         }
+        return null;
     }
 
-    /*Public way of creating textures*/
-    public static RPTexture of(File file) {
+    public static RPSound of(File file) {
         return FACTORY.setFile(file).create();
-    }
-
-    @Override
-    public File image() {
-        return image;
     }
 
     public File copyFile(File dir) {
         try {
-            File file = new File(dir, name() + ".png");
+            File file = new File(dir, name() + ".ogg");
             Path path = file.toPath();
 
-            Path copy = Files.copy(image.toPath(), path);
+            Path copy = Files.copy(sound.toPath(), path);
             return copy.toFile();
         } catch (IOException e) {
             e.printStackTrace();
@@ -74,38 +70,35 @@ public class RPTexture implements ITexture {
     }
 
     public String name() {
-        return image.getName().replaceAll("\\.png", "");
+        return sound.getName().replaceAll("\\.ogg", "");
     }
 
-    public int height() {
-        return buffer.getHeight();
-    }
-
-    public int width() {
-        return buffer.getWidth();
+    @Override
+    public File file() {
+        return sound;
     }
 
     /*Internal factory for creating textures*/
-    private static class Factory implements IFactory<RPTexture> {
+    private static class Factory implements IFactory<RPSound> {
         private File file;
 
         private Factory() {
         }
 
-        private Factory setFile(File file) {
+        private RPSound.Factory setFile(File file) {
             this.file = file;
             return this;
         }
 
         @Override
-        public RPTexture create() {
+        public RPSound create() {
             if (file == null) return null;
             String name = file.getName();
 
             /*Validate the format*/
-            if (!name.endsWith(".png")) throw new InvalidTextureException(file);
+            if (!name.endsWith(".ogg")) throw new InvalidSoundException(file);
 
-            return RPCache.string().get(name, () -> new RPTexture(file), RPTexture.class);
+            return ResourcesCache.string().get(name, () -> new RPSound(file), RPSound.class);
         }
     }
 }

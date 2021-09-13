@@ -23,9 +23,12 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.core.packer;
 
 import me.marcusslover.resourcepacker.api.IPacker;
+import me.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPSoundRegistry;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
 import java.io.File;
@@ -37,8 +40,10 @@ import java.util.List;
  */
 public class RPPacker implements IPacker {
     private static RPPacker instance;
+
     final RPBlockRegistry blockRegistry;
     final RPItemRegistry itemRegistry;
+    final RPSoundRegistry soundRegistry;
 
     final ResourceHelper resources;
     final File output;
@@ -64,6 +69,7 @@ public class RPPacker implements IPacker {
 
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();
+        soundRegistry = new RPSoundRegistry();
     }
 
     public static RPPacker get() {
@@ -78,6 +84,11 @@ public class RPPacker implements IPacker {
     @Override
     public RPItemRegistry items() {
         return itemRegistry;
+    }
+
+    @Override
+    public RPSoundRegistry sounds() {
+        return soundRegistry;
     }
 
     @Override

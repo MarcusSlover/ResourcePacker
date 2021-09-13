@@ -25,8 +25,8 @@
 
 package me.marcusslover.resourcepacker.util;
 
-import me.marcusslover.resourcepacker.core.internal.RPCache;
-import me.marcusslover.resourcepacker.core.object.block.RPState;
+import me.marcusslover.resourcepacker.core.element.block.RPState;
+import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.function.Supplier;
@@ -45,7 +45,7 @@ public class BlockUtil {
     }
 
     public static RPState craftBlock(@NotNull int customModelData) {
-        return RPCache.integer().get(customModelData, supply(customModelData), RPState.class);
+        return ResourcesCache.integer().get(customModelData, supply(customModelData), RPState.class);
     }
 
     @NotNull

@@ -23,7 +23,7 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.core.resource;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -32,7 +32,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
 
-public class RPCache<V> {
+public class ResourcesCache<V> {
     /*All caches*/
     private static StringCache STRING_CACHE;
     private static IntegerCache INTEGER_CACHE;
@@ -40,7 +40,7 @@ public class RPCache<V> {
     protected final Map<Class<?>, Map<V, ?>> CACHE = new HashMap<>();
     private final Class<V> type;
 
-    private RPCache(@NotNull Class<V> type) {
+    private ResourcesCache(@NotNull Class<V> type) {
         this.type = type;
     }
 
@@ -77,13 +77,13 @@ public class RPCache<V> {
         return obj;
     }
 
-    public static class StringCache extends RPCache<String> {
+    public static class StringCache extends ResourcesCache<String> {
         private StringCache(@NotNull Class<String> type) {
             super(type);
         }
     }
 
-    public static class IntegerCache extends RPCache<Integer> {
+    public static class IntegerCache extends ResourcesCache<Integer> {
         private IntegerCache(@NotNull Class<Integer> type) {
             super(type);
         }

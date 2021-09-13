@@ -25,10 +25,10 @@
 
 package me.marcusslover.resourcepacker.api;
 
-import me.marcusslover.resourcepacker.core.object.block.RPState;
+import me.marcusslover.resourcepacker.core.element.block.RPState;
 
 /**
  * An interface that represents a block.
  */
-public interface IBlock extends IData<RPState>, IPackElement {
+public interface IBlock extends IData<RPState>, IPackElement, ITextureable {
 }

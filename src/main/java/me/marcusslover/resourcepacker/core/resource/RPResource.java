@@ -25,26 +25,33 @@
 
 package me.marcusslover.resourcepacker.core.resource;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.io.File;
 
 public class RPResource {
     private final File file;
     private final Type type;
 
-    public RPResource(File file, Type type) {
+    public RPResource(@NotNull File file, @Nullable Type type) {
         this.file = file;
         this.type = type;
     }
 
+    @NotNull
     public File getFile() {
         return file;
     }
 
+    @Nullable
     public Type getType() {
         return type;
     }
 
     public enum Type {
-        IMAGE
+        IMAGE,
+        SOUND,
+        JSON
     }
 }

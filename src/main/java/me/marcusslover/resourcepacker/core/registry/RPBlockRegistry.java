@@ -23,27 +23,32 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.core.registry;
 
-import me.marcusslover.resourcepacker.core.resource.RPResource;
+import me.marcusslover.resourcepacker.api.IRegistry;
+import me.marcusslover.resourcepacker.core.element.block.RPBlock;
 
-public interface IResources {
-    RPResource get(String dir, String child);
+import java.util.ArrayList;
+import java.util.List;
 
-    default RPResource block(String child) {
-        return get("blocks", child);
+public class RPBlockRegistry implements IRegistry<RPBlock> {
+    private List<RPBlock> blocks = new ArrayList<>();
+
+    public RPBlockRegistry() {
     }
 
-    default RPResource item(String child) {
-        return get("items", child);
+    @Override
+    public void register(RPBlock obj) {
+        blocks.add(obj);
     }
 
-    default RPResource frame(String child) {
-        return get("itemframes", child);
+    @Override
+    public void set(List<RPBlock> list) {
+        blocks = list;
     }
 
-    default RPResource sound(String child) {
-        return get("sounds", child);
+    @Override
+    public List<RPBlock> list() {
+        return blocks;
     }
-
 }

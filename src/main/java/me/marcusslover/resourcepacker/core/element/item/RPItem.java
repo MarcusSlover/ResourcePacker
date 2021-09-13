@@ -23,39 +23,57 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.object.block;
+package me.marcusslover.resourcepacker.core.element.item;
 
-import me.marcusslover.resourcepacker.api.IBlock;
 import me.marcusslover.resourcepacker.api.IFactory;
-import me.marcusslover.resourcepacker.core.internal.RPCache;
-import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
+import me.marcusslover.resourcepacker.api.IItem;
+import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
+import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
 
-public class RPBlock implements IBlock {
-    private static final Factory FACTORY = new Factory();
+public class RPItem implements IItem {
+    private static final RPItem.Factory FACTORY = new RPItem.Factory();
     private final String name;
     private final RPTexture texture;
-    private final RPState state;
+    private final boolean itemFrame;
+    private final RPMeta meta;
 
-    private RPBlock(String name, RPTexture texture) {
+    private RPItem(String name, RPTexture texture) {
+        this(name, texture, false);
+    }
+
+    private RPItem(String name, RPTexture texture, boolean itemFrame) {
         this.name = name;
         this.texture = texture;
-        this.state = new RPState();
+        this.itemFrame = itemFrame;
+        this.meta = new RPMeta();
     }
 
     /*Public way of creating blocks*/
-    public static RPBlock of(String name, RPResource resource) {
+    public static RPItem of(String name, RPResource resource) {
         if (resource.getType() == RPResource.Type.IMAGE) {
             RPTexture texture = RPTexture.of(resource.getFile());
-            return of(name, texture);
+            return of(name, texture, false);
         }
         return null;
     }
 
-    /*Public way of creating blocks*/
-    public static RPBlock of(String name, RPTexture texture) {
-        return FACTORY.setName(name).setTexture(texture).create();
+    public static RPItem of(String name, RPResource resource, boolean itemFrame) {
+        if (resource.getType() == RPResource.Type.IMAGE) {
+            RPTexture texture = RPTexture.of(resource.getFile());
+            return of(name, texture, itemFrame);
+        }
+        return null;
     }
+
+    public static RPItem of(String name, RPTexture texture, boolean itemFrame) {
+        return FACTORY
+                .setName(name)
+                .setTexture(texture)
+                .setItemFrame(itemFrame)
+                .create();
+    }
+
 
     @Override
     public String name() {
@@ -68,32 +86,44 @@ public class RPBlock implements IBlock {
     }
 
     @Override
-    public RPState data() {
-        return state;
+    public RPMeta data() {
+        return meta;
+    }
+
+    @Override
+    public boolean itemFrame() {
+        return itemFrame;
     }
 
     /*Internal factory for creating blocks*/
-    private static class Factory implements IFactory<RPBlock> {
+    private static class Factory implements IFactory<RPItem> {
 
         private RPTexture texture;
         private String name;
+        private boolean itemFrame;
 
         private Factory() {
         }
 
-        private Factory setName(String name) {
+        private RPItem.Factory setName(String name) {
             this.name = name;
             return this;
         }
 
-        private Factory setTexture(RPTexture texture) {
+        private RPItem.Factory setTexture(RPTexture texture) {
             this.texture = texture;
             return this;
         }
 
+        private RPItem.Factory setItemFrame(boolean itemFrame) {
+            this.itemFrame = itemFrame;
+            return this;
+        }
+
+
         @Override
-        public RPBlock create() {
-            return RPCache.string().get(name, () -> new RPBlock(name, texture), RPBlock.class);
+        public RPItem create() {
+            return ResourcesCache.string().get(name, () -> new RPItem(name, texture, itemFrame), RPItem.class);
         }
     }
 }

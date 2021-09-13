@@ -26,10 +26,13 @@
 package me.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonObject;
-import me.marcusslover.resourcepacker.core.internal.Core;
-import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
-import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
-import me.marcusslover.resourcepacker.core.internal.RPPacker;
+import me.marcusslover.resourcepacker.core.element.block.RPBlock;
+import me.marcusslover.resourcepacker.core.element.sound.RPSound;
+import me.marcusslover.resourcepacker.core.packer.Core;
+import me.marcusslover.resourcepacker.core.packer.RPPacker;
+import me.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPSoundRegistry;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import me.marcusslover.resourcepacker.util.FileUtil;
@@ -43,6 +46,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Objects;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 import static me.marcusslover.resourcepacker.util.FileUtil.safeDir;
 import static me.marcusslover.resourcepacker.util.FileUtil.safeFile;
@@ -114,16 +119,23 @@ public class PackGenerator {
         /*Blocks*/
         BlockGenerator blocks = new BlockGenerator();
         RPBlockRegistry blockRegistry = rpPacker.blocks();
-        blockRegistry.set(FileUtil.sortByFileCreated(blockRegistry));
+        blockRegistry.set(FileUtil.sortByFileCreated(blockRegistry, (v) -> v.texture().file()));
         blocks.generate(minecraft, packer, blockRegistry);
         logJson.add("blocks", blocks.log());
 
         /*Items*/
         ItemGenerator items = new ItemGenerator();
         RPItemRegistry itemRegistry = rpPacker.items();
-        itemRegistry.set(FileUtil.sortByFileCreated(itemRegistry));
+        itemRegistry.set(FileUtil.sortByFileCreated(itemRegistry, (v) -> v.texture().file()));
         items.generate(minecraft, packer, itemRegistry);
         logJson.add("items", items.log());
+
+        /*Sounds*/
+        SoundGenerator sounds = new SoundGenerator();
+        RPSoundRegistry soundRegistry = rpPacker.sounds();
+        soundRegistry.set(FileUtil.sortByFileCreated(soundRegistry, RPSound::file));
+        sounds.generate(minecraft, packer, soundRegistry);
+        logJson.add("sounds", sounds.log());
 
         /*Language*/
         LanguageGenerator lang = new LanguageGenerator();

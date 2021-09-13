@@ -23,38 +23,15 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.object.block;
+package me.marcusslover.resourcepacker.core.element.sound;
 
-import me.marcusslover.resourcepacker.api.IManager;
-import me.marcusslover.resourcepacker.core.object.item.RPMeta;
-
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
 /**
- * Holds block states data.
+ * Thrown when a file isn't associated with the .ogg format.
  */
-public class RPState extends RPMeta implements IManager<RPState.Element> {
-    private final List<Element> elements = new ArrayList<>();
-
-    @Override
-    public void add(Element obj) {
-        elements.add(obj);
-    }
-
-    @Override
-    public List<Element> list() {
-        return elements;
-    }
-
-    public static class Element {
-        public final String key;
-        public final String value;
-
-        public Element(String key, String value) {
-
-            this.key = key;
-            this.value = value;
-        }
+public class InvalidSoundException extends RuntimeException {
+    public InvalidSoundException(File file) {
+        super("Cannot recognize file: " + file.getName());
     }
 }

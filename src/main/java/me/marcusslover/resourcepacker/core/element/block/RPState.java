@@ -23,18 +23,38 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.core.element.block;
 
-public enum RPMode {
-    /**
-     * The registration or blocks, items, or other elements
-     * is fully manual.
-     */
-    MANUAL_REGISTRATION,
+import me.marcusslover.resourcepacker.api.IManager;
+import me.marcusslover.resourcepacker.core.element.item.RPMeta;
 
-    /**
-     * The registration or blocks, items, or other elements
-     * is fully automatic by reading the `Resources` folder.
-     */
-    AUTOMATIC
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Holds block states data.
+ */
+public class RPState extends RPMeta implements IManager<RPState.Element> {
+    private final List<Element> elements = new ArrayList<>();
+
+    @Override
+    public void add(Element obj) {
+        elements.add(obj);
+    }
+
+    @Override
+    public List<Element> list() {
+        return elements;
+    }
+
+    public static class Element {
+        public final String key;
+        public final String value;
+
+        public Element(String key, String value) {
+
+            this.key = key;
+            this.value = value;
+        }
+    }
 }

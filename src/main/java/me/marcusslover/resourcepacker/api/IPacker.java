@@ -25,9 +25,10 @@
 
 package me.marcusslover.resourcepacker.api;
 
-import me.marcusslover.resourcepacker.core.internal.RPBlockRegistry;
-import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
-import me.marcusslover.resourcepacker.core.internal.RPMode;
+import me.marcusslover.resourcepacker.core.packer.RPMode;
+import me.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPSoundRegistry;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
 import java.io.File;
@@ -37,6 +38,8 @@ public interface IPacker {
     RPBlockRegistry blocks();
 
     RPItemRegistry items();
+
+    RPSoundRegistry sounds();
 
     void setLogo(String path);
 
