@@ -23,32 +23,7 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.api;
 
-import me.marcusslover.resourcepacker.api.IRegistry;
-import me.marcusslover.resourcepacker.core.object.item.RPItem;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class RPItemRegistry implements IRegistry<RPItem> {
-    private List<RPItem> items = new ArrayList<>();
-
-    RPItemRegistry() {
-    }
-
-    @Override
-    public void register(RPItem obj) {
-        items.add(obj);
-    }
-
-    @Override
-    public void set(List<RPItem> list) {
-        items = list;
-    }
-
-    @Override
-    public List<RPItem> list() {
-        return items;
-    }
+public interface ISound extends IPackElement, IFile {
 }

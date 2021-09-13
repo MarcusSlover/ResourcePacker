@@ -23,32 +23,32 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.core.registry;
 
 import me.marcusslover.resourcepacker.api.IRegistry;
-import me.marcusslover.resourcepacker.core.object.block.RPBlock;
+import me.marcusslover.resourcepacker.core.element.sound.RPSound;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class RPBlockRegistry implements IRegistry<RPBlock> {
-    private List<RPBlock> blocks = new ArrayList<>();
+public class RPSoundRegistry implements IRegistry<RPSound> {
+    private List<RPSound> sounds = new ArrayList<>();
 
-    RPBlockRegistry() {
+    public RPSoundRegistry() {
     }
 
     @Override
-    public void register(RPBlock obj) {
-        blocks.add(obj);
+    public void register(RPSound obj) {
+        sounds.add(obj);
     }
 
     @Override
-    public void set(List<RPBlock> list) {
-        blocks = list;
+    public void set(List<RPSound> list) {
+        sounds = list;
     }
 
     @Override
-    public List<RPBlock> list() {
-        return blocks;
+    public List<RPSound> list() {
+        return sounds;
     }
 }

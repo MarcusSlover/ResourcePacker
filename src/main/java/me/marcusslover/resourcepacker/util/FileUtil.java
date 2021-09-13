@@ -25,7 +25,6 @@
 
 package me.marcusslover.resourcepacker.util;
 
-import me.marcusslover.resourcepacker.api.IPackElement;
 import me.marcusslover.resourcepacker.api.IRegistry;
 
 import java.io.File;
@@ -34,6 +33,7 @@ import java.nio.file.Files;
 import java.nio.file.attribute.FileTime;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class FileUtil {
@@ -85,17 +85,17 @@ public class FileUtil {
         boolean delete = file.delete();
     }
 
-    public static <T extends IPackElement> List<T> sortByFileCreated(IRegistry<T> reg) {
+    public static <T> List<T> sortByFileCreated(IRegistry<T> reg, Function<T, File> function) {
         return reg.list()
                 .stream()
-                .sorted(Comparator.comparingLong(FileUtil::getCreationTime))
+                .sorted(Comparator.comparingLong(file -> getCreationTime(function.apply(file))))
                 .collect(Collectors.toList());
     }
 
-    private static <T extends IPackElement> long getCreationTime(T element) {
+
+    private static long getCreationTime(File file) {
         try {
-            File img = element.texture().image();
-            Object l = Files.getAttribute(img.toPath(), "creationTime");
+            Object l = Files.getAttribute(file.toPath(), "creationTime");
             return ((FileTime) l).toMillis();
         } catch (IOException e) {
             e.printStackTrace();

@@ -23,15 +23,18 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.object.texture;
+package me.marcusslover.resourcepacker.core.packer;
 
-import java.io.File;
+public enum RPMode {
+    /**
+     * The registration or blocks, items, or other elements
+     * is fully manual.
+     */
+    MANUAL_REGISTRATION,
 
-/**
- * Thrown when a texture isn't associated with the .png format.
- */
-public class InvalidTextureException extends RuntimeException {
-    public InvalidTextureException(File file) {
-        super("Cannot recognize file: " + file.getName());
-    }
+    /**
+     * The registration or blocks, items, or other elements
+     * is fully automatic by reading the `Resources` folder.
+     */
+    AUTOMATIC
 }

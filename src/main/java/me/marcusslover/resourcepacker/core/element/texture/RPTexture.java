@@ -23,11 +23,11 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.object.texture;
+package me.marcusslover.resourcepacker.core.element.texture;
 
 import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.ITexture;
-import me.marcusslover.resourcepacker.core.internal.RPCache;
+import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -56,7 +56,7 @@ public class RPTexture implements ITexture {
     }
 
     @Override
-    public File image() {
+    public File file() {
         return image;
     }
 
@@ -77,12 +77,9 @@ public class RPTexture implements ITexture {
         return image.getName().replaceAll("\\.png", "");
     }
 
-    public int height() {
-        return buffer.getHeight();
-    }
-
-    public int width() {
-        return buffer.getWidth();
+    @Override
+    public BufferedImage buffer() {
+        return buffer;
     }
 
     /*Internal factory for creating textures*/
@@ -105,7 +102,7 @@ public class RPTexture implements ITexture {
             /*Validate the format*/
             if (!name.endsWith(".png")) throw new InvalidTextureException(file);
 
-            return RPCache.string().get(name, () -> new RPTexture(file), RPTexture.class);
+            return ResourcesCache.string().get(name, () -> new RPTexture(file), RPTexture.class);
         }
     }
 }

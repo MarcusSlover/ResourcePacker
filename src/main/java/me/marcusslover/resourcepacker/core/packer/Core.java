@@ -23,12 +23,13 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.core.packer;
 
 import me.marcusslover.resourcepacker.ResourcePacker;
+import me.marcusslover.resourcepacker.core.element.block.RPBlock;
+import me.marcusslover.resourcepacker.core.element.item.RPItem;
+import me.marcusslover.resourcepacker.core.element.sound.RPSound;
 import me.marcusslover.resourcepacker.core.generator.PackGenerator;
-import me.marcusslover.resourcepacker.core.object.block.RPBlock;
-import me.marcusslover.resourcepacker.core.object.item.RPItem;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import org.apache.commons.cli.*;
@@ -138,37 +139,50 @@ public class Core {
             LOGGER.info("Starting the packer...");
 
             long date = System.currentTimeMillis();
-            RPPacker RPPacker = new RPPacker(resources, output);
+            RPPacker packer = new RPPacker(resources, output);
 
             LOGGER.info("Loading the data...");
             ResourcePacker resourcePacker = new ResourcePacker();
-            resourcePacker.pack(RPPacker);
+            resourcePacker.pack(packer);
 
-            if (RPPacker.mode() == RPMode.AUTOMATIC) {
-                ResourceHelper r = RPPacker.resources();
-                File parent = RPPacker.resources().parent();
-                if (parent != null && parent.exists()) {
+            if (packer.mode() == RPMode.AUTOMATIC) {
+                ResourceHelper r = packer.resources();
+                File parent = packer.resources().parent();
+
+                if (parent.exists()) {
                     File blocks = FileUtil.safeDir(parent, "blocks");
                     File items = FileUtil.safeDir(parent, "items");
                     File frames = FileUtil.safeDir(parent, "itemframes");
+                    File sounds = FileUtil.safeDir(parent, "sounds");
 
-                    if (blocks != null && items != null && frames != null) {
-                        String[] b = blocks.list();
-                        String[] i = items.list();
-                        String[] f = frames.list();
 
-                        if (b.length + i.length + f.length == 0) {
+                    if (blocks != null && items != null && frames != null && sounds != null) {
+                        String[] block = blocks.list();
+                        String[] item = items.list();
+                        String[] frame = frames.list();
+                        String[] sound = sounds.list();
+
+                        if (block.length + item.length + frame.length + sound.length == 0) {
                             JOptionPane.showMessageDialog(null,
-                                    "No textures found! Processes skipped.",
+                                    "No files found! Processes skipped.",
                                     "Information",
                                     JOptionPane.INFORMATION_MESSAGE
                             );
                             System.exit(0);
                             return;
                         }
-                        for (String s : b) RPPacker.blocks().register(RPBlock.of(null, r.block(s)));
-                        for (String s : i) RPPacker.items().register(RPItem.of(null, r.item(s)));
-                        for (String s : f) RPPacker.items().register(RPItem.of(null, r.frame(s), true));
+                        for (String s : block)
+                            packer.blocks()
+                                    .register(RPBlock.of(null, r.block(s)));
+                        for (String s : item)
+                            packer.items()
+                                    .register(RPItem.of(null, r.item(s)));
+                        for (String s : frame)
+                            packer.items()
+                                    .register(RPItem.of(null, r.frame(s), true));
+                        for (String s : sound)
+                            packer.sounds()
+                                    .register(RPSound.of(r.sound(s)));
                     }
                 }
             }
@@ -182,7 +196,7 @@ public class Core {
             window.getProgress().setValue(50);
             LOGGER.info("Reading & preparing...");
             PackGenerator packGenerator = new PackGenerator();
-            packGenerator.generate(RPPacker);
+            packGenerator.generate(packer);
 
             try { //Wait
                 Thread.sleep(250);

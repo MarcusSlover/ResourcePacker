@@ -31,5 +31,5 @@ package me.marcusslover.resourcepacker.api;
  * @see IItem
  * @see IBlock
  */
-public interface IPackElement extends INameable, ITexturable, IPackable {
+public interface IPackElement extends INameable, IPackable {
 }

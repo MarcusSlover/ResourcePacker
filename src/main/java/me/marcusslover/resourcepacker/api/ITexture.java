@@ -25,8 +25,17 @@
 
 package me.marcusslover.resourcepacker.api;
 
-import java.io.File;
+import java.awt.image.BufferedImage;
 
-public interface ITexture {
-    File image();
+public interface ITexture extends IFile {
+    BufferedImage buffer();
+
+    default int height() {
+        return buffer().getHeight();
+    }
+
+    default int width() {
+        return buffer().getWidth();
+    }
+
 }

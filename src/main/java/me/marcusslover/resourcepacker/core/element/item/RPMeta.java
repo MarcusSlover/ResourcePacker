@@ -23,27 +23,24 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.core.element.item;
 
-import me.marcusslover.resourcepacker.core.resource.RPResource;
+public class RPMeta {
+    private int customModelData;
 
-public interface IResources {
-    RPResource get(String dir, String child);
-
-    default RPResource block(String child) {
-        return get("blocks", child);
+    public RPMeta() {
+        this(-1);
     }
 
-    default RPResource item(String child) {
-        return get("items", child);
+    public RPMeta(int customModelData) {
+        this.customModelData = customModelData;
     }
 
-    default RPResource frame(String child) {
-        return get("itemframes", child);
+    public void setCustomModelData(int customModelData) {
+        this.customModelData = customModelData;
     }
 
-    default RPResource sound(String child) {
-        return get("sounds", child);
+    public int customModelData() {
+        return customModelData;
     }
-
 }

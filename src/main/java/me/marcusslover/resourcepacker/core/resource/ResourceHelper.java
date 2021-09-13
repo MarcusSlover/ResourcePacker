@@ -26,6 +26,7 @@
 package me.marcusslover.resourcepacker.core.resource;
 
 import me.marcusslover.resourcepacker.api.IResources;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.File;
 import java.util.Objects;
@@ -33,10 +34,11 @@ import java.util.Objects;
 public final class ResourceHelper implements IResources {
     private final File parent;
 
-    public ResourceHelper(File parent) {
+    public ResourceHelper(@NotNull File parent) {
         this.parent = parent;
     }
 
+    @NotNull
     public File parent() {
         return parent;
     }
@@ -62,30 +64,26 @@ public final class ResourceHelper implements IResources {
 
     @Override
     public RPResource get(String dir, String child) {
-        if (child.endsWith(".png")) {
-            File file;
-            if (dir != null) {
-                File directory = new File(parent, dir);
-                if (!directory.exists()) throw new InvalidResourceFile(directory.toString());
-                file = new File(directory, child);
-            } else {
-                file = new File(parent, child);
-            }
-            if (!file.exists()) throw new InvalidResourceFile(child);
-            return new RPResource(file, RPResource.Type.IMAGE);
+        File file;
+        if (dir != null) {
+            File directory = new File(parent, dir);
+            if (!directory.exists()) throw new InvalidResourceFile(directory.toString());
+            file = new File(directory, child);
+        } else {
+            file = new File(parent, child);
         }
-        return null;
-    }
+        if (!file.exists()) throw new InvalidResourceFile(child);
 
-    public RPResource block(String s) {
-        return get("blocks", s);
-    }
-
-    public RPResource item(String s) {
-        return get("items", s);
-    }
-
-    public RPResource frame(String s) {
-        return get("itemframes", s);
+        RPResource.Type type = null;
+        if (child.endsWith(".png")) {
+            type = RPResource.Type.IMAGE;
+        }
+        if (child.endsWith(".ogg")) {
+            type = RPResource.Type.SOUND;
+        }
+        if (child.endsWith(".json")) {
+            type = RPResource.Type.JSON;
+        }
+        return new RPResource(file, type);
     }
 }

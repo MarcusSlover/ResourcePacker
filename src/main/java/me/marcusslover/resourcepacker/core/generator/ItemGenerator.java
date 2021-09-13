@@ -28,9 +28,9 @@ package me.marcusslover.resourcepacker.core.generator;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import me.marcusslover.resourcepacker.api.IGenerator;
-import me.marcusslover.resourcepacker.core.internal.RPItemRegistry;
-import me.marcusslover.resourcepacker.core.object.item.RPItem;
-import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
+import me.marcusslover.resourcepacker.core.element.item.RPItem;
+import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
+import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
 

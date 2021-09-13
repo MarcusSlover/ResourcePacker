@@ -25,25 +25,8 @@
 
 package me.marcusslover.resourcepacker.api;
 
-import me.marcusslover.resourcepacker.core.resource.RPResource;
+import java.io.File;
 
-public interface IResources {
-    RPResource get(String dir, String child);
-
-    default RPResource block(String child) {
-        return get("blocks", child);
-    }
-
-    default RPResource item(String child) {
-        return get("items", child);
-    }
-
-    default RPResource frame(String child) {
-        return get("itemframes", child);
-    }
-
-    default RPResource sound(String child) {
-        return get("sounds", child);
-    }
-
+public interface IFile {
+    File file();
 }

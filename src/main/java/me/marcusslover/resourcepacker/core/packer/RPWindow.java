@@ -23,7 +23,7 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.internal;
+package me.marcusslover.resourcepacker.core.packer;
 
 import javax.swing.*;
 import javax.swing.plaf.basic.BasicPanelUI;

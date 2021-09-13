@@ -23,10 +23,15 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.core.element.texture;
 
-import me.marcusslover.resourcepacker.core.object.texture.RPTexture;
+import java.io.File;
 
-public interface ITexturable {
-    RPTexture texture();
+/**
+ * Thrown when a texture isn't associated with the .png format.
+ */
+public class InvalidTextureException extends RuntimeException {
+    public InvalidTextureException(File file) {
+        super("Cannot recognize file: " + file.getName());
+    }
 }

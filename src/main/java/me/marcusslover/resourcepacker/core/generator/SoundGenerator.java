@@ -25,36 +25,48 @@
 
 package me.marcusslover.resourcepacker.core.generator;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import me.marcusslover.resourcepacker.core.element.block.RPBlock;
-import me.marcusslover.resourcepacker.core.element.item.RPItem;
-import me.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
-import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
+import me.marcusslover.resourcepacker.api.IGenerator;
+import me.marcusslover.resourcepacker.core.element.sound.RPSound;
+import me.marcusslover.resourcepacker.core.registry.RPSoundRegistry;
 import me.marcusslover.resourcepacker.util.FileUtil;
 import me.marcusslover.resourcepacker.util.JsonUtil;
-import org.apache.commons.lang3.text.WordUtils;
 
 import java.io.File;
+import java.util.List;
 
-public class LanguageGenerator {
-    public void generate(File packer, RPItemRegistry items, RPBlockRegistry blocks) {
-        File lang = FileUtil.safeDir(packer, "lang");
-        JsonObject json = new JsonObject();
+public class SoundGenerator implements IGenerator<RPSound, RPSoundRegistry> {
 
-        for (RPItem item : items.list()) {
-            String uniqueId = "packer.item." + item.data().customModelData();
-            String name = item.name().replaceAll("_", " ");
-            json.addProperty(uniqueId, WordUtils.capitalizeFully(name));
+    private final JsonObject log;
+
+    SoundGenerator() {
+        log = new JsonObject();
+    }
+
+    @Override
+    public JsonObject log() {
+        return log;
+    }
+
+    @Override
+    public void generate(File mc, File packer, RPSoundRegistry registry) {
+        List<RPSound> list = registry.list();
+
+        File sounds = FileUtil.safeDir(mc, "sounds");
+        File packerSounds = FileUtil.safeDir(sounds, "packer");
+        File file = FileUtil.safeFile(mc, "sounds.json");
+        JsonObject fileJson = new JsonObject();
+        for (RPSound sound : list) {
+            sound.copyFile(packerSounds);
+            JsonObject soundModel = new JsonObject();
+            JsonArray soundsArray = new JsonArray();
+            JsonObject soundsJson = new JsonObject();
+            soundsJson.addProperty("name", "packer/" + sound.name());
+            soundsArray.add(soundsJson);
+            soundModel.add("sounds", soundsArray);
+            fileJson.add("packer." + sound.name(), soundModel);
         }
-
-        for (RPBlock block : blocks.list()) {
-            String uniqueId = "packer.block." + block.data().customModelData();
-            String name = block.name().replaceAll("_", " ");
-            json.addProperty(uniqueId, WordUtils.capitalizeFully(name));
-        }
-
-        File langFile = FileUtil.safeFile(lang, "en_us.json");
-        JsonUtil.writeFile(langFile, json);
-
+        JsonUtil.writeFile(file, fileJson);
     }
 }

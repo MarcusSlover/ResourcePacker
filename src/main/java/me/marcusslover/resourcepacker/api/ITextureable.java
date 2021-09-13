@@ -23,24 +23,10 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.object.item;
+package me.marcusslover.resourcepacker.api;
 
-public class RPMeta {
-    private int customModelData;
+import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
 
-    public RPMeta() {
-        this(-1);
-    }
-
-    public RPMeta(int customModelData) {
-        this.customModelData = customModelData;
-    }
-
-    public void setCustomModelData(int customModelData) {
-        this.customModelData = customModelData;
-    }
-
-    public int customModelData() {
-        return customModelData;
-    }
+public interface ITextureable {
+    RPTexture texture();
 }
