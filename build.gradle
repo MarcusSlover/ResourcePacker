@@ -30,7 +30,7 @@ plugins {
 }
 
 group 'me.marcusslover'
-version 'b1.1'
+version 'b1.2'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
@@ -71,7 +71,7 @@ shadowJar {
     manifest {
         attributes 'Implementation-Title': 'ResourcePacker',
                 'Implementation-Version': version,
-                'Main-Class': 'me.marcusslover.resourcepacker.core.internal.Core'
+                'Main-Class': 'me.marcusslover.resourcepacker.core.packer.Core'
     }
 }
 
