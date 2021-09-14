@@ -40,7 +40,7 @@ Check out the list of available extensions that may be useful while using **Reso
 <dependency>
     <groupId>me.marcusslover</groupid>
     <artifactId>resourcepacker</artifactId>
-    <verison>b1.0</version>
+    <verison>b1.1</version>
 </dependency>
 ```
 
@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'me.marcusslover:resourcepacker:b1.0'
+    compileOnly 'me.marcusslover:resourcepacker:b1.1'
 }
 ```
 
