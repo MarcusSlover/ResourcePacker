@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'me.marcusslover:resourcepacker:b1.0'
+    compileOnly 'me.marcusslover:resourcepacker:b1.2'
 }
 ```
 
