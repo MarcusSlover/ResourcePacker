@@ -40,7 +40,7 @@ Check out the list of available extensions that may be useful while using **Reso
 <dependency>
     <groupId>me.marcusslover</groupid>
     <artifactId>resourcepacker</artifactId>
-    <verison>b1.1</version>
+    <verison>b1.2</version>
 </dependency>
 ```
 
