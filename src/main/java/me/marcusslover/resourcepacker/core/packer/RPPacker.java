@@ -70,6 +70,7 @@ public class RPPacker implements IPacker {
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();
         soundRegistry = new RPSoundRegistry();
+
     }
 
     public static RPPacker get() {
