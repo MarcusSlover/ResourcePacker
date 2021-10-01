@@ -26,9 +26,7 @@
 package me.marcusslover.resourcepacker.core.packer;
 
 import me.marcusslover.resourcepacker.api.IPacker;
-import me.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
-import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
-import me.marcusslover.resourcepacker.core.registry.RPSoundRegistry;
+import me.marcusslover.resourcepacker.core.registry.*;
 import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
 import java.io.File;
@@ -44,6 +42,8 @@ public class RPPacker implements IPacker {
     final RPBlockRegistry blockRegistry;
     final RPItemRegistry itemRegistry;
     final RPSoundRegistry soundRegistry;
+    final RPFontRegistry fontRegistry;
+    final RPMenuRegistry menuRegistry;
 
     final ResourceHelper resources;
     final File output;
@@ -70,6 +70,8 @@ public class RPPacker implements IPacker {
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();
         soundRegistry = new RPSoundRegistry();
+        fontRegistry = new RPFontRegistry();
+        menuRegistry = new RPMenuRegistry();
 
     }
 
@@ -90,6 +92,16 @@ public class RPPacker implements IPacker {
     @Override
     public RPSoundRegistry sounds() {
         return soundRegistry;
+    }
+
+    @Override
+    public RPFontRegistry fonts() {
+        return fontRegistry;
+    }
+
+    @Override
+    public RPMenuRegistry menus() {
+        return menuRegistry;
     }
 
     @Override

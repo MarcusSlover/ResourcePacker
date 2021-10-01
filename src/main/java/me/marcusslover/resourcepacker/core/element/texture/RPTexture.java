@@ -38,11 +38,13 @@ import java.nio.file.Path;
 
 public class RPTexture implements ITexture {
     private static final Factory FACTORY = new Factory();
+    private final boolean bitMap;
     private final File image;
     private BufferedImage buffer;
 
-    private RPTexture(File image) {
+    private RPTexture(File image, boolean bitMap) {
         this.image = image;
+        this.bitMap = bitMap;
         try {
             this.buffer = ImageIO.read(image);
         } catch (IOException e) {
@@ -53,6 +55,11 @@ public class RPTexture implements ITexture {
     /*Public way of creating textures*/
     public static RPTexture of(File file) {
         return FACTORY.setFile(file).create();
+    }
+
+    @Override
+    public boolean bitMap() {
+        return bitMap;
     }
 
     @Override
@@ -85,12 +92,18 @@ public class RPTexture implements ITexture {
     /*Internal factory for creating textures*/
     private static class Factory implements IFactory<RPTexture> {
         private File file;
+        private boolean bitMap;
 
         private Factory() {
         }
 
         private Factory setFile(File file) {
             this.file = file;
+            return this;
+        }
+
+        private Factory setBitMap(boolean bitMap) {
+            this.bitMap = bitMap;
             return this;
         }
 
@@ -102,7 +115,7 @@ public class RPTexture implements ITexture {
             /*Validate the format*/
             if (!name.endsWith(".png")) throw new InvalidTextureException(file);
 
-            return ResourcesCache.string().get(name, () -> new RPTexture(file), RPTexture.class);
+            return ResourcesCache.string().get(name, () -> new RPTexture(file, bitMap), RPTexture.class);
         }
     }
 }

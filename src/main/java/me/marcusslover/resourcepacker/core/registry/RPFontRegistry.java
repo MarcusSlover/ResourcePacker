@@ -26,7 +26,26 @@
 package me.marcusslover.resourcepacker.core.registry;
 
 import me.marcusslover.resourcepacker.api.IRegistry;
-import me.marcusslover.resourcepacker.core.element.menu.RPMenu;
+import me.marcusslover.resourcepacker.core.element.font.RPFont;
 
-public class RpMenuRegistry implements IRegistry<RPMenu> {
+import java.util.ArrayList;
+import java.util.List;
+
+public class RPFontRegistry implements IRegistry<RPFont> {
+    private List<RPFont> fonts = new ArrayList<>();
+
+    @Override
+    public void register(RPFont obj) {
+        fonts.add(obj);
+    }
+
+    @Override
+    public void set(List<RPFont> list) {
+        fonts = list;
+    }
+
+    @Override
+    public List<RPFont> list() {
+        return fonts;
+    }
 }
