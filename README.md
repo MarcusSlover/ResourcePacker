@@ -3,7 +3,7 @@
 <img width="128" height="128" src="https://user-images.githubusercontent.com/38810661/132093692-db8ec99d-5a7a-439b-9813-e18ab46c89d5.png"/>
 <br/>
 📦 Aimed to easily create Minecraft resource packs with custom items and blocks.<br/>
-Creation of resource packs that look like Origin Realms or Mineclub!
+Creation of resource packs that look like OriginRealms or MineClub!
 </p>
 
 # ☕ Introduction
