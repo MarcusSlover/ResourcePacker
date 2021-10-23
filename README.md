@@ -27,6 +27,7 @@ Directional blocks | ✏ Work in Progress
 Custom items | ✔ Done
 Custom items in item frames | ✔ Done
 Custom models | ✏ Work in Progress
+Custom fonts | ✏ Work in Progress
 Custom inventories (GUI) | ✏ Work in Progress
 Custom sounds | ✔ Done
 
