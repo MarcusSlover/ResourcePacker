@@ -23,48 +23,29 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.core.registry;
 
-import me.marcusslover.resourcepacker.core.packer.RPMode;
-import me.marcusslover.resourcepacker.core.registry.*;
-import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
+import me.marcusslover.resourcepacker.api.IRegistry;
+import me.marcusslover.resourcepacker.core.element.font.RPFont;
 
-import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
-public interface IPacker {
+public class RPFontRegistry implements IRegistry<RPFont> {
+    private List<RPFont> fonts = new ArrayList<>();
 
-    RPBlockRegistry blocks();
+    @Override
+    public void register(RPFont obj) {
+        fonts.add(obj);
+    }
 
-    RPItemRegistry items();
+    @Override
+    public void set(List<RPFont> list) {
+        fonts = list;
+    }
 
-    RPSoundRegistry sounds();
-
-    RPFontRegistry fonts();
-
-    RPMenuRegistry menus();
-
-    void setLogo(String path);
-
-    String logo();
-
-    void setName(String name);
-
-    String name();
-
-    void setPrefix(String prefix);
-
-    String prefix();
-
-    void setDescription(List<String> description);
-
-    List<String> description();
-
-    ResourceHelper resources();
-
-    File output();
-
-    void setMode(RPMode RPMode);
-
-    RPMode mode();
+    @Override
+    public List<RPFont> list() {
+        return fonts;
+    }
 }

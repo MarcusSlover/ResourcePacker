@@ -23,48 +23,29 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.core.element.font;
 
-import me.marcusslover.resourcepacker.core.packer.RPMode;
-import me.marcusslover.resourcepacker.core.registry.*;
-import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
+import me.marcusslover.resourcepacker.api.IFactory;
+import me.marcusslover.resourcepacker.api.IFont;
+import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
 
-import java.io.File;
-import java.util.List;
+public class RPFont implements IFont {
+    private static final RPFont.Factory FACTORY = new RPFont.Factory();
+    private final String name;
+    private final RPTexture texture;
 
-public interface IPacker {
+    private RPFont(String name, RPTexture texture) {
 
-    RPBlockRegistry blocks();
+        this.name = name;
+        this.texture = texture;
+    }
 
-    RPItemRegistry items();
+    private static class Factory implements IFactory<RPFont> {
 
-    RPSoundRegistry sounds();
+        @Override
+        public RPFont create() {
+            return null;
+        }
+    }
 
-    RPFontRegistry fonts();
-
-    RPMenuRegistry menus();
-
-    void setLogo(String path);
-
-    String logo();
-
-    void setName(String name);
-
-    String name();
-
-    void setPrefix(String prefix);
-
-    String prefix();
-
-    void setDescription(List<String> description);
-
-    List<String> description();
-
-    ResourceHelper resources();
-
-    File output();
-
-    void setMode(RPMode RPMode);
-
-    RPMode mode();
 }

@@ -23,48 +23,12 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.core.element.menu;
 
-import me.marcusslover.resourcepacker.core.packer.RPMode;
-import me.marcusslover.resourcepacker.core.registry.*;
-import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
+import me.marcusslover.resourcepacker.api.IMenu;
 
-import java.io.File;
-import java.util.List;
+public class RPMenu implements IMenu {
+    private RPMenu() {
 
-public interface IPacker {
-
-    RPBlockRegistry blocks();
-
-    RPItemRegistry items();
-
-    RPSoundRegistry sounds();
-
-    RPFontRegistry fonts();
-
-    RPMenuRegistry menus();
-
-    void setLogo(String path);
-
-    String logo();
-
-    void setName(String name);
-
-    String name();
-
-    void setPrefix(String prefix);
-
-    String prefix();
-
-    void setDescription(List<String> description);
-
-    List<String> description();
-
-    ResourceHelper resources();
-
-    File output();
-
-    void setMode(RPMode RPMode);
-
-    RPMode mode();
+    }
 }

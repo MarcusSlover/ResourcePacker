@@ -23,48 +23,20 @@
  *
  */
 
-package me.marcusslover.resourcepacker.api;
+package me.marcusslover.resourcepacker.util;
 
-import me.marcusslover.resourcepacker.core.packer.RPMode;
-import me.marcusslover.resourcepacker.core.registry.*;
-import me.marcusslover.resourcepacker.core.resource.ResourceHelper;
+public class UnicodeUtil {
+    public static final int MIN = 131072;
+    public static final int MAX = 173791;
+    public static final String[] CHARS;
 
-import java.io.File;
-import java.util.List;
-
-public interface IPacker {
-
-    RPBlockRegistry blocks();
-
-    RPItemRegistry items();
-
-    RPSoundRegistry sounds();
-
-    RPFontRegistry fonts();
-
-    RPMenuRegistry menus();
-
-    void setLogo(String path);
-
-    String logo();
-
-    void setName(String name);
-
-    String name();
-
-    void setPrefix(String prefix);
-
-    String prefix();
-
-    void setDescription(List<String> description);
-
-    List<String> description();
-
-    ResourceHelper resources();
-
-    File output();
-
-    void setMode(RPMode RPMode);
-
-    RPMode mode();
+    /*Unicode registration*/
+    static {
+        int dif = MAX - MIN;
+        CHARS = new String[dif];
+        for (int i = 0; i < dif; i++) {
+            String hexadecimal = Integer.toHexString(MIN + i);
+            CHARS[i] = "\\u"+hexadecimal;
+        }
+    }
 }
