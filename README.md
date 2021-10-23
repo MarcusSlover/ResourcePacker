@@ -3,8 +3,18 @@
 <img width="128" height="128" src="https://user-images.githubusercontent.com/38810661/132093692-db8ec99d-5a7a-439b-9813-e18ab46c89d5.png"/>
 <br/>
 📦 Aimed to easily create Minecraft resource packs with custom items and blocks.<br/>
+Creation of resource packs that look like OriginRealms or MineClub!
 </p>
 
+# ☕ Introduction
+ResourcePacker is a program written in Java that lets you create Minecraft resource packs in a really efficient way.
+It is incredibly useful for developers who work with things related to `CustomModelData`, custom guis, custom sounds, or custom blocks.
+
+<br/>
+To generate a resource pack you just "feed" the program with images or sounds, then run the program and it is ready!
+<br/>
+
+[Click here](https://github.com/MarcusSlover/ResourcePacker/wiki) for a lot of useful inforamtion.
 <br/>
 
 # 📒 Supported Features
@@ -40,7 +50,7 @@ Check out the list of available extensions that may be useful while using **Reso
 <dependency>
     <groupId>me.marcusslover</groupid>
     <artifactId>resourcepacker</artifactId>
-    <verison>b1.1</version>
+    <verison>b1.2</version>
 </dependency>
 ```
 
@@ -51,7 +61,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'me.marcusslover:resourcepacker:b1.1'
+    compileOnly 'me.marcusslover:resourcepacker:b1.2'
 }
 ```
 
