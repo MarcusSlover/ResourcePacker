@@ -52,10 +52,6 @@ dependencies {
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 }
 
-tasks.withType(JavaCompile) {
-    options.release.set(8)
-}
-
 java {
     withJavadocJar()
     withSourcesJar()
