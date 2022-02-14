@@ -72,6 +72,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
         int customModelData = 1;
         int instrument = 0;
         int note = 0;
+        boolean powered = false;
         for (RPBlock block : list) {
             if (note > BlockUtil.NOTE_LIMIT) {
                 note = 0;
@@ -97,7 +98,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             JsonObject blockVariant = new JsonObject();
             blockVariant.addProperty("model", "packer:block/" + name);
 
-            String blockPath = "instrument=" + BlockUtil.INSTRUMENTS[instrument] + ",note=" + note;
+            String blockPath = "instrument=" + BlockUtil.INSTRUMENTS[instrument] + ",note=" + note + ",powered=" + powered;
             blockVariants.add(blockPath, blockVariant);
 
             /*Json item model*/
@@ -117,7 +118,8 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             File textureJson = FileUtil.safeFile(itemModels, name + ".json");
             JsonUtil.writeFile(textureJson, textureModel);
 
-            note++;
+            if (powered) note++;
+            powered = !powered;
             customModelData++;
             /*Log creation*/
             log.addProperty(name, blockPath);
