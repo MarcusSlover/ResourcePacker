@@ -30,6 +30,7 @@ import me.marcusslover.resourcepacker.core.element.sound.RPSound;
 import me.marcusslover.resourcepacker.core.packer.Core;
 import me.marcusslover.resourcepacker.core.packer.RPPacker;
 import me.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
+import me.marcusslover.resourcepacker.core.registry.RPFontRegistry;
 import me.marcusslover.resourcepacker.core.registry.RPItemRegistry;
 import me.marcusslover.resourcepacker.core.registry.RPSoundRegistry;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
@@ -137,6 +138,14 @@ public class PackGenerator {
         /*Language*/
         LanguageGenerator lang = new LanguageGenerator();
         lang.generate(packer, itemRegistry, blockRegistry);
+
+        /*Fonts*/
+        FontGenerator fonts = new FontGenerator();
+        RPFontRegistry fontRegistry = rpPacker.fonts();
+        fontRegistry.set(FileUtil.sortByFileCreated(fontRegistry, (v) -> v.texture().file()));
+        fonts.generate(minecraft, packer, fontRegistry);
+        logJson.add("fonts", fonts.log());
+
         JsonUtil.writeFile(creationLog, logJson);
 
         /*Zipping*/

@@ -46,4 +46,8 @@ public interface IResources {
         return get("sounds", child);
     }
 
+    default RPResource font(String child) {
+        return get("fonts", child);
+    }
+
 }
