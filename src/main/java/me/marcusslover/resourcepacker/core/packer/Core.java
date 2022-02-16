@@ -27,6 +27,7 @@ package me.marcusslover.resourcepacker.core.packer;
 
 import me.marcusslover.resourcepacker.ResourcePacker;
 import me.marcusslover.resourcepacker.core.element.block.RPBlock;
+import me.marcusslover.resourcepacker.core.element.font.RPFont;
 import me.marcusslover.resourcepacker.core.element.item.RPItem;
 import me.marcusslover.resourcepacker.core.element.sound.RPSound;
 import me.marcusslover.resourcepacker.core.generator.PackGenerator;
@@ -154,15 +155,17 @@ public class Core {
                     File items = FileUtil.safeDir(parent, "items");
                     File frames = FileUtil.safeDir(parent, "itemframes");
                     File sounds = FileUtil.safeDir(parent, "sounds");
+                    File fonts = FileUtil.safeDir(parent, "fonts");
 
 
-                    if (blocks != null && items != null && frames != null && sounds != null) {
+                    if (blocks != null && items != null && frames != null && sounds != null && fonts != null) {
                         String[] block = blocks.list();
                         String[] item = items.list();
                         String[] frame = frames.list();
                         String[] sound = sounds.list();
+                        String[] font = fonts.list();
 
-                        if (block.length + item.length + frame.length + sound.length == 0) {
+                        if (block.length + item.length + frame.length + sound.length + font.length == 0) {
                             JOptionPane.showMessageDialog(null,
                                     "No files found! Processes skipped.",
                                     "Information",
@@ -183,6 +186,9 @@ public class Core {
                         for (String s : sound)
                             packer.sounds()
                                     .register(RPSound.of(r.sound(s)));
+                        for (String s : font)
+                            packer.fonts()
+                                    .register(RPFont.of(null, r.font(s)));
                     }
                 }
             }

@@ -26,8 +26,8 @@
 package me.marcusslover.resourcepacker.util;
 
 public class UnicodeUtil {
-    public static final int MIN = 131072;
-    public static final int MAX = 173791;
+    public static final int MIN = 57344;
+    public static final int MAX = 63743;
     public static final String[] CHARS;
 
     /*Unicode registration*/
@@ -36,7 +36,7 @@ public class UnicodeUtil {
         CHARS = new String[dif];
         for (int i = 0; i < dif; i++) {
             String hexadecimal = Integer.toHexString(MIN + i);
-            CHARS[i] = "\\u"+hexadecimal;
+            CHARS[i] = ("\\u"+hexadecimal).replace("\\\\", "\\");
         }
     }
 }

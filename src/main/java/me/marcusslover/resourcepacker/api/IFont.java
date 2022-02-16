@@ -25,5 +25,5 @@
 
 package me.marcusslover.resourcepacker.api;
 
-public interface IFont {
+public interface IFont extends IPackElement, ITextureable {
 }

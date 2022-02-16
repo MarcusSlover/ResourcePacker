@@ -28,6 +28,8 @@ package me.marcusslover.resourcepacker.core.element.font;
 import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.IFont;
 import me.marcusslover.resourcepacker.core.element.texture.RPTexture;
+import me.marcusslover.resourcepacker.core.resource.RPResource;
+import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
 
 public class RPFont implements IFont {
     private static final RPFont.Factory FACTORY = new RPFont.Factory();
@@ -35,16 +37,52 @@ public class RPFont implements IFont {
     private final RPTexture texture;
 
     private RPFont(String name, RPTexture texture) {
-
         this.name = name;
         this.texture = texture;
     }
 
+    public static RPFont of(String name, RPResource resource) {
+        if (resource.getType() == RPResource.Type.IMAGE) {
+            RPTexture texture = RPTexture.of(resource.getFile());
+            return of(name, texture);
+        }
+        return null;
+    }
+
+    public static RPFont of(String name, RPTexture texture) {
+        return FACTORY.setName(name).setTexture(texture).create();
+    }
+
+    @Override
+    public String name() {
+        return name == null ? texture.name() : name;
+    }
+
+    @Override
+    public RPTexture texture() {
+        return texture;
+    }
+
     private static class Factory implements IFactory<RPFont> {
+        private RPTexture texture;
+        private String name;
+
+        private Factory() {
+        }
+
+        private Factory setName(String name) {
+            this.name = name;
+            return this;
+        }
+
+        private Factory setTexture(RPTexture texture) {
+            this.texture = texture;
+            return this;
+        }
 
         @Override
         public RPFont create() {
-            return null;
+            return ResourcesCache.string().get(name, () -> new RPFont(name, texture), RPFont.class);
         }
     }
 

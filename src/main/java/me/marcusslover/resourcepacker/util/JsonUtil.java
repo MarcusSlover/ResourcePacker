@@ -91,9 +91,8 @@ public class JsonUtil {
 
         // Write the file.
         try (FileWriter fileWriter = new FileWriter(file)) {
-            fileWriter.write(GSON.toJson(element));
+            fileWriter.write(GSON.toJson(element).replace("\\\\u", "\\u"));
             fileWriter.flush();
-
         } catch (IOException e) {
             logger.info("Could not write the " + file.getName() + " file.");
             e.printStackTrace();
