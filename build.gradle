@@ -35,12 +35,20 @@ version 'dev'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+tasks.withType(JavaCompile) {
+    options.warnings = false
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
+
 repositories {
     mavenCentral()
 }
 
 dependencies {
     compileOnly 'org.jetbrains:annotations:22.0.0'
+
+    // https://mvnrepository.com/artifact/ws.schild/jave-all-deps
+    implementation 'ws.schild:jave-all-deps:3.2.0'
 
     // https://mvnrepository.com/artifact/commons-cli/commons-cli
     implementation 'org.apache.commons:commons-lang3:3.12.0'
