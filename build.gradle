@@ -35,6 +35,8 @@ version 'dev'
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
 
+tasks.build.dependsOn tasks.shadowJar
+
 tasks.withType(JavaCompile) {
     options.warnings = false
     options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
@@ -73,9 +75,10 @@ shadowJar {
     archiveFileName = "ResourcePacker-${version}.jar"
 
     manifest {
-        attributes 'Implementation-Title': 'ResourcePacker',
+        attributes('Implementation-Title': 'ResourcePacker',
                 'Implementation-Version': version,
                 'Main-Class': 'me.marcusslover.resourcepacker.core.packer.Core'
+        )
     }
 }
 
@@ -114,4 +117,5 @@ publishing {
     }
 
 }
+
 

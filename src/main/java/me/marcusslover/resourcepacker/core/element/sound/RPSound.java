@@ -43,7 +43,7 @@ public class RPSound implements ISound {
 
     private RPSound(File sound) {
         this.sound = sound;
-        this.format = sound.getName().split("\\.")[0];
+        this.format = sound.getName().split("\\.")[1];
     }
 
     /*Public way of creating sounds*/
@@ -82,7 +82,7 @@ public class RPSound implements ISound {
     }
 
     public String name() {
-        return sound.getName().replaceAll("\\." + this.format, "");
+        return sound.getName().split("\\.")[0];
     }
 
     @Override

@@ -139,8 +139,16 @@ public class PackGenerator {
         lang.generate(packer, itemRegistry, blockRegistry);
         JsonUtil.writeFile(creationLog, logJson);
 
+        // Make sure the zip file does not exist.
+        File file = new File(output, name + ".zip");
+        int x = 0;
+        while (file.exists()) {
+            x++;
+            file = new File(output, name + x + ".zip");
+        }
+
         /*Zipping*/
-        try (ZipFile zipFile = new ZipFile(new File(output, name + ".zip"))) {
+        try (ZipFile zipFile = new ZipFile(file)) {
             zipFile.addFolder(assets);
             List<File> filesToAdd = new java.util.ArrayList<>();
             filesToAdd.add(meta);
