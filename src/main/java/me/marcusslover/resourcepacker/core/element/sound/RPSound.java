@@ -29,6 +29,7 @@ import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.ISound;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
+import me.marcusslover.resourcepacker.util.AudioUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -38,9 +39,11 @@ import java.nio.file.Path;
 public class RPSound implements ISound {
     private static final RPSound.Factory FACTORY = new RPSound.Factory();
     private final File sound;
+    private final String format;
 
     private RPSound(File sound) {
         this.sound = sound;
+        this.format = sound.getName().split("\\.")[0];
     }
 
     /*Public way of creating sounds*/
@@ -55,13 +58,23 @@ public class RPSound implements ISound {
         return FACTORY.setFile(file).create();
     }
 
+    public String getFormat() {
+        return format;
+    }
+
     public File copyFile(File dir) {
         try {
             File file = new File(dir, name() + ".ogg");
             Path path = file.toPath();
 
-            Path copy = Files.copy(sound.toPath(), path);
-            return copy.toFile();
+            if (this.format.equals("ogg")) {
+                Path copy = Files.copy(sound.toPath(), path);
+                return copy.toFile();
+            } else {
+                if (file.exists()) file.createNewFile();
+                AudioUtil.convertToOgg(sound, file);
+                return file;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +82,7 @@ public class RPSound implements ISound {
     }
 
     public String name() {
-        return sound.getName().replaceAll("\\.ogg", "");
+        return sound.getName().replaceAll("\\." + this.format, "");
     }
 
     @Override
@@ -95,7 +108,7 @@ public class RPSound implements ISound {
             String name = file.getName();
 
             /*Validate the format*/
-            if (!name.endsWith(".ogg")) throw new InvalidSoundException(file);
+            if (!name.endsWith(".ogg") && !name.endsWith(".mp3")) throw new InvalidSoundException(file);
 
             return ResourcesCache.string().get(name, () -> new RPSound(file), RPSound.class);
         }
