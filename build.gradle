@@ -30,7 +30,7 @@ plugins {
 }
 
 group 'me.marcusslover'
-version 'b1.2'
+version 'dev'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
