@@ -86,7 +86,7 @@ public class Core {
         String resources = cmd.hasOption("r") ? cmd.getOptionValue("r") : "";
         String output = cmd.hasOption("o") ? cmd.getOptionValue("o") : "";
 
-        Path currentRelativePath = Paths.get("");
+        Path currentRelativePath = Paths.get(""); //Todo: not sure this may cause incompatibility with MacOs
         File workingDir = new File(currentRelativePath.toUri());
 
         File r;
