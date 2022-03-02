@@ -36,6 +36,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+//todo: future implementation of ogg AND oga files
 public class RPSound implements ISound {
     private static final RPSound.Factory FACTORY = new RPSound.Factory();
     private final File sound;
@@ -82,7 +83,11 @@ public class RPSound implements ISound {
     }
 
     public String name() {
-        return sound.getName().split("\\.")[0];
+        return sound.getName() //this is kind of a mess
+                .split("\\.")[0]
+                .replaceAll("\\s+", "")
+                .replaceAll("_", "")
+                .toLowerCase();
     }
 
     @Override
