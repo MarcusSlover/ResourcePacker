@@ -65,7 +65,7 @@ public class RPPacker implements IPacker {
         logo = null;
         prefix = "packer";
         description = new ArrayList<>();
-        description.add("Created with ResourcePacker by MarcusSlover");
+        description.add("Created with ResourcePacker");
 
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();

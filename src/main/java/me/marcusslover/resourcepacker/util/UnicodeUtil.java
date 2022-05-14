@@ -36,7 +36,7 @@ public class UnicodeUtil {
         CHARS = new String[dif];
         for (int i = 0; i < dif; i++) {
             String hexadecimal = Integer.toHexString(MIN + i);
-            CHARS[i] = "\\u"+hexadecimal;
+            CHARS[i] = "\\u" + hexadecimal;
         }
     }
 }

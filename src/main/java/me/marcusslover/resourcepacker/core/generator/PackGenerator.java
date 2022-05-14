@@ -55,7 +55,7 @@ public class PackGenerator {
         File meta = safeFile(d, "pack.mcmeta");
 
         JsonObject pack = new JsonObject();
-        pack.addProperty("pack_format", 7); // 1.17+
+        pack.addProperty("pack_format", 8); // 1.18+
 
         StringBuilder builder = new StringBuilder();
         for (String s : l) builder.append(s).append("\n");

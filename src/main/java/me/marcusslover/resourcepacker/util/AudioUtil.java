@@ -26,25 +26,23 @@
 package me.marcusslover.resourcepacker.util;
 
 import org.jetbrains.annotations.NotNull;
-import ws.schild.jave.Encoder;
-import ws.schild.jave.MultimediaObject;
-import ws.schild.jave.encode.AudioAttributes;
-import ws.schild.jave.encode.EncodingAttributes;
 
 import java.io.File;
 
+@Deprecated
 public class AudioUtil {
-    private AudioUtil() {
-    }
-
     private static final Integer BITRATE = 256000;
     private static final Integer CHANNELS = 2; // Stereo
     private static final Integer RATE = 44100;
 
+    private AudioUtil() {
+    }
 
+
+    @Deprecated
     public static void convertToOgg(@NotNull File source, @NotNull File target) {
+        /*
         try {
-
             // Attributes.
             AudioAttributes audio = new AudioAttributes();
             audio.setCodec("libvorbis");
@@ -67,5 +65,6 @@ public class AudioUtil {
         } catch (Exception e) {
             e.printStackTrace();
         }
+         */
     }
 }

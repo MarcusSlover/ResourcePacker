@@ -29,7 +29,6 @@ import me.marcusslover.resourcepacker.api.IFactory;
 import me.marcusslover.resourcepacker.api.ISound;
 import me.marcusslover.resourcepacker.core.resource.RPResource;
 import me.marcusslover.resourcepacker.core.resource.ResourcesCache;
-import me.marcusslover.resourcepacker.util.AudioUtil;
 
 import java.io.File;
 import java.io.IOException;
@@ -73,7 +72,7 @@ public class RPSound implements ISound {
                 return copy.toFile();
             } else {
                 if (file.exists()) file.createNewFile();
-                AudioUtil.convertToOgg(sound, file);
+                //AudioUtil.convertToOgg(sound, file); removed since its unnecessary
                 return file;
             }
         } catch (IOException e) {
@@ -113,7 +112,7 @@ public class RPSound implements ISound {
             String name = file.getName();
 
             /*Validate the format*/
-            if (!name.endsWith(".ogg") && !name.endsWith(".mp3")) throw new InvalidSoundException(file);
+            if (!name.endsWith(".ogg") /*&& !name.endsWith(".mp3")*/) throw new InvalidSoundException(file);
 
             return ResourcesCache.string().get(name, () -> new RPSound(file), RPSound.class);
         }

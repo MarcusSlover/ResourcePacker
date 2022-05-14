@@ -78,7 +78,7 @@ public final class ResourceHelper implements IResources {
         if (child.endsWith(".png")) {
             type = RPResource.Type.IMAGE;
         }
-        if (child.endsWith(".ogg") || child.endsWith(".mp3")) { //mp3 is acceptable because it will be converted to .ogg
+        if (child.endsWith(".ogg") /*|| child.endsWith(".mp3")*/) { // the mp3 is no longer a thing
             type = RPResource.Type.SOUND;
         }
         if (child.endsWith(".json")) {

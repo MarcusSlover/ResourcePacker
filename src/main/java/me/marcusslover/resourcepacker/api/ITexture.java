@@ -29,6 +29,7 @@ import java.awt.image.BufferedImage;
 
 public interface ITexture extends IFile {
     BufferedImage buffer();
+
     boolean bitMap();
 
     default int height() {
