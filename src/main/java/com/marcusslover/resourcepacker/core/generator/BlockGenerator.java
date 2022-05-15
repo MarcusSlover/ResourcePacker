@@ -85,7 +85,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             String name = texture.name();
             texture.copyFile(blocks); //Copy texture file.
 
-            /*Json block model*/
+            /*Json block model*/ //todo: inject custom model if exists
             JsonObject blockModel = new JsonObject();
             blockModel.addProperty("parent", "minecraft:block/cube_all");
             JsonObject blockTextures = new JsonObject();
