@@ -54,15 +54,18 @@ public class BlockUtil {
             RPState state = new RPState();
             int instrument = 0;
             int note = -1;
+            boolean powered = false;
             for (int i = 0; i < customModelData; i++) {
                 if (note > BlockUtil.NOTE_LIMIT) {
                     note = 0;
                     instrument++;
                 }
-                note++;
+                if (powered) note++;
+                powered = !powered;
             }
             state.add(new RPState.Element("note", String.valueOf(note)));
             state.add(new RPState.Element("instrument", INSTRUMENTS[instrument]));
+            state.add(new RPState.Element("powered", String.valueOf(powered)));
             return state;
         };
     }
