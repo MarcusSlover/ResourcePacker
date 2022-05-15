@@ -44,25 +44,25 @@ Check out the list of available extensions that may be useful while using **Reso
 ## 🦢 Maven
 ```xml
 <repository>
-    <id>tecc</id>
-    <url>https://m2.tecc.me/snapshots</url>
+    <id>ossrh</id>
+    <url>https://s01.oss.sonatype.org/content/repositories/snapshots/</url>
 </repository>
 
 <dependency>
-    <groupId>me.marcusslover</groupid>
+    <groupId>com.marcusslover</groupId>
     <artifactId>resourcepacker</artifactId>
-    <verison>b1.2</version>
+    <version>1.3-SNAPSHOT</version>
 </dependency>
 ```
 
 ## 🐘 Gradle
 ```gradle
 repositories {
-    maven { url = 'https://m2.tecc.me/snapshots' }
+    maven { url = 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
 }
 
 dependencies {
-    compileOnly 'me.marcusslover:resourcepacker:b1.2'
+    compileOnly 'com.marcusslover:resourcepacker:1.3-SNAPSHOT'
 }
 ```
 
