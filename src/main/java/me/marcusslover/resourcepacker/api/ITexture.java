@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -29,6 +29,7 @@ import java.awt.image.BufferedImage;
 
 public interface ITexture extends IFile {
     BufferedImage buffer();
+
     boolean bitMap();
 
     default int height() {

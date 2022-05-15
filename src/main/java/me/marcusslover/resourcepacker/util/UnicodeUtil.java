@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -36,7 +36,7 @@ public class UnicodeUtil {
         CHARS = new String[dif];
         for (int i = 0; i < dif; i++) {
             String hexadecimal = Integer.toHexString(MIN + i);
-            CHARS[i] = "\\u"+hexadecimal;
+            CHARS[i] = "\\u" + hexadecimal;
         }
     }
 }

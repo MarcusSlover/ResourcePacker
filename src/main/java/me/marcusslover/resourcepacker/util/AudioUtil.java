@@ -23,35 +23,48 @@
  *
  */
 
-package me.marcusslover.resourcepacker.core.resource;
+package me.marcusslover.resourcepacker.util;
 
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 
-public class RPResource {
-    private final File file;
-    private final Type type;
+@Deprecated
+public class AudioUtil {
+    private static final Integer BITRATE = 256000;
+    private static final Integer CHANNELS = 2; // Stereo
+    private static final Integer RATE = 44100;
 
-    public RPResource(@NotNull File file, @Nullable Type type) {
-        this.file = file;
-        this.type = type;
+    private AudioUtil() {
     }
 
-    @NotNull
-    public File getFile() {
-        return file;
-    }
 
-    @Nullable
-    public Type getType() {
-        return type;
-    }
+    @Deprecated
+    public static void convertToOgg(@NotNull File source, @NotNull File target) {
+        /*
+        try {
+            // Attributes.
+            AudioAttributes audio = new AudioAttributes();
+            audio.setCodec("libvorbis");
+            audio.setBitRate(BITRATE);
+            audio.setChannels(CHANNELS);
+            audio.setSamplingRate(RATE);
 
-    public enum Type {
-        IMAGE,
-        SOUND,
-        JSON
+            // Encoding.
+            EncodingAttributes attrs = new EncodingAttributes();
+            attrs.setDecodingThreads(2);
+            attrs.setEncodingThreads(2);
+            attrs.setInputFormat("mp3");
+            attrs.setOutputFormat("ogg");
+            attrs.setAudioAttributes(audio);
+
+            // Encode.
+            Encoder encoder = new Encoder();
+            encoder.encode(new MultimediaObject(source), target, attrs);
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+         */
     }
 }

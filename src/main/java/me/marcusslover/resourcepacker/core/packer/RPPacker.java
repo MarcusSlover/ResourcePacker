@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -65,7 +65,7 @@ public class RPPacker implements IPacker {
         logo = null;
         prefix = "packer";
         description = new ArrayList<>();
-        description.add("Created with ResourcePacker by MarcusSlover");
+        description.add("Created with ResourcePacker");
 
         blockRegistry = new RPBlockRegistry();
         itemRegistry = new RPItemRegistry();

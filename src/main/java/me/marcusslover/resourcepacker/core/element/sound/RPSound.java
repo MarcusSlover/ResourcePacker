@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -35,12 +35,15 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
+//todo: future implementation of ogg AND oga files
 public class RPSound implements ISound {
     private static final RPSound.Factory FACTORY = new RPSound.Factory();
     private final File sound;
+    private final String format;
 
     private RPSound(File sound) {
         this.sound = sound;
+        this.format = sound.getName().split("\\.")[1];
     }
 
     /*Public way of creating sounds*/
@@ -55,13 +58,23 @@ public class RPSound implements ISound {
         return FACTORY.setFile(file).create();
     }
 
+    public String getFormat() {
+        return format;
+    }
+
     public File copyFile(File dir) {
         try {
             File file = new File(dir, name() + ".ogg");
             Path path = file.toPath();
 
-            Path copy = Files.copy(sound.toPath(), path);
-            return copy.toFile();
+            if (this.format.equals("ogg")) {
+                Path copy = Files.copy(sound.toPath(), path);
+                return copy.toFile();
+            } else {
+                if (file.exists()) file.createNewFile();
+                //AudioUtil.convertToOgg(sound, file); removed since its unnecessary
+                return file;
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -69,7 +82,11 @@ public class RPSound implements ISound {
     }
 
     public String name() {
-        return sound.getName().replaceAll("\\.ogg", "");
+        return sound.getName() //this is kind of a mess
+                .split("\\.")[0]
+                .replaceAll("\\s+", "")
+                .replaceAll("_", "")
+                .toLowerCase();
     }
 
     @Override
@@ -95,7 +112,7 @@ public class RPSound implements ISound {
             String name = file.getName();
 
             /*Validate the format*/
-            if (!name.endsWith(".ogg")) throw new InvalidSoundException(file);
+            if (!name.endsWith(".ogg") /*&& !name.endsWith(".mp3")*/) throw new InvalidSoundException(file);
 
             return ResourcesCache.string().get(name, () -> new RPSound(file), RPSound.class);
         }

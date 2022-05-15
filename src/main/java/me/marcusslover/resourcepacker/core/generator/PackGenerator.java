@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -55,7 +55,7 @@ public class PackGenerator {
         File meta = safeFile(d, "pack.mcmeta");
 
         JsonObject pack = new JsonObject();
-        pack.addProperty("pack_format", 7); // 1.17+
+        pack.addProperty("pack_format", 8); // 1.18+
 
         StringBuilder builder = new StringBuilder();
         for (String s : l) builder.append(s).append("\n");
@@ -139,8 +139,16 @@ public class PackGenerator {
         lang.generate(packer, itemRegistry, blockRegistry);
         JsonUtil.writeFile(creationLog, logJson);
 
+        // Make sure the zip file does not exist.
+        File file = new File(output, name + ".zip");
+        int x = 0;
+        while (file.exists()) {
+            x++;
+            file = new File(output, name + x + ".zip");
+        }
+
         /*Zipping*/
-        try (ZipFile zipFile = new ZipFile(new File(output, name + ".zip"))) {
+        try (ZipFile zipFile = new ZipFile(file)) {
             zipFile.addFolder(assets);
             List<File> filesToAdd = new java.util.ArrayList<>();
             filesToAdd.add(meta);

@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -30,10 +30,17 @@ plugins {
 }
 
 group 'me.marcusslover'
-version 'b1.2'
+version 'b1.3'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
 targetCompatibility = JavaVersion.VERSION_1_8
+
+tasks.build.dependsOn tasks.shadowJar
+
+tasks.withType(JavaCompile) {
+    options.warnings = false
+    options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
+}
 
 repositories {
     mavenCentral()
@@ -65,9 +72,10 @@ shadowJar {
     archiveFileName = "ResourcePacker-${version}.jar"
 
     manifest {
-        attributes 'Implementation-Title': 'ResourcePacker',
+        attributes('Implementation-Title': 'ResourcePacker',
                 'Implementation-Version': version,
                 'Main-Class': 'me.marcusslover.resourcepacker.core.packer.Core'
+        )
     }
 }
 
@@ -106,4 +114,5 @@ publishing {
     }
 
 }
+
 

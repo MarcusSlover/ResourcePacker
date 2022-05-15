@@ -1,7 +1,7 @@
 /*
  * MIT License
  *
- * Copyright (c) 2021 MarcusSlover
+ * Copyright (c) 2022 MarcusSlover
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -78,7 +78,7 @@ public final class ResourceHelper implements IResources {
         if (child.endsWith(".png")) {
             type = RPResource.Type.IMAGE;
         }
-        if (child.endsWith(".ogg")) {
+        if (child.endsWith(".ogg") /*|| child.endsWith(".mp3")*/) { // the mp3 is no longer a thing
             type = RPResource.Type.SOUND;
         }
         if (child.endsWith(".json")) {
