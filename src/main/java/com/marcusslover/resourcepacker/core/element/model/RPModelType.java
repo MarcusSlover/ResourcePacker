@@ -23,32 +23,9 @@
  *
  */
 
-package com.marcusslover.resourcepacker.core.registry;
+package com.marcusslover.resourcepacker.core.element.model;
 
-import com.marcusslover.resourcepacker.api.IRegistry;
-import com.marcusslover.resourcepacker.core.element.sound.RPSound;
-
-import java.util.ArrayList;
-import java.util.List;
-
-public class RPSoundRegistry implements IRegistry<RPSound> {
-    private List<RPSound> sounds = new ArrayList<>();
-
-    public RPSoundRegistry() {
-    }
-
-    @Override
-    public void register(RPSound obj) {
-        sounds.add(obj);
-    }
-
-    @Override
-    public void set(List<RPSound> list) {
-        sounds = list;
-    }
-
-    @Override
-    public List<RPSound> list() {
-        return sounds;
-    }
+public enum RPModelType {
+    ITEM,
+    BLOCK
 }

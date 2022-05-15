@@ -23,32 +23,26 @@
  *
  */
 
-package com.marcusslover.resourcepacker.core.registry;
+package com.marcusslover.resourcepacker.core.packer;
 
-import com.marcusslover.resourcepacker.api.IRegistry;
-import com.marcusslover.resourcepacker.core.element.sound.RPSound;
+import com.marcusslover.resourcepacker.api.IResourcePacker;
+import com.marcusslover.resourcepacker.core.generator.PackGenerator;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
-public class RPSoundRegistry implements IRegistry<RPSound> {
-    private List<RPSound> sounds = new ArrayList<>();
+public class ResourcePackerAPI {
 
-    public RPSoundRegistry() {
+    private ResourcePackerAPI() {
     }
 
-    @Override
-    public void register(RPSound obj) {
-        sounds.add(obj);
-    }
 
-    @Override
-    public void set(List<RPSound> list) {
-        sounds = list;
-    }
+    public static void build(@NotNull File resources, @NotNull File output, @NotNull IResourcePacker resourcePacker) {
+        RPPacker packer = new RPPacker(resources, output);
+        resourcePacker.pack(packer);
 
-    @Override
-    public List<RPSound> list() {
-        return sounds;
+        PackGenerator packGenerator = new PackGenerator();
+        packGenerator.generate(packer, false);
+
     }
 }

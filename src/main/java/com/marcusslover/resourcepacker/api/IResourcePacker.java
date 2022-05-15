@@ -28,5 +28,5 @@ package com.marcusslover.resourcepacker.api;
 import com.marcusslover.resourcepacker.core.packer.RPPacker;
 
 public interface IResourcePacker {
-    void pack(RPPacker RPPacker);
+    void pack(RPPacker packer);
 }

@@ -27,6 +27,7 @@ package com.marcusslover.resourcepacker.core.resource;
 
 import com.marcusslover.resourcepacker.api.IResources;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.util.Objects;
@@ -62,8 +63,12 @@ public final class ResourceHelper implements IResources {
                 "parent=" + parent + ']';
     }
 
+    public RPResource get(@NotNull String child) {
+        return get(null, child);
+    }
+
     @Override
-    public RPResource get(String dir, String child) {
+    public RPResource get(@Nullable String dir, @NotNull String child) {
         File file;
         if (dir != null) {
             File directory = new File(parent, dir);

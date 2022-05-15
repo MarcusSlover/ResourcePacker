@@ -25,11 +25,14 @@
 
 package com.marcusslover.resourcepacker.core.element.item;
 
+import com.marcusslover.resourcepacker.api.IFactory;
 import com.marcusslover.resourcepacker.api.IItem;
+import com.marcusslover.resourcepacker.core.element.model.RPModel;
 import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import com.marcusslover.resourcepacker.core.resource.RPResource;
 import com.marcusslover.resourcepacker.core.resource.ResourcesCache;
-import com.marcusslover.resourcepacker.api.IFactory;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 public class RPItem implements IItem {
     private static final RPItem.Factory FACTORY = new RPItem.Factory();
@@ -37,6 +40,7 @@ public class RPItem implements IItem {
     private final RPTexture texture;
     private final boolean itemFrame;
     private final RPMeta meta;
+    private RPModel model;
 
     private RPItem(String name, RPTexture texture) {
         this(name, texture, false);
@@ -72,6 +76,18 @@ public class RPItem implements IItem {
                 .setTexture(texture)
                 .setItemFrame(itemFrame)
                 .create();
+    }
+
+    @Override
+    @NotNull
+    public RPItem model(@Nullable RPModel model) {
+        this.model = model;
+        return this;
+    }
+
+    @Override
+    public @NotNull RPModel model() {
+        return model;
     }
 
 

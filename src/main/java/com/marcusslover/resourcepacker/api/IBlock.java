@@ -25,10 +25,18 @@
 
 package com.marcusslover.resourcepacker.api;
 
+import com.marcusslover.resourcepacker.core.element.block.RPBlock;
 import com.marcusslover.resourcepacker.core.element.block.RPState;
+import com.marcusslover.resourcepacker.core.element.model.RPModel;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An interface that represents a block.
  */
 public interface IBlock extends IData<RPState>, IPackElement, ITextureable {
+    @NotNull RPBlock model(@Nullable RPModel model);
+
+    @Nullable
+    RPModel model();
 }

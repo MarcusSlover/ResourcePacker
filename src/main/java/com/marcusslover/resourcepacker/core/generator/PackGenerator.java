@@ -27,7 +27,7 @@ package com.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonObject;
 import com.marcusslover.resourcepacker.core.element.sound.RPSound;
-import com.marcusslover.resourcepacker.core.packer.Core;
+import com.marcusslover.resourcepacker.core.packer.ProgramCore;
 import com.marcusslover.resourcepacker.core.packer.RPPacker;
 import com.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
 import com.marcusslover.resourcepacker.core.registry.RPItemRegistry;
@@ -37,24 +37,28 @@ import com.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import com.marcusslover.resourcepacker.util.FileUtil;
 import com.marcusslover.resourcepacker.util.JsonUtil;
 import net.lingala.zip4j.ZipFile;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.io.*;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class PackGenerator {
 
-    public static File createMeta(File d, List<String> l) {
+    public static File createMeta(File d, @Nullable List<String> l) {
         File meta = FileUtil.safeFile(d, "pack.mcmeta");
 
         JsonObject pack = new JsonObject();
         pack.addProperty("pack_format", 8); // 1.18+
 
         StringBuilder builder = new StringBuilder();
+        if (l == null) l = new ArrayList<>();
         for (String s : l) builder.append(s).append("\n");
         pack.addProperty("description", builder.toString().trim());
 
@@ -65,7 +69,7 @@ public class PackGenerator {
         return meta;
     }
 
-    public void generate(RPPacker rpPacker) {
+    public void generate(@NotNull RPPacker rpPacker, boolean program) {
         /*Some main specifications of the resource pack*/
         String name = rpPacker.name();
         String logo = rpPacker.logo();
@@ -76,12 +80,13 @@ public class PackGenerator {
 
         /*Creating the directory first*/
         File d = FileUtil.safeDir(output, name);
+        if (d == null) return;
         File creationLog = new File(d, "packer_log.json");
 
-        if (creationLog.exists()) { // Ask if should overwrite.
+        if (creationLog.exists() && program) { // Ask if should overwrite.
             Object[] options = {"Delete & Recreate", "Cancel"};
             int action = JOptionPane.showOptionDialog(
-                    Core.window,
+                    ProgramCore.window,
                     "Seems like this pack had already been built. Would you like to delete the old files?",
                     "Old Files Found",
                     JOptionPane.YES_NO_OPTION,
@@ -98,7 +103,10 @@ public class PackGenerator {
                 System.exit(0);
                 return;
             }
+        } else {
+            throw new RuntimeException("Could not generate the resource pack because of the existing output files!");
         }
+        if (d == null) return;
 
         /*Pack structure*/
         File meta = createMeta(d, description);
@@ -156,7 +164,7 @@ public class PackGenerator {
         }
     }
 
-    private File createLogo(String logo, File d, ResourceHelper r) {
+    private File createLogo(@Nullable String logo, @NotNull File d, @NotNull ResourceHelper r) {
         File packPng = new File(d, "pack.png");
         File logoSource = null;
 

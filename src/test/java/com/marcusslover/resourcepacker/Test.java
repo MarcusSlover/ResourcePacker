@@ -23,32 +23,34 @@
  *
  */
 
-package com.marcusslover.resourcepacker.core.registry;
+package com.marcusslover.resourcepacker;
 
-import com.marcusslover.resourcepacker.api.IRegistry;
-import com.marcusslover.resourcepacker.core.element.sound.RPSound;
+import com.marcusslover.resourcepacker.api.IResourcePacker;
+import com.marcusslover.resourcepacker.core.element.block.RPBlock;
+import com.marcusslover.resourcepacker.core.packer.RPPacker;
+import com.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
+import com.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Arrays;
 
-public class RPSoundRegistry implements IRegistry<RPSound> {
-    private List<RPSound> sounds = new ArrayList<>();
+public class Test {
+    public static void main(String[] args) {
 
-    public RPSoundRegistry() {
     }
 
-    @Override
-    public void register(RPSound obj) {
-        sounds.add(obj);
-    }
+    private static class CustomResourcePack implements IResourcePacker {
 
-    @Override
-    public void set(List<RPSound> list) {
-        sounds = list;
-    }
+        @Override
+        public void pack(RPPacker packer) {
+            packer.setDescription(Arrays.asList("Hello"));
+            packer.setPrefix("Testedd");
+            ResourceHelper r = packer.resources();
 
-    @Override
-    public List<RPSound> list() {
-        return sounds;
+            /*Blocks*/
+            RPBlockRegistry b = packer.blocks();
+            b.register(RPBlock.of("Sign Block", r.get("sign.png"))
+                    .model(null)
+            );
+        }
     }
 }

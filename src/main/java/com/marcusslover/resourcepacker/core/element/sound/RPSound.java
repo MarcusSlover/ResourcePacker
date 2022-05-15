@@ -25,9 +25,9 @@
 
 package com.marcusslover.resourcepacker.core.element.sound;
 
-import com.marcusslover.resourcepacker.core.resource.RPResource;
 import com.marcusslover.resourcepacker.api.IFactory;
 import com.marcusslover.resourcepacker.api.ISound;
+import com.marcusslover.resourcepacker.core.resource.RPResource;
 import com.marcusslover.resourcepacker.core.resource.ResourcesCache;
 
 import java.io.File;

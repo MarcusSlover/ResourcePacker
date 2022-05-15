@@ -25,6 +25,8 @@
 
 package com.marcusslover.resourcepacker.api;
 
+import org.jetbrains.annotations.Nullable;
+
 /**
  * An interface that represents an object that has a name.
  */
@@ -34,5 +36,6 @@ public interface INameable {
      *
      * @return Object's name.
      */
+    @Nullable
     String name();
 }

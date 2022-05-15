@@ -23,15 +23,20 @@
  *
  */
 
-package com.marcusslover.resourcepacker.core.element.texture;
+package com.marcusslover.resourcepacker.api;
 
-import java.io.File;
+import com.marcusslover.resourcepacker.core.element.model.RPModelFile;
+import com.marcusslover.resourcepacker.core.element.model.RPModelType;
+import org.jetbrains.annotations.NotNull;
 
-/**
- * Thrown when a texture isn't associated with the .png format.
- */
-public class InvalidTextureException extends RuntimeException {
-    public InvalidTextureException(File file) {
-        super("Cannot recognize file: " + file.getName());
-    }
+public interface IModel extends IPackElement {
+    @NotNull
+    RPModelFile modelFile();
+
+    @NotNull
+    RPModelType type();
+
+    boolean isBlock();
+
+    boolean isItem();
 }
