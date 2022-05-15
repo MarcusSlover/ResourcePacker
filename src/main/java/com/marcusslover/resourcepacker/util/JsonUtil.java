@@ -29,7 +29,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
-import com.marcusslover.resourcepacker.core.packer.Core;
+import com.marcusslover.resourcepacker.core.packer.ProgramCore;
 
 import java.io.File;
 import java.io.FileReader;
@@ -52,7 +52,7 @@ public class JsonUtil {
 
     public static JsonElement readFile(File file, JsonElement defaultValue) {
         if (file == null) return defaultValue;
-        Logger logger = Core.LOGGER;
+        Logger logger = ProgramCore.LOGGER;
 
         // If file does not exist.
         if (!file.exists()) {
@@ -81,7 +81,7 @@ public class JsonUtil {
 
     public static void writeFile(File file, JsonElement element) {
         if (file == null) return;
-        Logger logger = Core.LOGGER;
+        Logger logger = ProgramCore.LOGGER;
 
         if (element == null) {
             boolean delete = file.delete();

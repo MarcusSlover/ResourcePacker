@@ -23,10 +23,26 @@
  *
  */
 
-package com.marcusslover.resourcepacker.api;
+package com.marcusslover.resourcepacker.core.packer;
 
-import com.marcusslover.resourcepacker.core.packer.RPPacker;
+import com.marcusslover.resourcepacker.api.IResourcePacker;
+import com.marcusslover.resourcepacker.core.generator.PackGenerator;
+import org.jetbrains.annotations.NotNull;
 
-public interface IResourcePacker {
-    void pack(RPPacker packer);
+import java.io.File;
+
+public class ResourcePackerAPI {
+
+    private ResourcePackerAPI() {
+    }
+
+
+    public static void build(@NotNull File resources, @NotNull File output, @NotNull IResourcePacker resourcePacker) {
+        RPPacker packer = new RPPacker(resources, output);
+        resourcePacker.pack(packer);
+
+        PackGenerator packGenerator = new PackGenerator();
+        packGenerator.generate(packer, false);
+
+    }
 }

@@ -25,7 +25,6 @@
 
 package com.marcusslover.resourcepacker.core.packer;
 
-import com.marcusslover.resourcepacker.ResourcePacker;
 import com.marcusslover.resourcepacker.core.element.block.RPBlock;
 import com.marcusslover.resourcepacker.core.element.item.RPItem;
 import com.marcusslover.resourcepacker.core.element.sound.RPSound;
@@ -33,6 +32,7 @@ import com.marcusslover.resourcepacker.core.generator.PackGenerator;
 import com.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import com.marcusslover.resourcepacker.util.FileUtil;
 import org.apache.commons.cli.*;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.io.File;
@@ -43,7 +43,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.logging.Logger;
 
-public class Core {
+public class ProgramCore {
     public static final Logger LOGGER = Logger.getLogger("Packer");
     private static final ExecutorService SERVICE = Executors.newSingleThreadExecutor();
     private static final DecimalFormat DF = new DecimalFormat("#.##");
@@ -66,7 +66,7 @@ public class Core {
     private File resources;
     private File output;
 
-    private Core() {
+    private ProgramCore() {
     }
 
     public static void main(String[] args) {
@@ -82,7 +82,7 @@ public class Core {
         }
 
         /*Set up the core*/
-        Core core = new Core();
+        ProgramCore programCore = new ProgramCore();
         String resources = cmd.hasOption("r") ? cmd.getOptionValue("r") : "";
         String output = cmd.hasOption("o") ? cmd.getOptionValue("o") : "";
 
@@ -119,17 +119,20 @@ public class Core {
             return;
         }
 
-        core.setResources(r);
-        core.setOutput(o);
-        core.start();
+        programCore
+                .setResources(r)
+                .setOutput(o)
+                .start();
     }
 
+    @NotNull
     private static String formatDate(long date) {
         long seconds = date / 1_000L;
         return DF.format(seconds);
     }
 
-    private void start() {
+    @NotNull
+    private ProgramCore start() {
         /*Create the loading window*/
         window = new RPWindow(400, 200);
         window.init();
@@ -142,8 +145,8 @@ public class Core {
             RPPacker packer = new RPPacker(resources, output);
 
             LOGGER.info("Loading the data...");
-            ResourcePacker resourcePacker = new ResourcePacker();
-            resourcePacker.pack(packer);
+            RPDefaultPacker RPDefaultPacker = new RPDefaultPacker();
+            RPDefaultPacker.pack(packer);
 
             if (packer.mode() == RPMode.AUTOMATIC) {
                 ResourceHelper r = packer.resources();
@@ -196,7 +199,7 @@ public class Core {
             window.getProgress().setValue(50);
             LOGGER.info("Reading & preparing...");
             PackGenerator packGenerator = new PackGenerator();
-            packGenerator.generate(packer);
+            packGenerator.generate(packer, true);
 
             try { //Wait
                 Thread.sleep(250);
@@ -207,7 +210,7 @@ public class Core {
             long compare = System.currentTimeMillis() - date;
             LOGGER.info(String.format("Done in %ss!", formatDate(compare)));
             JOptionPane.showMessageDialog(
-                    Core.window,
+                    ProgramCore.window,
                     "The resource pack was successfully created!",
                     "Done",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -215,13 +218,18 @@ public class Core {
             window.dispose();
             System.exit(0);
         });
+        return this;
     }
 
-    private void setOutput(File output) {
+    @NotNull
+    private ProgramCore setOutput(@NotNull File output) {
         this.output = output;
+        return this;
     }
 
-    private void setResources(File resources) {
+    @NotNull
+    private ProgramCore setResources(@NotNull File resources) {
         this.resources = resources;
+        return this;
     }
 }

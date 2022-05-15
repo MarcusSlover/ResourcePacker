@@ -23,10 +23,34 @@
  *
  */
 
-package com.marcusslover.resourcepacker.api;
+package com.marcusslover.resourcepacker;
 
+import com.marcusslover.resourcepacker.api.IResourcePacker;
+import com.marcusslover.resourcepacker.core.element.block.RPBlock;
 import com.marcusslover.resourcepacker.core.packer.RPPacker;
+import com.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
+import com.marcusslover.resourcepacker.core.resource.ResourceHelper;
 
-public interface IResourcePacker {
-    void pack(RPPacker packer);
+import java.util.Arrays;
+
+public class Test {
+    public static void main(String[] args) {
+
+    }
+
+    private static class CustomResourcePack implements IResourcePacker {
+
+        @Override
+        public void pack(RPPacker packer) {
+            packer.setDescription(Arrays.asList("Hello"));
+            packer.setPrefix("Testedd");
+            ResourceHelper r = packer.resources();
+
+            /*Blocks*/
+            RPBlockRegistry b = packer.blocks();
+            b.register(RPBlock.of("Sign Block", r.get("sign.png"))
+                    .model(null)
+            );
+        }
+    }
 }

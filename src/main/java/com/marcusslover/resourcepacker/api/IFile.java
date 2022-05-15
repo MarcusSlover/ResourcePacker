@@ -29,4 +29,6 @@ import java.io.File;
 
 public interface IFile {
     File file();
+
+    File copyFile(File dir);
 }

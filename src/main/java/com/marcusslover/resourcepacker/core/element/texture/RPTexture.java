@@ -28,6 +28,7 @@ package com.marcusslover.resourcepacker.core.element.texture;
 import com.marcusslover.resourcepacker.api.IFactory;
 import com.marcusslover.resourcepacker.api.ITexture;
 import com.marcusslover.resourcepacker.core.resource.ResourcesCache;
+import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -53,8 +54,8 @@ public class RPTexture implements ITexture {
     }
 
     /*Public way of creating textures*/
-    public static RPTexture of(File file) {
-        return FACTORY.setFile(file).create();
+    public static RPTexture of(@NotNull File file) {
+        return FACTORY.setFile(file).setBitMap(false).create();
     }
 
     @Override
@@ -67,6 +68,7 @@ public class RPTexture implements ITexture {
         return image;
     }
 
+    @Override
     public File copyFile(File dir) {
         try {
             File file = new File(dir, name() + ".png");
@@ -113,7 +115,7 @@ public class RPTexture implements ITexture {
             String name = file.getName();
 
             /*Validate the format*/
-            if (!name.endsWith(".png")) throw new InvalidTextureException(file);
+            if (!name.endsWith(".png")) throw new InvalidFileFormat(file);
 
             return ResourcesCache.string().get(name, () -> new RPTexture(file, bitMap), RPTexture.class);
         }

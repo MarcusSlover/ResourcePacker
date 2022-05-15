@@ -25,12 +25,21 @@
 
 package com.marcusslover.resourcepacker.api;
 
+import com.marcusslover.resourcepacker.core.element.item.RPItem;
 import com.marcusslover.resourcepacker.core.element.item.RPMeta;
+import com.marcusslover.resourcepacker.core.element.model.RPModel;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * An interface that represents an item.
  */
 public interface IItem extends IData<RPMeta>, IPackElement, ITextureable {
+    @NotNull RPItem model(@Nullable RPModel model);
+
+    @NotNull
+    RPModel model();
+
     /**
      * Gets the option that specifies if the item is a normal
      * or an "item frame" item.

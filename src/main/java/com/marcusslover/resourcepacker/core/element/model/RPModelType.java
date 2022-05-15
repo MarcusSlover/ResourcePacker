@@ -23,10 +23,9 @@
  *
  */
 
-package com.marcusslover.resourcepacker.api;
+package com.marcusslover.resourcepacker.core.element.model;
 
-import com.marcusslover.resourcepacker.core.packer.RPPacker;
-
-public interface IResourcePacker {
-    void pack(RPPacker packer);
+public enum RPModelType {
+    ITEM,
+    BLOCK
 }
