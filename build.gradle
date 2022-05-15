@@ -29,7 +29,7 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.0.0'
 }
 
-group 'me.marcusslover'
+group 'com.marcusslover'
 version 'b1.3'
 
 sourceCompatibility = JavaVersion.VERSION_1_8
@@ -82,6 +82,7 @@ shadowJar {
 publishing {
     publications {
         mavenJava(MavenPublication) {
+            groupId = 'com.marcusslover'
             artifactId = 'resourcepacker'
             from components.java
             pom {
@@ -107,8 +108,8 @@ publishing {
 
     repositories {
         maven {
-            name = 'rps'
-            url = "https://m2.tecc.me/snapshots"
+            name = "ossrh"
+            url = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
             credentials(PasswordCredentials)
         }
     }
