@@ -25,8 +25,8 @@
 
 package com.marcusslover.resourcepacker.core.registry;
 
-import com.marcusslover.resourcepacker.core.element.sound.RPSound;
 import com.marcusslover.resourcepacker.api.IRegistry;
+import com.marcusslover.resourcepacker.core.element.sound.RPSound;
 
 import java.util.ArrayList;
 import java.util.List;

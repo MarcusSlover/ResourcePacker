@@ -26,10 +26,10 @@
 package com.marcusslover.resourcepacker.core.element.block;
 
 import com.marcusslover.resourcepacker.api.IBlock;
+import com.marcusslover.resourcepacker.api.IFactory;
 import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import com.marcusslover.resourcepacker.core.resource.RPResource;
 import com.marcusslover.resourcepacker.core.resource.ResourcesCache;
-import com.marcusslover.resourcepacker.api.IFactory;
 
 public class RPBlock implements IBlock {
     private static final Factory FACTORY = new Factory();

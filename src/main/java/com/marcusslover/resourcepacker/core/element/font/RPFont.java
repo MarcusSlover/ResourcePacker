@@ -25,9 +25,9 @@
 
 package com.marcusslover.resourcepacker.core.element.font;
 
-import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import com.marcusslover.resourcepacker.api.IFactory;
 import com.marcusslover.resourcepacker.api.IFont;
+import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 
 public class RPFont implements IFont {
     private static final RPFont.Factory FACTORY = new RPFont.Factory();

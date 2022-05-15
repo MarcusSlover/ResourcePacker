@@ -25,11 +25,11 @@
 
 package com.marcusslover.resourcepacker.core.element.item;
 
+import com.marcusslover.resourcepacker.api.IFactory;
 import com.marcusslover.resourcepacker.api.IItem;
 import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import com.marcusslover.resourcepacker.core.resource.RPResource;
 import com.marcusslover.resourcepacker.core.resource.ResourcesCache;
-import com.marcusslover.resourcepacker.api.IFactory;
 
 public class RPItem implements IItem {
     private static final RPItem.Factory FACTORY = new RPItem.Factory();

@@ -25,9 +25,9 @@
 
 package com.marcusslover.resourcepacker;
 
-import com.marcusslover.resourcepacker.core.packer.RPPacker;
 import com.marcusslover.resourcepacker.api.IResourcePacker;
 import com.marcusslover.resourcepacker.core.packer.RPMode;
+import com.marcusslover.resourcepacker.core.packer.RPPacker;
 import com.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
 import com.marcusslover.resourcepacker.core.resource.ResourceHelper;
 

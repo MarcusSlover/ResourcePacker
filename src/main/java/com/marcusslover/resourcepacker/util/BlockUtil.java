@@ -52,20 +52,30 @@ public class BlockUtil {
     private static Supplier<RPState> supply(@NotNull int customModelData) {
         return () -> {
             RPState state = new RPState();
+            int cmd = 1;
             int instrument = 0;
-            int note = -1;
-            boolean powered = false;
-            for (int i = 0; i < customModelData; i++) {
+            int note = 0;
+            int powered = 0;
+            boolean pow = false;
+            for (int i = 0; i < 736; i++) {
                 if (note > BlockUtil.NOTE_LIMIT) {
                     note = 0;
                     instrument++;
                 }
-                if (powered) note++;
-                powered = !powered;
+                pow = powered == 0;
+                powered++;
+                if (powered == 2) {
+                    note++;
+                    powered = 0;
+                }
+                if (cmd == customModelData) {
+                    break;
+                }
+                cmd++;
             }
             state.add(new RPState.Element("note", String.valueOf(note)));
             state.add(new RPState.Element("instrument", INSTRUMENTS[instrument]));
-            state.add(new RPState.Element("powered", String.valueOf(powered)));
+            state.add(new RPState.Element("powered", String.valueOf(pow)));
             return state;
         };
     }

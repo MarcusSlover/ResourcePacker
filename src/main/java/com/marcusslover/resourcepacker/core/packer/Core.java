@@ -29,9 +29,9 @@ import com.marcusslover.resourcepacker.ResourcePacker;
 import com.marcusslover.resourcepacker.core.element.block.RPBlock;
 import com.marcusslover.resourcepacker.core.element.item.RPItem;
 import com.marcusslover.resourcepacker.core.element.sound.RPSound;
+import com.marcusslover.resourcepacker.core.generator.PackGenerator;
 import com.marcusslover.resourcepacker.core.resource.ResourceHelper;
 import com.marcusslover.resourcepacker.util.FileUtil;
-import com.marcusslover.resourcepacker.core.generator.PackGenerator;
 import org.apache.commons.cli.*;
 
 import javax.swing.*;

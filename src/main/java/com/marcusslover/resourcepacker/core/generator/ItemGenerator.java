@@ -27,12 +27,12 @@ package com.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.marcusslover.resourcepacker.util.JsonUtil;
 import com.marcusslover.resourcepacker.api.IGenerator;
 import com.marcusslover.resourcepacker.core.element.item.RPItem;
 import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import com.marcusslover.resourcepacker.core.registry.RPItemRegistry;
 import com.marcusslover.resourcepacker.util.FileUtil;
+import com.marcusslover.resourcepacker.util.JsonUtil;
 
 import java.io.File;
 import java.util.List;

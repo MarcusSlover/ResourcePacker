@@ -27,13 +27,13 @@ package com.marcusslover.resourcepacker.core.generator;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
-import com.marcusslover.resourcepacker.util.JsonUtil;
 import com.marcusslover.resourcepacker.api.IGenerator;
 import com.marcusslover.resourcepacker.core.element.block.RPBlock;
 import com.marcusslover.resourcepacker.core.element.texture.RPTexture;
 import com.marcusslover.resourcepacker.core.registry.RPBlockRegistry;
 import com.marcusslover.resourcepacker.util.BlockUtil;
 import com.marcusslover.resourcepacker.util.FileUtil;
+import com.marcusslover.resourcepacker.util.JsonUtil;
 
 import java.io.File;
 import java.util.List;
@@ -72,7 +72,7 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
         int customModelData = 1;
         int instrument = 0;
         int note = 0;
-        boolean powered = false;
+        int powered = 0;
         for (RPBlock block : list) {
             if (note > BlockUtil.NOTE_LIMIT) {
                 note = 0;
@@ -98,7 +98,8 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             JsonObject blockVariant = new JsonObject();
             blockVariant.addProperty("model", "packer:block/" + name);
 
-            String blockPath = "instrument=" + BlockUtil.INSTRUMENTS[instrument] + ",note=" + note + ",powered=" + powered;
+            boolean pow = powered == 0;
+            String blockPath = "instrument=" + BlockUtil.INSTRUMENTS[instrument] + ",note=" + note + ",powered=" + pow;
             blockVariants.add(blockPath, blockVariant);
 
             /*Json item model*/
@@ -118,8 +119,11 @@ public class BlockGenerator implements IGenerator<RPBlock, RPBlockRegistry> {
             File textureJson = FileUtil.safeFile(itemModels, name + ".json");
             JsonUtil.writeFile(textureJson, textureModel);
 
-            if (powered) note++;
-            powered = !powered;
+            powered++;
+            if (powered == 2) {
+                note++;
+                powered = 0;
+            }
             customModelData++;
             /*Log creation*/
             log.addProperty(name, blockPath);
