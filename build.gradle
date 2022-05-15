@@ -74,7 +74,7 @@ shadowJar {
     manifest {
         attributes('Implementation-Title': 'ResourcePacker',
                 'Implementation-Version': version,
-                'Main-Class': 'me.marcusslover.resourcepacker.core.packer.Core'
+                'Main-Class': 'com.marcusslover.resourcepacker.core.packer.Core'
         )
     }
 }
