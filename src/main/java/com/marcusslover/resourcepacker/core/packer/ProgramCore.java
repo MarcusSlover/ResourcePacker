@@ -145,8 +145,8 @@ public class ProgramCore {
             RPPacker packer = new RPPacker(resources, output);
 
             LOGGER.info("Loading the data...");
-            RPDefaultPacker RPDefaultPacker = new RPDefaultPacker();
-            RPDefaultPacker.pack(packer);
+            RPDefaultPacker defaultPacker = new RPDefaultPacker();
+            defaultPacker.pack(packer);
 
             if (packer.mode() == RPMode.AUTOMATIC) {
                 ResourceHelper r = packer.resources();

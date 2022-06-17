@@ -23,39 +23,22 @@
  *
  */
 
-plugins {
-    id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
-}
+package com.marcusslover.resourcepacker.program.application.window;
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    apply plugin: 'com.github.johnrengelman.shadow'
+import javax.swing.*;
+import java.awt.*;
 
-    group 'com.marcusslover.resourcepacker'
-    version '2.0-SNAPSHOT'
+public final class MainPanel extends JPanel {
+    MainPanel() {
 
-    tasks.withType(JavaCompile) {
-        options.warnings = false
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        options.encoding = "UTF-8"
     }
 
-    repositories {
-        mavenCentral()
-    }
+    @Override
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
 
-    dependencies {
-        compileOnly 'org.jetbrains:annotations:22.0.0'
-
-        // https://mvnrepository.com/artifact/commons-cli/commons-cli
-        implementation 'org.apache.commons:commons-lang3:3.12.0'
-        implementation 'commons-cli:commons-cli:1.4'
-        implementation 'com.google.code.gson:gson:2.8.8'
-        implementation 'net.lingala.zip4j:zip4j:2.9.0'
-
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+        if (background != null) {
+            g.drawImage(background, 0, 0, getWidth(), getHeight(), this);
+        }
     }
 }

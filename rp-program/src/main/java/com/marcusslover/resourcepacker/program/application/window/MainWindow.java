@@ -23,39 +23,35 @@
  *
  */
 
-plugins {
-    id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
-}
+package com.marcusslover.resourcepacker.program.application.window;
 
-subprojects {
-    apply plugin: 'java'
-    apply plugin: 'maven-publish'
-    apply plugin: 'com.github.johnrengelman.shadow'
+import com.marcusslover.resourcepacker.program.application.MainProgram;
 
-    group 'com.marcusslover.resourcepacker'
-    version '2.0-SNAPSHOT'
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicPanelUI;
+import java.awt.*;
 
-    tasks.withType(JavaCompile) {
-        options.warnings = false
-        options.compilerArgs << "-Xlint:unchecked" << "-Xlint:deprecation"
-        options.encoding = "UTF-8"
+public class MainWindow extends JFrame {
+    private final int width;
+    private final int height;
+
+    public MainWindow(int width, int height) {
+        super("ResourcePacker");
+        this.width = width;
+        this.height = height;
     }
 
-    repositories {
-        mavenCentral()
-    }
+    public void init() {
+        MainPanel panel = new MainPanel();
+        panel.setPreferredSize(new Dimension(width, height));
+        panel.setLayout(new BorderLayout());
+        panel.setUI(new BasicPanelUI());
+        setContentPane(panel);
 
-    dependencies {
-        compileOnly 'org.jetbrains:annotations:22.0.0'
-
-        // https://mvnrepository.com/artifact/commons-cli/commons-cli
-        implementation 'org.apache.commons:commons-lang3:3.12.0'
-        implementation 'commons-cli:commons-cli:1.4'
-        implementation 'com.google.code.gson:gson:2.8.8'
-        implementation 'net.lingala.zip4j:zip4j:2.9.0'
-
-        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
-        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
+        Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+        int x = (int) ((dimension.getWidth() - getWidth()) / 2);
+        int y = (int) ((dimension.getHeight() - getHeight()) / 2);
+        setLocation(x, y);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 }
